@@ -58,25 +58,37 @@
     <div class="layout">
         <!-- Sidebar -->
         <div class="list-group" id="sidebar">
-            <!-- Option 1: Decree List -->
+            <!-- Option 1: Decrees List -->
             <a href="{% url 'decree_list' %}" class="list-group-item list-group-item-action {% if request.path == '/decrees/' %}disabled pressed{% elif '/decrees/' in request.path %}pressed{% endif %}">
                 <img src="{% static 'img/decrees.png' %}" alt="قرارات" class="sidebar-icon">
                 قرارات العلامات التجارية
             </a>
             
-            <!-- Option 2: Placeholder -->
+            <!-- Option 2: Publications List -->
             <a href="{% url 'publication_list' %}" class="list-group-item list-group-item-action {% if request.path == '/publications/' %}disabled pressed{% elif '/publications/' in request.path %}pressed{% endif %}">
                 <img src="{% static 'img/outgoing-mail.png' %}" alt="img" class="sidebar-icon">
                 اشهارات العلامات التجارية
             </a>
         
-            <!-- Option 3: Placeholder -->
+            <!-- Option 3: Objections List -->
             <a href="#" class="list-group-item list-group-item-action">
                 <img src="{% static 'img/incoming-mail.png' %}" alt="img" class="sidebar-icon">
                 الاعتراضات
             </a>
-        
-            <!-- Option 4: Settings (Accordion Item) -->
+
+            <!-- Option 4: Forms List -->
+            <a href="#" class="list-group-item list-group-item-action">
+                <img src="{% static 'img/outgoing-mail.png' %}" alt="img" class="sidebar-icon">
+                النماذج والقرارات
+            </a>
+
+            <!-- Option 5: Reports Menu -->
+            <a href="#" class="list-group-item list-group-item-action">
+                <img src="{% static 'img/outgoing-mail.png' %}" alt="img" class="sidebar-icon">
+                اعداد التقارير
+            </a>
+
+            <!-- Option 6: Settings (Accordion Item) -->
             <div class="accordion" id="settingsAccordion">
                 <div class="accordion-item">
                     <h2 class="accordion-header" id="headingSettings">

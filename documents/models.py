@@ -330,6 +330,11 @@ class Publication(models.Model):
         return "اشهارات"
 
 
+
+
+
+
+
 # class Report(models.Model):
 #     """Ambiguous Model representing a report of some sort."""
 #     number = models.CharField(max_length=20, blank=True, null=True)
