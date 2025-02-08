@@ -1,0 +1,287 @@
+{% extends "base.html" %}
+
+{% load static %}  <!-- Load static files here -->
+{% load custom_filters %}
+
+{% block title %}{{ arabic_name | title }}{% endblock %}
+
+{% block content %}
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
+
+<div class="header">
+    <!-- Add Button -->
+    <button class="btn btn-primary" 
+            style= "--bs-btn-font-size: 18px; --bs-btn-bg: var(--htitle); --bs-btn-color: white; --bs-btn-padding-y: .4rem; --bs-btn-padding-x: 1rem;
+            text-shadow: -1px -1px 0 black, 1px -1px 0 black, -1px 1px 0 black, 1px 1px 0 black;" 
+            onclick="location.href='{% url 'add_document' model_name=model_name %}'">
+        <i class="bi bi-plus"></i> إضافة جديد
+    </button>        
+    <!-- Sorting Dropdown -->
+    <div class="btn-group">
+
+
+        <a href="?{{ query_string|add:'&sort='|add:sort_option|add:'&order='|add:new_order }}" class="btn btn-secondary">
+            {% if sort_option == 'number' %}
+                الرقم
+            {% elif sort_option == 'date' %}
+                التاريخ
+            {% elif sort_option == 'title' %}
+                العنوان
+            {% elif sort_option == 'updated_at' %}
+                اخر تعديل
+            {% else %}
+                ترتيب
+            {% endif %}
+            &nbsp;  <!-- This adds a non-breaking space -->
+            {% if order == 'asc' %}
+                ↑
+            {% elif order == 'desc' %}
+                ↓
+            {% endif %}
+        </a>
+
+        <button class="btn btn-secondary dropdown-toggle dropdown-toggle-split" 
+                style="--bs-btn-font-size: 18px; --bs-btn-padding-y: .4rem; --bs-btn-padding-x: 1.5rem; text-shadow: -1px -1px 0 black, 1px -1px 0 black, -1px 1px 0 black, 1px 1px 0 black;" 
+                type="button" 
+                data-bs-toggle="dropdown" 
+                aria-expanded="false">
+            <span class="visually-hidden">Toggle Dropdown</span>
+        </button>
+        <ul class="dropdown-menu" aria-labelledby="sortDropdown">
+            <li>
+                <a class="dropdown-item" href="?{{ query_string|add:'&sort=number'|add:'&order='|add:new_order }}">
+                    الرقم
+                </a>
+            </li>
+            <li>
+                <a class="dropdown-item" href="?{{ query_string|add:'&sort=date'|add:'&order='|add:new_order }}">
+                    التاريخ
+                </a>
+            </li>
+            <li>
+                <a class="dropdown-item" href="?{{ query_string|add:'&sort=title'|add:'&order='|add:new_order }}">
+                    العنوان
+                </a>
+            </li>
+            <li>
+                <a class="dropdown-item" href="?{{ query_string|add:'&sort=updated_at'|add:'&order='|add:new_order }}">
+                    اخر تعديل
+                </a>
+            </li>
+        </ul>        
+    </div>
+
+    <!-- Search Form -->
+    <form id="search-form" method="GET" action="{% url 'document_view' model_name=model_name %}" class="d-flex flex-fill">
+        <div class="input-group flex-grow-1">
+
+            <input type="text" name="keyword_search" class="form-control" placeholder="ابحث بالكلمات الرئيسية والعنوان..." value="{{ keyword_search }}">
+
+            <select name="year" class="form-control">
+                <option value="">اختر السنة</option>
+                {% for year in distinct_years %}
+                    <option value="{{ year.year }}" {% if year.year|stringformat:"s" == year_filter %}selected{% endif %}>{{ year.year }}</option>
+                {% endfor %}
+            </select>
+
+            {% if model_name in "incoming,outgoing,internal,report" %}
+                <input type="date" name="start_date" class="form-control" value="{{ start_date }}">
+                <input type="date" name="end_date" class="form-control" value="{{ end_date }}">
+
+                {% if model_name == 'incoming' %}
+                    <div class="form-control">
+                        <div class="form-check">
+                            <input type="checkbox" name="use_alternate" class="form-check-input" id="use_alternate" {% if use_alternate %}checked{% endif %}>
+                            <label class="form-check-label" for="use_alternate">بحث بتاريخ الرسالة</label>
+                        </div>
+                    </div>
+                {% endif %}
+            {% endif %}
+
+            {% if model_name == 'decree' %}
+                <select name="minister" class="form-control">
+                    <option value="">اختر الوزير</option>
+                    {% for minister in ministers %}
+                        <option value="{{ minister.id }}" {% if minister.id|stringformat:"s" == minister_filter %}selected{% endif %}>{{ minister.name }}</option>
+                    {% endfor %}
+                </select>
+
+                <select name="government" class="form-control">
+                    <option value="">اختر الحكومة</option>
+                    {% for government in governments %}
+                        <option value="{{ government.id }}" {% if government.id|stringformat:"s" == government_filter %}selected{% endif %}>{{ government.name }}</option>
+                    {% endfor %}
+                </select>
+            {% endif %}
+
+            <button class="btn btn-outline-secondary" type="submit">بحــث</button>
+        </div>
+    </form>
+</div>
+
+<!-- Results Container -->
+<div id="results-container">
+    <table class="table-container">
+        <thead>
+            <tr>
+                <th>الرقم</th>
+                <th>التاريخ</th>
+                <th>العنوان</th>
+                {% if model_name == 'incoming' %}
+                    <th>رقم الرسالة</th>
+                    <th>تاريخ الرسالة</th>
+                    <th>من</th>
+                    <th>الى</th>
+                {% elif model_name == 'outgoing' %}
+                    <th>من</th>
+                    <th>الى</th>
+                {% elif model_name == 'internal' %}
+                    <th>من</th>
+                    <th>الى</th>
+                {% elif model_name == 'decree' %}
+                    <th>الوزير</th>
+                    <th>الحكومة</th>
+                {% endif %}
+                <th>إجراءات</th>
+            </tr>
+        </thead>
+        <tbody id="document-table-body">
+            {% for doc in documents %}
+            <tr id="document-row-{{ doc.id }}">
+                <td>{{ doc.number }}</td>
+                <td>{{ doc.date }}</td>
+                <td 
+                    data-bs-toggle="tooltip" 
+                    data-bs-placement="auto" 
+                    data-bs-html="true"
+                    data-bs-delay='{"show":750,"hide":100}'
+                    data-bs-custom-class="custom-tooltip"
+                    data-bs-original-title="{{ doc.keywords }}">
+                    {{ doc.title }}
+                </td>
+                {% if model_name == 'incoming' %}
+                    <td>{{ doc.orig_number }}</td>
+                    <td>{{ doc.orig_date }}</td>
+                    <td>{{ doc.dept_from.name }}</td>
+                    <td>{{ doc.dept_to.name }}</td>
+                {% elif model_name == 'outgoing' %}
+                    <td>{{ doc.dept_from.name }}</td>
+                    <td>{{ doc.dept_to.name }}</td>
+                {% elif model_name == 'internal' %}
+                    <td>{{ doc.dept_from.name }}</td>
+                    <td>{{ doc.dept_to.name }}</td>
+                {% elif model_name == 'decree' %}
+                    <td>{{ doc.minister.name }}</td>
+                    <td>{{ doc.government.name }}</td>
+                {% endif %}
+                <td>
+                    <div class="action-container">
+                        <a href="#" 
+                            data-model-type="{{ doc.model_type }}" 
+                            data-document-id="{{ doc.id }}" 
+                            class="action-icon" 
+                            title="عرض" 
+                            onclick="viewDocumentDetails(this); return false;">
+                            <img src="{% static 'img/view.png' %}" alt="View" class="icon">
+                         </a>
+                        {% if doc.has_file %}
+                            <a href="{% url 'download_document' model_name=model_name object_id=doc.id %}" class="action-icon" title="تحميل">
+                                <img src="{% static 'img/pdf.png' %}" alt="Download" class="icon">
+                            </a>
+                        {% else %}
+                            <span title="لا يوجد ملف" class="action-icon disabled">
+                                <img src="{% static 'img/nopdf.png' %}" alt="No Files" class="icon" style="opacity: 0.5;">
+                            </span>
+                        {% endif %}
+                        <a href="{% url 'edit_document' model_name=model_name document_id=doc.id %}" class="action-icon" title="تعديل">
+                            <img src="{% static 'img/edit.png' %}" alt="Edit" class="icon"> 
+                        </a>
+                        <a class="action-icon" onclick="confirmDeletion('{{ model_name }}', {{ doc.id }}, '{{ doc.number }}')" title="حذف">
+                            <img src="{% static 'img/delete.png' %}" alt="Delete" class="icon">
+                        </a>
+                    </div>
+                </td>
+            </tr>
+            {% empty %}
+                <tr>
+                    <td colspan="7">لا توجد بيانات لعرضها.</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+<!-- Pagination Controls -->
+<nav aria-label="Page navigation">
+    <ul class="pagination justify-content-center">
+        {% if page_obj.has_previous %}
+            <li class="page-item">
+                <a class="page-link" href="?{% if query_string %}{{ query_string }}&{% endif %}page=1">First</a>
+            </li>
+            <li class="page-item">
+                <a class="page-link" href="?{% if query_string %}{{ query_string }}&{% endif %}page={{ page_obj.previous_page_number }}">Previous</a>
+            </li>
+        {% endif %}
+    
+        {% for num in page_obj.paginator.page_range %}
+            {% if page_obj.number == num %}
+                <li class="page-item active">
+                    <span class="page-link">{{ num }}</span>
+                </li>
+            {% else %}
+                <li class="page-item">
+                    <a class="page-link" href="?{% if query_string %}{{ query_string }}&{% endif %}page={{ num }}">{{ num }}</a>
+                </li>
+            {% endif %}
+        {% endfor %}
+    
+        {% if page_obj.has_next %}
+            <li class="page-item">
+                <a class="page-link" href="?{% if query_string %}{{ query_string }}&{% endif %}page={{ page_obj.next_page_number }}">Next</a>
+            </li>
+            <li class="page-item">
+                <a class="page-link" href="?{% if query_string %}{{ query_string }}&{% endif %}page={{ page_obj.paginator.num_pages }}">Last</a>
+            </li>
+        {% endif %}
+    </ul>
+</nav>
+
+
+
+<!-- Popup Modal for Document Details -->
+<div id="documentModal" style="display:none;">
+    <div id="modalContent">
+        <div id="pdfPreviewContainer" style="width: 50%; float: right;"></div>
+        <div id="documentDetails" style="width: 45%; float: left;">
+            <h3 id="modal-title"></h3>
+            <p id="modal-number"></p>
+            <p id="modal-date"></p>
+            <p id="modal-keywords"></p> <!-- Keywords will be shown here -->
+            <a id="download-link" href="#" class="btn btn-primary" target="_blank">تحميل PDF</a> <!-- Download link -->
+        </div>
+    </div>
+</div>
+
+<!-- Delete Confirmation Modal -->
+<div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="deleteModalLabel">تأكيد الحذف!</h5>
+            </div>
+            <div class="modal-body">
+                <p>هل أنت متأكد من حذف الوثيقة رقم <span id="documentNumber"></span>؟</p>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-danger" id="confirmDeleteButton">نعم، احذف</button>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">إلغاء</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- <script>
+    // Pass the correct URL to JavaScript
+    const documentViewUrl = "{% url 'document_view' model_name=model_name %}";
+</script> -->
+{% endblock %}

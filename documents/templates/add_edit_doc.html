@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+{% block title %}{% if form.instance.id %}تعديل{% else %}إضافة{% endif %} {{ arabic_name|title }}{% endblock %}
+
+{% block header %}{% if form.instance.id %} - تعديل{% else %} - إضافة{% endif %} {{ arabic_name|title }}{% endblock %}
+
+{% block content %}
+<form action="{% if form.instance.id %}{% url 'edit_document' model_name form.instance.id %}{% else %}{% url 'add_document' model_name %}{% endif %}"
+      method="POST" enctype="multipart/form-data" class="w-75 mx-auto">
+    {% csrf_token %}
+    {{ form|crispy }}
+    <div class="button-group mt-3">
+        <button type="submit" class="btn btn-primary">حفظ</button>
+        <a href="{% url 'document_view' model_name=model_name %}" class="btn btn-secondary">إلغاء</a>
+    </div>
+</form>
+<script src="{% static 'js/dateFixer.js' %}"></script>
+{% endblock %}

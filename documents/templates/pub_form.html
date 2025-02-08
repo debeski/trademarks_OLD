@@ -1,0 +1,158 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+
+
+
+{% block title %}
+  {% if form.instance.id %}تعديل اشهار{% else %}إضافة اشهار{% endif %}
+{% endblock %}
+
+{% block header %}
+  {% if form.instance.id %} - تعديل اشهار{% else %} - إضافة اشهار{% endif %}
+{% endblock %}
+
+{% block content %}
+<form method="POST" enctype="multipart/form-data">
+  {% csrf_token %}
+  {% crispy form %}
+</form>
+{% endblock %}
+
+{% block scripts %}
+
+<!-- Include jQuery and jQuery UI (or ensure they're already loaded) -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://code.jquery.com/ui/1.13.1/jquery-ui.min.js"></script>
+<link rel="stylesheet" href="https://code.jquery.com/ui/1.13.1/themes/base/jquery-ui.css">
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      let inputField = document.getElementById('id_en_brand');
+      
+      if (inputField) {
+        inputField.addEventListener('input', function() {
+          // Remove any non-English characters (letters, numbers, and spaces)
+          this.value = this.value.replace(/[^a-zA-Z0-9\s]/g, '');
+        });
+  
+        inputField.addEventListener('focus', function() {
+          this.setAttribute('lang', 'en');
+        });
+      }
+    });
+  </script>
+  
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      let numberFields = ['id_number', 'id_decree', 'id_category']; // Ensure these IDs match your form
+      
+      numberFields.forEach(function(fieldId) {
+        let inputField = document.getElementById(fieldId);
+        
+        if (inputField) {
+          inputField.addEventListener('input', function() {
+            // Remove any non-numeric characters
+            this.value = this.value.replace(/[^0-9]/g, '');
+          });
+  
+          inputField.addEventListener('focus', function() {
+            this.setAttribute('inputmode', 'numeric');  // Helps mobile devices show numeric keyboard
+          });
+        }
+      });
+    });
+  </script>
+
+
+  <script>
+    $(function() {
+        function fetchDecreeData(decreeNumber) {
+            var selectedYear = $("#id_year").val();
+            if (!decreeNumber) return; // Skip if no decree number is set
+
+            $.ajax({
+                url: "{% url 'decree-autocomplete' %}",
+                dataType: "json",
+                data: {
+                    q: decreeNumber,
+                    year: selectedYear
+                },
+                success: function(data) {
+                    var found = false;
+
+                    data.forEach(function(item) {
+                        if (item.number == decreeNumber) {
+                            found = true;
+                            // Populate fields and make them readonly
+                            $("#id_owner").val(item.owner).prop("readonly", true).addClass("bg-light disabled");
+                            $("#id_country").val(item.country).prop("readonly", true).addClass("bg-light disabled");
+                            $("#id_date_applied").val(item.date_applied).prop("readonly", true).addClass("bg-light disabled");
+                            $("#id_ar_brand").val(item.ar_brand).prop("readonly", true).addClass("bg-light disabled");
+                            $("#id_en_brand").val(item.en_brand).prop("readonly", true).addClass("bg-light disabled");
+                            $("#id_category").val(item.category).prop("readonly", true).addClass("bg-light disabled");
+                        }
+                    });
+
+                    if (!found) {
+                        clearAndMakeFieldsEditable();
+                    }
+                }
+            });
+        }
+
+        function clearAndMakeFieldsEditable() {
+            $("#id_owner").val('').prop("readonly", false).removeClass("bg-light disabled");
+            $("#id_country").val('').prop("readonly", false).removeClass("bg-light disabled");
+            $("#id_date_applied").val('').prop("readonly", false).removeClass("bg-light disabled");
+            $("#id_ar_brand").val('').prop("readonly", false).removeClass("bg-light disabled");
+            $("#id_en_brand").val('').prop("readonly", false).removeClass("bg-light disabled");
+            $("#id_category").val('').prop("readonly", false).removeClass("bg-light disabled");
+        }
+
+        // Initialize jQuery UI Autocomplete
+        $("#id_decree_autocomplete").autocomplete({
+            source: function(request, response) {
+                var selectedYear = $("#id_year").val();
+                $.ajax({
+                    url: "{% url 'decree-autocomplete' %}",
+                    dataType: "json",
+                    data: {
+                        q: request.term,
+                        year: selectedYear
+                    },
+                    success: function(data) {
+                        response($.map(data, function(item) {
+                            return {
+                                label: item.number + " - " + item.date,
+                                value: item.number, // Store the decree number in the value
+                                data: item
+                            };
+                        }));
+                    }
+                });
+            },
+            minLength: 1,
+            select: function(event, ui) {
+                var item = ui.item.data;
+                $("#id_decree_autocomplete").val(item.number);
+                fetchDecreeData(item.number);
+                return false;
+            }
+        });
+
+        // Auto-check existing decree number on page load
+        $(document).ready(function() {
+            var existingDecreeNumber = $("#id_decree_autocomplete").val();
+            fetchDecreeData(existingDecreeNumber);
+        });
+
+        // Check when user types or changes decree number
+        $("#id_decree_autocomplete").on('change', function() {
+            fetchDecreeData($(this).val());
+        });
+    });
+</script>
+
+
+
+{% endblock %}

@@ -1,0 +1,33 @@
+{% load static %}
+
+<div class="d-flex gap-2 align-items-center justify-content-between">
+    <!-- PDF Icon (Always Visible) -->
+    <a href="{% url 'gen_pub_pdf' record.id %}" title="تحميل">
+        <img src="{% static 'img/pdf.png' %}" alt="Download" class="action-icon">
+    </a>
+
+    <!-- Use the icon itself as the dropdown trigger -->
+    <div class="dropdown-center">
+        <a href="#" class="action-icon" id="actionDropdown{{ record.id }}" data-bs-toggle="dropdown" aria-expanded="false">
+            <i class="bi bi-three-dots-vertical action-icon"></i>
+        </a>
+        <ul class="dropdown-menu" aria-labelledby="actionDropdown{{ record.id }}">
+            <li>
+                <a class="dropdown-item" href="{% url 'view_publication' record.id %}" title="عرض">
+                    <img src="{% static 'img/view.png' %}" alt="View" class="sidebar-icon me-1"> عرض
+                </a>
+            </li>
+            <li>
+                <a class="dropdown-item" href="{% url 'edit_publication' record.id %}" title="تعديل">
+                    <img src="{% static 'img/edit.png' %}" alt="Edit" class="sidebar-icon me-1"> تعديل
+                </a>
+            </li>
+            <li>
+                <a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#deleteModal"
+                   data-doc-id="{{ record.id }}" data-doc-number="{{ record.number }}">
+                    <img src="{% static 'img/delete.png' %}" alt="Delete" class="sidebar-icon me-1"> حذف
+                </a>
+            </li>
+        </ul>
+    </div>
+</div>

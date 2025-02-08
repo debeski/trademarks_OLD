@@ -1,0 +1,85 @@
+{% extends 'base.html' %}
+
+{% block title %}ادارة الاقسام{% endblock %}
+
+{% load static %}
+{% load custom_filters %}
+
+{% block header %} - ادارة الاقسام{% endblock %}
+
+{% block content %}
+<div class="container">
+    <ul class="nav nav-tabs" id="myTab" role="tablist">
+        {% for model in models %}
+        <li class="nav-item">
+            <a class="nav-link {% if current_tab == model.name %}active{% endif %}" 
+               id="{{ model.name }}-tab" 
+               href="?tab={{ model.name }}&{{ model.name }}_page={{ model.name }}_page" 
+               role="tab">{{ arabic_names|get_item:model.name }}</a>  <!-- Use get_item filter -->
+        </li>
+        {% endfor %}
+    </ul>
+    
+    <div class="tab-content" id="myTabContent">
+        {% for model in models %}
+        <div class="tab-pane fade {% if current_tab == model.name %}show active{% endif %}" id="{{ model.name }}" role="tabpanel">
+            <form method="post" class="mb-3">
+                {% csrf_token %}
+                {{ form.as_p }}  <!-- Use the combined form for adding/editing -->
+                <button type="submit" class="btn btn-primary">إضافة جديد</button>
+            </form>
+            <table class="table-container">
+                <thead>
+                    <tr>
+                        <th>ر.ت</th>
+                        <th>اسم {{ arabic_names|get_item:model.name }}</th>  <!-- Use get_item filter -->
+                        {% if page_obj.0.government %}  <!-- Check if the first item has a government field -->
+                            <th>الحكومة</th>
+                        {% endif %}
+                        <th>الاجراءات</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for item in page_obj %}
+                    <tr>
+                        <td>{{ item.id }}</td>
+                        <td>{{ item.name }}</td>
+                        <td>
+                            {% if item.government.all %}
+                                {% for gov in item.government.all %}
+                                    {{ gov.name }}{% if not forloop.last %}, {% endif %}
+                                {% endfor %}
+                            {% else %}
+                                -
+                            {% endif %}
+                        </td>
+                        <td>
+                            <a href="?tab={{ model.name }}&id={{ item.id }}" class="btn btn-outline-primary">تعديل</a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+
+            <!-- Pagination Controls -->
+            <nav aria-label="Page navigation">
+                <ul class="pagination pagination-sm">
+                    {% for num in page_obj.paginator.page_range %}
+                        {% if page_obj.number == num %}
+                            <li class="page-item active" aria-current="page">
+                                <span class="page-link">{{ num }}</span>
+                            </li>
+                        {% else %}
+                            <li class="page-item">
+                                <a href="?{{ current_tab }}_page={{ num }}&tab={{ current_tab }}" class="page-link">{{ num }}</a>
+                            </li>
+                        {% endif %}
+                    {% endfor %}
+                </ul>
+            </nav>
+        </div>  <!-- Close the tab-pane div -->
+        {% endfor %}
+    </div>  <!-- Close the tab-content div -->
+</div>  <!-- Close the container div -->
+
+{% endblock %}
