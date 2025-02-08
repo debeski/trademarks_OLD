@@ -19609,3 +19609,38 @@ INFO 2025-02-08 12:34:22,762 basehttp "GET /static/css/style.css HTTP/1.1" 304 0
 INFO 2025-02-08 12:34:34,675 basehttp "GET /publications/?sort=decree HTTP/1.1" 200 37347
 INFO 2025-02-08 12:34:34,735 basehttp "GET /static/css/style.css HTTP/1.1" 304 0
 INFO 2025-02-08 12:34:35,396 basehttp "GET /publications/?sort=-decree HTTP/1.1" 200 37347
+INFO 2025-02-08 18:39:45,999 autoreload Watching for file changes with StatReloader
+INFO 2025-02-08 18:39:47,948 basehttp "GET /publications/?sort=decree HTTP/1.1" 200 37347
+INFO 2025-02-08 18:39:48,026 basehttp "GET /static/css/style.css HTTP/1.1" 304 0
+INFO 2025-02-08 18:39:48,074 basehttp "GET /media/item_img/publication/31701c0e30a943cd8d5f1cde0fecd852.jpg HTTP/1.1" 304 0
+INFO 2025-02-08 18:39:48,116 basehttp "GET /static/img/pdf.png HTTP/1.1" 304 0
+INFO 2025-02-08 18:39:48,123 basehttp "GET /static/img/delete.png HTTP/1.1" 304 0
+INFO 2025-02-08 18:39:48,130 basehttp "GET /media/item_img/publication/14d8034da5174dbfb8c79a604479c30b.jpg HTTP/1.1" 304 0
+INFO 2025-02-08 18:39:48,131 basehttp "GET /media/item_img/publication/3de715762e984ebcb3efddeb86bf71eb.jpg HTTP/1.1" 304 0
+INFO 2025-02-08 18:39:48,131 basehttp "GET /media/item_img/publication/7f02da3ab8ac4f4fa6451449029f52a5.jpg HTTP/1.1" 304 0
+INFO 2025-02-08 18:39:48,143 basehttp "GET /media/item_img/publication/c32f9bc8409748dbb415656539becee4.jpg HTTP/1.1" 304 0
+WARNING 2025-02-08 18:39:48,456 log Not Found: /favicon.ico
+WARNING 2025-02-08 18:39:48,457 basehttp "GET /favicon.ico HTTP/1.1" 404 6917
+INFO 2025-02-08 18:39:50,485 basehttp "GET /publications/?sort=-decree HTTP/1.1" 200 37347
+INFO 2025-02-08 18:39:51,128 basehttp "GET /publications/?sort=decree HTTP/1.1" 200 37347
+INFO 2025-02-08 18:40:00,698 basehttp "POST /publications/delete/5/ HTTP/1.1" 200 17
+INFO 2025-02-08 18:40:00,828 basehttp "GET /publications/?sort=decree HTTP/1.1" 200 34794
+INFO 2025-02-08 18:43:44,899 basehttp "GET /publications/?sort=decree HTTP/1.1" 200 35103
+INFO 2025-02-08 18:44:30,915 basehttp "GET /publications/?sort=decree HTTP/1.1" 200 35431
+INFO 2025-02-08 18:45:40,404 basehttp "GET /publications/?sort=decree HTTP/1.1" 200 35335
+INFO 2025-02-08 18:46:10,021 autoreload /workspaces/trademarks/documents/models.py changed, reloading.
+INFO 2025-02-08 18:46:11,758 autoreload Watching for file changes with StatReloader
+INFO 2025-02-08 18:53:48,175 autoreload Watching for file changes with StatReloader
+INFO 2025-02-08 18:53:51,052 basehttp "GET /publications/?sort=decree HTTP/1.1" 200 35335
+INFO 2025-02-08 18:53:52,403 basehttp "GET /decrees/ HTTP/1.1" 200 32311
+INFO 2025-02-08 18:53:53,003 basehttp "GET /publications/ HTTP/1.1" 200 35330
+INFO 2025-02-08 18:53:54,941 basehttp "GET /decrees/ HTTP/1.1" 200 32311
+INFO 2025-02-08 18:53:55,591 basehttp "GET /publications/ HTTP/1.1" 200 35330
+INFO 2025-02-08 18:54:56,437 autoreload /workspaces/trademarks/trademarks/wsgi.py changed, reloading.
+INFO 2025-02-08 18:54:58,445 autoreload Watching for file changes with StatReloader
+INFO 2025-02-08 18:55:31,203 autoreload Watching for file changes with StatReloader
+INFO 2025-02-08 18:55:44,695 basehttp "GET /publications/ HTTP/1.1" 200 35330
+INFO 2025-02-08 18:55:45,893 basehttp "GET /decrees/ HTTP/1.1" 200 32311
+INFO 2025-02-08 18:55:46,513 basehttp "GET /publications/ HTTP/1.1" 200 35330
+INFO 2025-02-08 18:55:48,917 basehttp "GET /decrees/ HTTP/1.1" 200 32311
+INFO 2025-02-08 18:55:50,255 basehttp "GET /publications/ HTTP/1.1" 200 35330
