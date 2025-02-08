@@ -6,7 +6,7 @@
   "forwardPorts": [8001],
   "remoteUser": "vscode", // Set the user to vscode to avoid permission issues
   "mounts": [
-    "source=D:\\theREAL\\trademarks,target=/workspace/trademarks,type=bind"
+    "source=${localWorkspaceFolder}/trademarks,target=/workspace/trademarks,type=bind"
   ],
   "customizations": {
     "vscode": {
