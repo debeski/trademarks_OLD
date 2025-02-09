@@ -5,6 +5,8 @@ from django.http import JsonResponse
 from django.views import View
 
 
+
+
 Countries = [
     ('Afghanistan', 'أفغانستان'),
     ('Albania', 'ألبانيا'),
@@ -200,6 +202,11 @@ Countries = [
     ('Zimbabwe', 'زيمبابوي'),
 ]
 
+ComType = [
+    ('commercial', 'تجارية'),
+    ('industrial', 'صناعية'),
+    ('both', 'صناعية - تجارية')
+]
 
 # PDF Files Naming Functions:
 def generate_random_filename(instance, filename):
@@ -270,17 +277,21 @@ class Decree(models.Model):
         ('withdraw', 'سحب'),
         ('canceled', 'الغاء')
     ], verbose_name="حالة القرار")
+
     applicant = models.CharField(max_length=255, blank=False, verbose_name="مقدم الطلب")
     company = models.CharField(max_length=255, blank=False, verbose_name="صاحب العلامة")
     country = models.CharField(max_length=50, choices=Countries, verbose_name="الدولة")
     date_applied = models.DateField(blank=False, verbose_name="تاريخ التقديم")
     number_applied = models.CharField(max_length=10, blank=False, null=False, verbose_name="رقم القيد")
+
     ar_brand = models.CharField(max_length=255, blank=False, verbose_name="العلامة (عربي)")
     en_brand = models.CharField(max_length=255, blank=False, verbose_name="العلامة (انجليزي)")
     category = models.CharField(max_length=255, blank=True, verbose_name="الفئة")
+
     pdf_file = models.FileField(upload_to=get_pdf_upload_path, blank=True, verbose_name="ملف القرار")
     attach = models.FileField(upload_to=get_attach_upload_path, blank=True, verbose_name="المرفقات")
     notes = models.TextField(max_length=999, blank=True, verbose_name="ملاحظات")
+
     objection_date = models.DateField(blank=True, null=True, verbose_name="تاريخ الاعتراض")
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
@@ -305,9 +316,11 @@ class Publication(models.Model):
     country = models.CharField(max_length=50, choices=Countries, verbose_name="الدولة")
     address = models.CharField(max_length=255, blank=False, verbose_name="العنوان")
     date_applied = models.DateField(blank=False, verbose_name="تاريخ التقديم")
+
     ar_brand = models.CharField(max_length=255, blank=False, verbose_name="العلامة (عربي)")
     en_brand = models.CharField(max_length=255, blank=False, verbose_name="العلامة (انجليزي)")
     category = models.CharField(max_length=255, blank=True, verbose_name="الفئة")
+
     img_file = models.ImageField(upload_to=get_img_upload_path, blank=True, verbose_name="الصورة")
     attach = models.FileField(upload_to=get_attach_upload_path, blank=True, verbose_name="المرفقات")
     e_number = models.CharField(max_length=10, blank=False, null=False, verbose_name="رقم النشرية")
@@ -318,6 +331,7 @@ class Publication(models.Model):
     ], verbose_name="حالة التسجيل")
     is_hidden = models.BooleanField(default=False, verbose_name="مخفي")
     notes = models.TextField(max_length=999, blank=True, verbose_name="ملاحظات")
+
     created_at = models.DateTimeField(auto_now_add=True, verbose_name="تاريخ النشر")
     updated_at = models.DateTimeField(auto_now=True)
     deleted_at = models.DateTimeField(null=True, blank=True)
@@ -331,7 +345,33 @@ class Publication(models.Model):
 
 
 
+class Objection(models.Model):
+    """Model representing a minister decree."""
+    name = models.CharField(max_length=64, blank=False, null=False, verbose_name="اسم ولقب مقدم الشكوى")
+    job = models.CharField(max_length=24, blank=False, null=False, verbose_name="المهنة")
+    nationality = models.CharField(max_length=50, choices=Countries, verbose_name="الجنسية")
+    address = models.CharField(max_length=255, blank=False, verbose_name="محل الاقامة")
 
+    com_name = models.CharField(max_length=255, blank=False, verbose_name="اسم الشركة المقدمة للشكوى")
+    com_job = models.CharField(max_length=24, choices=ComType, verbose_name="غرض الشركة")
+    com_address = models.CharField(max_length=255, blank=False, verbose_name="عنوان الشركة")
+    com_og_address = models.CharField(max_length=255, blank=False, verbose_name="عنوان المقر الرئيسي للشركة")
+    com_mail_address = models.CharField(max_length=255, blank=False, verbose_name="عنوان البريد الرئيسي لاستلام المكاتبات المتعلقة بالمعارضة")
+
+    complain_number = models.CharField(max_length=10, blank=False, null=False, verbose_name="رقم طلب التسجيل المعارض عليه")
+    pdf_file = models.FileField(upload_to=get_pdf_upload_path, blank=True, verbose_name="ملف الاعتراض")
+    notes = models.TextField(max_length=999, blank=True, verbose_name="تفاصيل")
+
+    created_at = models.DateTimeField(auto_now_add=True, verbose_name="تاريخ الاعتراض")
+    updated_at = models.DateTimeField(auto_now=True)
+    deleted_at = models.DateTimeField(null=True, blank=True)
+
+    def __str__(self):
+        return self.id
+    
+    @property
+    def get_model_name(self):
+        return "اعتراضات"
 
 
 

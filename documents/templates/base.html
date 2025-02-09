@@ -100,7 +100,7 @@
                     <div id="collapseSettings" class="accordion-collapse collapse" aria-labelledby="headingSettings" data-bs-parent="#settingsAccordion">
                         <div class="accordion-body p-0">
                             <!-- You can add more links here as needed -->
-                            <a class="list-group-item list-group-item-action {% if '/manage/' in request.path %}active{% endif %}" href="#">إعدادات عامة</a>
+                            <a class="list-group-item list-group-item-action {% if '/manage/' in request.path %}active{% endif %}" href="{% url 'profile' %}">إعدادات عامة</a>
                         </div>
                     </div>
                 </div>

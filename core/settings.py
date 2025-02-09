@@ -36,6 +36,8 @@ ALLOWED_HOSTS = ['*']
 # Application definition
 
 INSTALLED_APPS = [
+    "admin_interface",
+    "colorfield",
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -43,6 +45,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'documents',
+    'users',
     'crispy_forms',
     "crispy_bootstrap5",
     'django_tables2',
@@ -182,3 +185,10 @@ LOGGING = {
         },
     },
 }
+
+
+LOGIN_REDIRECT_URL = 'index'  # Redirect to your index or home page
+LOGOUT_REDIRECT_URL = 'login'  # Redirect to login page after logout
+
+X_FRAME_OPTIONS = "SAMEORIGIN"
+SILENCED_SYSTEM_CHECKS = ["security.W019"]

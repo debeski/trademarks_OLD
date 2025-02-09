@@ -19644,3 +19644,857 @@ INFO 2025-02-08 18:55:45,893 basehttp "GET /decrees/ HTTP/1.1" 200 32311
 INFO 2025-02-08 18:55:46,513 basehttp "GET /publications/ HTTP/1.1" 200 35330
 INFO 2025-02-08 18:55:48,917 basehttp "GET /decrees/ HTTP/1.1" 200 32311
 INFO 2025-02-08 18:55:50,255 basehttp "GET /publications/ HTTP/1.1" 200 35330
+INFO 2025-02-08 19:07:51,989 autoreload /workspaces/trademarks/documents/models.py changed, reloading.
+INFO 2025-02-08 19:07:53,608 autoreload Watching for file changes with StatReloader
+INFO 2025-02-08 19:08:00,747 autoreload /workspaces/trademarks/documents/models.py changed, reloading.
+INFO 2025-02-08 19:08:02,083 autoreload Watching for file changes with StatReloader
+INFO 2025-02-08 19:15:45,172 autoreload /workspaces/trademarks/documents/models.py changed, reloading.
+INFO 2025-02-08 19:15:46,702 autoreload Watching for file changes with StatReloader
+INFO 2025-02-08 19:15:55,258 autoreload /workspaces/trademarks/documents/models.py changed, reloading.
+INFO 2025-02-08 19:15:56,849 autoreload Watching for file changes with StatReloader
+INFO 2025-02-08 19:20:15,716 autoreload /workspaces/trademarks/documents/models.py changed, reloading.
+INFO 2025-02-08 19:20:17,286 autoreload Watching for file changes with StatReloader
+INFO 2025-02-08 19:20:28,112 autoreload /workspaces/trademarks/documents/models.py changed, reloading.
+INFO 2025-02-08 19:20:29,535 autoreload Watching for file changes with StatReloader
+INFO 2025-02-08 19:20:39,153 autoreload /workspaces/trademarks/documents/models.py changed, reloading.
+INFO 2025-02-08 19:20:40,720 autoreload Watching for file changes with StatReloader
+INFO 2025-02-08 20:18:48,417 autoreload Watching for file changes with StatReloader
+INFO 2025-02-08 20:18:53,421 basehttp "GET / HTTP/1.1" 200 6856
+INFO 2025-02-08 20:18:53,489 basehttp "GET /static/css/style.css HTTP/1.1" 304 0
+INFO 2025-02-08 20:18:56,280 basehttp "GET /decrees/ HTTP/1.1" 200 32311
+INFO 2025-02-08 20:18:57,284 basehttp "GET /publications/ HTTP/1.1" 200 35330
+INFO 2025-02-08 20:18:57,358 basehttp "GET /media/item_img/publication/7f02da3ab8ac4f4fa6451449029f52a5.jpg HTTP/1.1" 304 0
+INFO 2025-02-08 20:20:42,786 autoreload /workspaces/trademarks/core/settings.py changed, reloading.
+INFO 2025-02-08 20:20:44,279 autoreload Watching for file changes with StatReloader
+INFO 2025-02-08 20:20:50,562 autoreload /workspaces/trademarks/core/settings.py changed, reloading.
+INFO 2025-02-08 20:20:52,239 autoreload Watching for file changes with StatReloader
+INFO 2025-02-08 20:20:55,621 basehttp "POST /logout/ HTTP/1.1" 302 0
+INFO 2025-02-08 20:20:55,640 basehttp "GET / HTTP/1.1" 200 3048
+INFO 2025-02-08 20:20:58,791 basehttp "GET /login/ HTTP/1.1" 200 6972
+INFO 2025-02-08 20:20:58,883 basehttp "GET /static/css/login.css HTTP/1.1" 200 2263
+INFO 2025-02-08 20:21:04,730 autoreload /workspaces/trademarks/core/settings.py changed, reloading.
+INFO 2025-02-08 20:21:06,328 autoreload Watching for file changes with StatReloader
+INFO 2025-02-08 20:21:13,176 basehttp "POST /login/ HTTP/1.1" 302 0
+INFO 2025-02-08 20:21:13,219 basehttp "GET / HTTP/1.1" 200 6856
+INFO 2025-02-08 20:21:15,399 basehttp "POST /logout/ HTTP/1.1" 302 0
+INFO 2025-02-08 20:21:15,416 basehttp "GET /login/ HTTP/1.1" 200 6972
+INFO 2025-02-08 20:21:43,045 autoreload /workspaces/trademarks/documents/views.py changed, reloading.
+INFO 2025-02-08 20:21:44,604 autoreload Watching for file changes with StatReloader
+INFO 2025-02-08 20:21:52,167 basehttp "POST /login/ HTTP/1.1" 302 0
+INFO 2025-02-08 20:21:52,214 basehttp "GET / HTTP/1.1" 200 6856
+INFO 2025-02-08 20:21:56,109 basehttp "POST /logout/ HTTP/1.1" 302 0
+INFO 2025-02-08 20:21:56,129 basehttp "GET /login/ HTTP/1.1" 200 6972
+INFO 2025-02-08 20:21:59,616 basehttp "GET / HTTP/1.1" 302 0
+WARNING 2025-02-08 20:21:59,679 log Not Found: /accounts/login/
+WARNING 2025-02-08 20:21:59,680 basehttp "GET /accounts/login/?next=/ HTTP/1.1" 404 7177
+INFO 2025-02-08 20:22:07,296 basehttp "GET / HTTP/1.1" 302 0
+WARNING 2025-02-08 20:22:07,318 log Not Found: /accounts/login/
+WARNING 2025-02-08 20:22:07,319 basehttp "GET /accounts/login/?next=/ HTTP/1.1" 404 7177
+WARNING 2025-02-08 20:22:11,122 log Not Found: /accounts/login/
+WARNING 2025-02-08 20:22:11,123 basehttp "GET /accounts/login/ HTTP/1.1" 404 7170
+INFO 2025-02-08 20:22:15,700 basehttp "GET /login/ HTTP/1.1" 200 6972
+INFO 2025-02-08 20:22:37,992 autoreload /workspaces/trademarks/documents/urls.py changed, reloading.
+INFO 2025-02-08 20:22:39,539 autoreload Watching for file changes with StatReloader
+WARNING 2025-02-08 20:22:47,520 log Not Found: /login/
+WARNING 2025-02-08 20:22:47,521 basehttp "POST /login/ HTTP/1.1" 404 7162
+INFO 2025-02-08 20:22:50,610 basehttp "GET / HTTP/1.1" 302 0
+INFO 2025-02-08 20:22:50,645 basehttp "GET /accounts/login/?next=/ HTTP/1.1" 200 6990
+INFO 2025-02-08 20:22:57,575 basehttp "POST /accounts/login/ HTTP/1.1" 302 0
+INFO 2025-02-08 20:22:57,604 basehttp "GET / HTTP/1.1" 200 6865
+INFO 2025-02-08 20:23:00,197 basehttp "POST /accounts/logout/ HTTP/1.1" 302 0
+INFO 2025-02-08 20:23:00,208 basehttp "GET /accounts/login/ HTTP/1.1" 200 6990
+INFO 2025-02-08 20:23:14,607 basehttp "POST /accounts/login/ HTTP/1.1" 200 6990
+INFO 2025-02-08 20:23:23,771 basehttp "POST /accounts/login/ HTTP/1.1" 200 6990
+INFO 2025-02-08 20:23:29,946 basehttp "POST /accounts/login/ HTTP/1.1" 302 0
+INFO 2025-02-08 20:23:29,973 basehttp "GET / HTTP/1.1" 200 6865
+INFO 2025-02-08 20:23:31,586 basehttp "GET /decrees/ HTTP/1.1" 200 32320
+INFO 2025-02-08 20:26:37,609 autoreload /workspaces/trademarks/core/settings.py changed, reloading.
+INFO 2025-02-08 20:26:39,450 autoreload Watching for file changes with StatReloader
+INFO 2025-02-08 20:34:52,852 autoreload Watching for file changes with StatReloader
+WARNING 2025-02-08 20:34:58,710 log Not Found: /accounts/profile
+WARNING 2025-02-08 20:34:58,712 basehttp "GET /accounts/profile HTTP/1.1" 404 7340
+WARNING 2025-02-08 20:35:29,325 log Not Found: /users/profile
+WARNING 2025-02-08 20:35:29,326 basehttp "GET /users/profile HTTP/1.1" 404 7454
+INFO 2025-02-08 20:35:35,980 autoreload /workspaces/trademarks/users/urls.py changed, reloading.
+INFO 2025-02-08 20:35:37,528 autoreload Watching for file changes with StatReloader
+WARNING 2025-02-08 20:35:43,359 log Not Found: /profile
+WARNING 2025-02-08 20:35:43,360 basehttp "GET /profile HTTP/1.1" 404 7313
+INFO 2025-02-08 20:35:46,718 basehttp "GET / HTTP/1.1" 200 6865
+INFO 2025-02-08 20:37:06,834 basehttp "GET /admin/ HTTP/1.1" 200 6964
+INFO 2025-02-08 20:37:06,944 basehttp "GET /static/admin/css/dark_mode.css HTTP/1.1" 200 2804
+INFO 2025-02-08 20:37:06,945 basehttp "GET /static/admin/css/nav_sidebar.css HTTP/1.1" 200 2810
+INFO 2025-02-08 20:37:06,946 basehttp "GET /static/admin/css/dashboard.css HTTP/1.1" 200 441
+INFO 2025-02-08 20:37:06,947 basehttp "GET /static/admin/css/base.css HTTP/1.1" 200 22092
+INFO 2025-02-08 20:37:06,951 basehttp "GET /static/admin/js/theme.js HTTP/1.1" 200 1653
+INFO 2025-02-08 20:37:06,952 basehttp "GET /static/admin/css/rtl.css HTTP/1.1" 200 4696
+INFO 2025-02-08 20:37:06,957 basehttp "GET /static/admin/css/responsive_rtl.css HTTP/1.1" 200 2544
+INFO 2025-02-08 20:37:06,962 basehttp "GET /static/admin/css/responsive.css HTTP/1.1" 200 17972
+INFO 2025-02-08 20:37:06,970 basehttp "GET /static/admin/js/nav_sidebar.js HTTP/1.1" 200 3063
+INFO 2025-02-08 20:37:06,981 basehttp "GET /static/admin/img/icon-addlink.svg HTTP/1.1" 200 331
+INFO 2025-02-08 20:37:06,983 basehttp "GET /static/admin/img/icon-changelink.svg HTTP/1.1" 200 380
+INFO 2025-02-08 20:37:15,045 basehttp "GET /admin/documents/decree/ HTTP/1.1" 200 10460
+INFO 2025-02-08 20:37:15,111 basehttp "GET /static/admin/css/changelists.css HTTP/1.1" 200 6878
+INFO 2025-02-08 20:37:15,141 basehttp "GET /static/admin/js/admin/RelatedObjectLookups.js HTTP/1.1" 200 9097
+INFO 2025-02-08 20:37:15,142 basehttp "GET /static/admin/js/actions.js HTTP/1.1" 200 8076
+INFO 2025-02-08 20:37:15,143 basehttp "GET /static/admin/js/jquery.init.js HTTP/1.1" 200 347
+INFO 2025-02-08 20:37:15,143 basehttp "GET /static/admin/js/core.js HTTP/1.1" 200 6208
+INFO 2025-02-08 20:37:15,155 basehttp "GET /static/admin/js/prepopulate.js HTTP/1.1" 200 1531
+INFO 2025-02-08 20:37:15,156 basehttp "GET /static/admin/js/urlify.js HTTP/1.1" 200 7887
+INFO 2025-02-08 20:37:15,159 basehttp "GET /static/admin/js/vendor/jquery/jquery.js HTTP/1.1" 200 285314
+INFO 2025-02-08 20:37:15,169 basehttp "GET /static/admin/js/vendor/xregexp/xregexp.js HTTP/1.1" 200 325171
+INFO 2025-02-08 20:37:15,181 basehttp "GET /admin/jsi18n/ HTTP/1.1" 200 14010
+INFO 2025-02-08 20:37:15,186 basehttp "GET /static/admin/js/filters.js HTTP/1.1" 200 978
+INFO 2025-02-08 20:37:15,221 basehttp "GET /static/admin/img/tooltag-add.svg HTTP/1.1" 200 331
+INFO 2025-02-08 20:37:16,841 basehttp "GET /admin/ HTTP/1.1" 200 6964
+INFO 2025-02-08 20:37:22,258 basehttp "GET /admin/auth/user/ HTTP/1.1" 200 9525
+INFO 2025-02-08 20:37:22,316 basehttp "GET /admin/jsi18n/ HTTP/1.1" 200 14010
+INFO 2025-02-08 20:37:24,428 basehttp "GET /admin/auth/user/1/change/ HTTP/1.1" 200 29303
+INFO 2025-02-08 20:37:24,477 basehttp "GET /static/admin/css/forms.css HTTP/1.1" 200 8794
+INFO 2025-02-08 20:37:24,495 basehttp "GET /static/admin/js/calendar.js HTTP/1.1" 200 9141
+INFO 2025-02-08 20:37:24,496 basehttp "GET /static/admin/js/inlines.js HTTP/1.1" 200 15526
+INFO 2025-02-08 20:37:24,497 basehttp "GET /static/admin/js/admin/DateTimeShortcuts.js HTTP/1.1" 200 19319
+INFO 2025-02-08 20:37:24,497 basehttp "GET /static/admin/js/prepopulate_init.js HTTP/1.1" 200 586
+INFO 2025-02-08 20:37:24,512 basehttp "GET /admin/jsi18n/ HTTP/1.1" 200 14010
+INFO 2025-02-08 20:37:24,524 basehttp "GET /static/admin/js/change_form.js HTTP/1.1" 200 606
+INFO 2025-02-08 20:37:24,535 basehttp "GET /static/admin/css/widgets.css HTTP/1.1" 200 11564
+INFO 2025-02-08 20:37:24,624 basehttp "GET /static/admin/img/inline-delete.svg HTTP/1.1" 200 560
+INFO 2025-02-08 20:37:24,702 basehttp "GET /static/admin/img/icon-calendar.svg HTTP/1.1" 200 1086
+INFO 2025-02-08 20:37:24,705 basehttp "GET /static/admin/img/icon-clock.svg HTTP/1.1" 200 677
+INFO 2025-02-08 20:37:33,290 basehttp "GET /admin/auth/user/ HTTP/1.1" 200 9525
+INFO 2025-02-08 20:37:34,446 basehttp "GET /admin/auth/group/ HTTP/1.1" 200 8498
+INFO 2025-02-08 20:37:34,494 basehttp "GET /static/admin/img/search.svg HTTP/1.1" 200 458
+INFO 2025-02-08 20:37:34,506 basehttp "GET /admin/jsi18n/ HTTP/1.1" 200 14010
+INFO 2025-02-08 20:37:40,300 basehttp "GET / HTTP/1.1" 200 6865
+INFO 2025-02-08 20:37:43,457 basehttp "GET /decrees/ HTTP/1.1" 200 32320
+INFO 2025-02-08 20:37:46,093 basehttp "GET /publications/ HTTP/1.1" 200 35339
+INFO 2025-02-08 20:37:46,170 basehttp "GET /media/item_img/publication/14d8034da5174dbfb8c79a604479c30b.jpg HTTP/1.1" 304 0
+INFO 2025-02-08 20:37:46,171 basehttp "GET /media/item_img/publication/c32f9bc8409748dbb415656539becee4.jpg HTTP/1.1" 304 0
+INFO 2025-02-08 20:37:49,069 basehttp "GET /decrees/ HTTP/1.1" 200 32320
+INFO 2025-02-08 20:44:11,028 basehttp "GET /decrees/ HTTP/1.1" 200 32334
+ERROR 2025-02-08 20:44:12,633 log Internal Server Error: /users/profile/
+Traceback (most recent call last):
+  File "/home/vscode/.local/lib/python3.13/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/home/vscode/.local/lib/python3.13/site-packages/django/core/handlers/base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/home/vscode/.local/lib/python3.13/site-packages/django/contrib/auth/decorators.py", line 60, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "/workspaces/trademarks/users/views.py", line 13, in profile
+    form = ProfileForm(instance=request.user.profile)
+                                ^^^^^^^^^^^^^^^^^^^^
+  File "/home/vscode/.local/lib/python3.13/site-packages/django/utils/functional.py", line 253, in inner
+    return func(_wrapped, *args)
+  File "/home/vscode/.local/lib/python3.13/site-packages/django/db/models/fields/related_descriptors.py", line 531, in __get__
+    raise self.RelatedObjectDoesNotExist(
+    ...<2 lines>...
+    )
+django.contrib.auth.models.User.profile.RelatedObjectDoesNotExist: User has no profile.
+ERROR 2025-02-08 20:44:12,643 basehttp "GET /users/profile/ HTTP/1.1" 500 76674
+INFO 2025-02-08 20:45:56,294 basehttp "GET /admin/ HTTP/1.1" 200 6964
+INFO 2025-02-08 20:45:59,753 basehttp "GET /admin/auth/group/ HTTP/1.1" 200 8498
+INFO 2025-02-08 20:45:59,847 basehttp "GET /admin/jsi18n/ HTTP/1.1" 200 14010
+INFO 2025-02-08 20:47:35,817 basehttp "GET /admin/ HTTP/1.1" 200 6964
+INFO 2025-02-08 20:52:53,873 autoreload /workspaces/trademarks/core/settings.py changed, reloading.
+INFO 2025-02-08 20:52:55,266 autoreload Watching for file changes with StatReloader
+INFO 2025-02-08 21:04:56,228 autoreload Watching for file changes with StatReloader
+INFO 2025-02-08 21:04:58,363 basehttp "GET /admin/ HTTP/1.1" 200 10696
+INFO 2025-02-08 21:04:58,430 basehttp "GET /static/grappelli/jquery/ui/jquery-ui.min.css HTTP/1.1" 200 29614
+INFO 2025-02-08 21:04:58,470 basehttp "GET /static/grappelli/jquery/jquery-migrate-3.0.1.min.js HTTP/1.1" 200 11421
+INFO 2025-02-08 21:04:58,471 basehttp "GET /static/grappelli/stylesheets/rtl.css HTTP/1.1" 200 31001
+INFO 2025-02-08 21:04:58,473 basehttp "GET /static/grappelli/stylesheets/mueller/grid/output-rtl.css HTTP/1.1" 200 36580
+INFO 2025-02-08 21:04:58,478 basehttp "GET /static/grappelli/jquery/jquery.min.js HTTP/1.1" 200 89501
+INFO 2025-02-08 21:04:58,478 basehttp "GET /static/grappelli/stylesheets/screen.css HTTP/1.1" 200 129057
+INFO 2025-02-08 21:04:58,481 basehttp "GET /static/grappelli/jquery/ui/jquery-ui.min.js HTTP/1.1" 200 255084
+INFO 2025-02-08 21:04:58,498 basehttp "GET /static/grappelli/js/grappelli.min.js HTTP/1.1" 200 27906
+INFO 2025-02-08 21:04:58,538 basehttp "GET /static/grappelli/images/spritesheet-1694777276.png HTTP/1.1" 200 25228
+INFO 2025-02-08 21:05:43,348 autoreload /workspaces/trademarks/core/settings.py changed, reloading.
+INFO 2025-02-08 21:05:44,837 autoreload Watching for file changes with StatReloader
+INFO 2025-02-08 21:05:47,233 basehttp "GET /admin/ HTTP/1.1" 200 10730
+INFO 2025-02-08 21:05:47,298 basehttp "GET /static/grappelli/jquery/ui/jquery-ui.min.css HTTP/1.1" 200 29614
+INFO 2025-02-08 21:05:47,307 basehttp "GET /static/grappelli/jquery/jquery-migrate-3.0.1.min.js HTTP/1.1" 200 11421
+INFO 2025-02-08 21:05:47,312 basehttp "GET /static/grappelli/stylesheets/rtl.css HTTP/1.1" 200 31001
+INFO 2025-02-08 21:05:47,314 basehttp "GET /static/grappelli/stylesheets/mueller/grid/output-rtl.css HTTP/1.1" 200 36580
+INFO 2025-02-08 21:05:47,321 basehttp "GET /static/grappelli/jquery/jquery.min.js HTTP/1.1" 200 89501
+INFO 2025-02-08 21:05:47,322 basehttp "GET /static/grappelli/stylesheets/screen.css HTTP/1.1" 200 129057
+INFO 2025-02-08 21:05:47,324 basehttp "GET /static/grappelli/jquery/ui/jquery-ui.min.js HTTP/1.1" 200 255084
+INFO 2025-02-08 21:05:47,326 basehttp "GET /static/grappelli/js/grappelli.min.js HTTP/1.1" 200 27906
+INFO 2025-02-08 21:05:47,390 basehttp "GET /static/grappelli/images/spritesheet-1694777276.png HTTP/1.1" 200 25228
+WARNING 2025-02-08 21:05:47,503 log Not Found: /favicon.ico
+WARNING 2025-02-08 21:05:47,504 basehttp "GET /favicon.ico HTTP/1.1" 404 7478
+INFO 2025-02-08 21:05:51,014 basehttp "GET /admin/documents/ HTTP/1.1" 200 8626
+INFO 2025-02-08 21:05:52,773 basehttp "GET /admin/documents/decree/ HTTP/1.1" 200 14480
+INFO 2025-02-08 21:05:52,850 basehttp "GET /admin/jsi18n/ HTTP/1.1" 200 14010
+INFO 2025-02-08 21:05:52,879 basehttp "GET /static/grappelli/images/backgrounds/changelist-results.png HTTP/1.1" 200 244
+INFO 2025-02-08 21:05:52,881 basehttp "GET /static/grappelli/images/icons/form-select.png HTTP/1.1" 200 289
+INFO 2025-02-08 21:05:55,836 basehttp "GET /admin/documents/decree/5/change/ HTTP/1.1" 200 31416
+INFO 2025-02-08 21:05:55,889 basehttp "GET /admin/jsi18n/ HTTP/1.1" 200 14010
+INFO 2025-02-08 21:05:58,141 basehttp "GET /admin/documents/decree/ HTTP/1.1" 200 14480
+INFO 2025-02-08 21:05:58,734 basehttp "GET /admin/documents/ HTTP/1.1" 200 8626
+INFO 2025-02-08 21:05:59,499 basehttp "GET /admin/ HTTP/1.1" 200 10730
+INFO 2025-02-08 21:06:00,347 basehttp "GET /admin/documents/decree/ HTTP/1.1" 200 14480
+INFO 2025-02-08 21:06:00,418 basehttp "GET /admin/jsi18n/ HTTP/1.1" 200 14010
+INFO 2025-02-08 21:06:00,898 basehttp "GET /admin/ HTTP/1.1" 200 10730
+INFO 2025-02-08 21:06:02,466 basehttp "GET /admin/auth/group/ HTTP/1.1" 200 12514
+INFO 2025-02-08 21:06:02,525 basehttp "GET /admin/jsi18n/ HTTP/1.1" 200 14010
+INFO 2025-02-08 21:06:03,631 basehttp "GET /admin/ HTTP/1.1" 200 10730
+INFO 2025-02-08 21:06:04,636 basehttp "GET /admin/auth/ HTTP/1.1" 200 9227
+INFO 2025-02-08 21:06:05,396 basehttp "GET /admin/auth/user/ HTTP/1.1" 200 13208
+INFO 2025-02-08 21:06:05,444 basehttp "GET /admin/jsi18n/ HTTP/1.1" 200 14010
+INFO 2025-02-08 21:06:06,920 basehttp "GET /admin/auth/ HTTP/1.1" 200 9227
+INFO 2025-02-08 21:06:07,293 basehttp "GET /admin/ HTTP/1.1" 200 10730
+INFO 2025-02-08 21:06:11,342 autoreload /workspaces/trademarks/core/settings.py changed, reloading.
+INFO 2025-02-08 21:06:12,789 autoreload Watching for file changes with StatReloader
+INFO 2025-02-08 21:06:14,476 basehttp "GET /admin/ HTTP/1.1" 200 10730
+INFO 2025-02-08 21:06:14,528 basehttp "GET /static/grappelli/jquery/ui/jquery-ui.min.css HTTP/1.1" 200 29614
+INFO 2025-02-08 21:06:14,554 basehttp "GET /static/grappelli/jquery/jquery-migrate-3.0.1.min.js HTTP/1.1" 200 11421
+INFO 2025-02-08 21:06:14,563 basehttp "GET /static/grappelli/stylesheets/rtl.css HTTP/1.1" 200 31001
+INFO 2025-02-08 21:06:14,565 basehttp "GET /static/grappelli/stylesheets/mueller/grid/output-rtl.css HTTP/1.1" 200 36580
+INFO 2025-02-08 21:06:14,566 basehttp "GET /static/grappelli/jquery/jquery.min.js HTTP/1.1" 200 89501
+INFO 2025-02-08 21:06:14,569 basehttp "GET /static/grappelli/stylesheets/screen.css HTTP/1.1" 200 129057
+INFO 2025-02-08 21:06:14,573 basehttp "GET /static/grappelli/jquery/ui/jquery-ui.min.js HTTP/1.1" 200 255084
+INFO 2025-02-08 21:06:14,574 basehttp "GET /static/grappelli/js/grappelli.min.js HTTP/1.1" 200 27906
+INFO 2025-02-08 21:06:14,604 basehttp "GET /static/grappelli/images/spritesheet-1694777276.png HTTP/1.1" 200 25228
+WARNING 2025-02-08 21:06:14,710 log Not Found: /favicon.ico
+WARNING 2025-02-08 21:06:14,711 basehttp "GET /favicon.ico HTTP/1.1" 404 7478
+INFO 2025-02-08 21:06:17,342 basehttp "GET /admin/ HTTP/1.1" 200 10730
+INFO 2025-02-08 21:06:17,387 basehttp "GET /static/grappelli/jquery/ui/jquery-ui.min.css HTTP/1.1" 200 29614
+INFO 2025-02-08 21:06:17,409 basehttp "GET /static/grappelli/jquery/jquery-migrate-3.0.1.min.js HTTP/1.1" 200 11421
+INFO 2025-02-08 21:06:17,411 basehttp "GET /static/grappelli/stylesheets/rtl.css HTTP/1.1" 200 31001
+INFO 2025-02-08 21:06:17,416 basehttp "GET /static/grappelli/stylesheets/mueller/grid/output-rtl.css HTTP/1.1" 200 36580
+INFO 2025-02-08 21:06:17,417 basehttp "GET /static/grappelli/jquery/jquery.min.js HTTP/1.1" 200 89501
+INFO 2025-02-08 21:06:17,418 basehttp "GET /static/grappelli/stylesheets/screen.css HTTP/1.1" 200 129057
+INFO 2025-02-08 21:06:17,424 basehttp "GET /static/grappelli/jquery/ui/jquery-ui.min.js HTTP/1.1" 200 255084
+INFO 2025-02-08 21:06:17,432 basehttp "GET /static/grappelli/js/grappelli.min.js HTTP/1.1" 200 27906
+INFO 2025-02-08 21:06:17,467 basehttp "GET /static/grappelli/images/spritesheet-1694777276.png HTTP/1.1" 200 25228
+WARNING 2025-02-08 21:06:17,578 log Not Found: /favicon.ico
+WARNING 2025-02-08 21:06:17,579 basehttp "GET /favicon.ico HTTP/1.1" 404 7478
+INFO 2025-02-08 21:06:18,066 basehttp "GET /admin/ HTTP/1.1" 200 10730
+INFO 2025-02-08 21:06:18,111 basehttp "GET /static/grappelli/jquery/ui/jquery-ui.min.css HTTP/1.1" 200 29614
+INFO 2025-02-08 21:06:18,134 basehttp "GET /static/grappelli/jquery/jquery-migrate-3.0.1.min.js HTTP/1.1" 200 11421
+INFO 2025-02-08 21:06:18,136 basehttp "GET /static/grappelli/stylesheets/mueller/grid/output-rtl.css HTTP/1.1" 200 36580
+INFO 2025-02-08 21:06:18,139 basehttp "GET /static/grappelli/stylesheets/rtl.css HTTP/1.1" 200 31001
+INFO 2025-02-08 21:06:18,144 basehttp "GET /static/grappelli/jquery/jquery.min.js HTTP/1.1" 200 89501
+INFO 2025-02-08 21:06:18,145 basehttp "GET /static/grappelli/stylesheets/screen.css HTTP/1.1" 200 129057
+INFO 2025-02-08 21:06:18,148 basehttp "GET /static/grappelli/jquery/ui/jquery-ui.min.js HTTP/1.1" 200 255084
+INFO 2025-02-08 21:06:18,150 basehttp "GET /static/grappelli/js/grappelli.min.js HTTP/1.1" 200 27906
+INFO 2025-02-08 21:06:18,181 basehttp "GET /static/grappelli/images/spritesheet-1694777276.png HTTP/1.1" 200 25228
+WARNING 2025-02-08 21:06:18,301 log Not Found: /favicon.ico
+WARNING 2025-02-08 21:06:18,303 basehttp "GET /favicon.ico HTTP/1.1" 404 7478
+INFO 2025-02-08 21:06:21,625 autoreload /workspaces/trademarks/core/settings.py changed, reloading.
+INFO 2025-02-08 21:06:23,126 autoreload Watching for file changes with StatReloader
+INFO 2025-02-08 21:06:25,325 basehttp "GET /admin/ HTTP/1.1" 200 10730
+INFO 2025-02-08 21:06:25,396 basehttp "GET /static/grappelli/jquery/ui/jquery-ui.min.css HTTP/1.1" 200 29614
+INFO 2025-02-08 21:06:25,418 basehttp "GET /static/grappelli/jquery/jquery-migrate-3.0.1.min.js HTTP/1.1" 200 11421
+INFO 2025-02-08 21:06:25,419 basehttp "GET /static/grappelli/stylesheets/rtl.css HTTP/1.1" 200 31001
+INFO 2025-02-08 21:06:25,422 basehttp "GET /static/grappelli/stylesheets/mueller/grid/output-rtl.css HTTP/1.1" 200 36580
+INFO 2025-02-08 21:06:25,430 basehttp "GET /static/grappelli/jquery/jquery.min.js HTTP/1.1" 200 89501
+INFO 2025-02-08 21:06:25,440 basehttp "GET /static/grappelli/stylesheets/screen.css HTTP/1.1" 200 129057
+INFO 2025-02-08 21:06:25,441 basehttp "GET /static/grappelli/js/grappelli.min.js HTTP/1.1" 200 27906
+INFO 2025-02-08 21:06:25,443 basehttp "GET /static/grappelli/jquery/ui/jquery-ui.min.js HTTP/1.1" 200 255084
+INFO 2025-02-08 21:06:25,472 basehttp "GET /static/grappelli/images/spritesheet-1694777276.png HTTP/1.1" 200 25228
+WARNING 2025-02-08 21:06:25,576 log Not Found: /favicon.ico
+WARNING 2025-02-08 21:06:25,578 basehttp "GET /favicon.ico HTTP/1.1" 404 7478
+INFO 2025-02-08 21:06:29,476 basehttp "GET /admin/password_change/ HTTP/1.1" 200 10042
+INFO 2025-02-08 21:06:31,120 basehttp "GET /admin/ HTTP/1.1" 200 10730
+INFO 2025-02-08 21:06:33,292 basehttp "GET / HTTP/1.1" 200 6879
+INFO 2025-02-08 21:06:33,379 basehttp "GET /static/css/style.css HTTP/1.1" 304 0
+INFO 2025-02-08 21:09:07,968 autoreload /workspaces/trademarks/core/settings.py changed, reloading.
+INFO 2025-02-08 21:09:09,493 autoreload Watching for file changes with StatReloader
+INFO 2025-02-08 21:09:20,792 autoreload Watching for file changes with StatReloader
+INFO 2025-02-08 21:11:17,067 autoreload Watching for file changes with StatReloader
+INFO 2025-02-08 21:11:39,237 autoreload Watching for file changes with StatReloader
+INFO 2025-02-08 21:11:46,713 basehttp "GET /admin/ HTTP/1.1" 200 21092
+INFO 2025-02-08 21:11:46,912 basehttp "GET /static/admin_interface/css/fieldsets.css?v=0cfa230e56a1ce0d7822440cf565e3d9919e973fec6b57753b0df2a7 HTTP/1.1" 200 499
+INFO 2025-02-08 21:11:46,916 basehttp "GET /static/admin_interface/css/change-form.css?v=0cfa230e56a1ce0d7822440cf565e3d9919e973fec6b57753b0df2a7 HTTP/1.1" 200 1125
+INFO 2025-02-08 21:11:46,920 basehttp "GET /static/admin_interface/css/changelist.css?v=0cfa230e56a1ce0d7822440cf565e3d9919e973fec6b57753b0df2a7 HTTP/1.1" 200 1517
+INFO 2025-02-08 21:11:46,922 basehttp "GET /static/admin_interface/css/admin-interface.css?v=0cfa230e56a1ce0d7822440cf565e3d9919e973fec6b57753b0df2a7 HTTP/1.1" 200 18580
+INFO 2025-02-08 21:11:46,923 basehttp "GET /static/admin_interface/css/file-upload.css?v=0cfa230e56a1ce0d7822440cf565e3d9919e973fec6b57753b0df2a7 HTTP/1.1" 200 1169
+INFO 2025-02-08 21:11:46,923 basehttp "GET /static/admin_interface/css/header.css?v=0cfa230e56a1ce0d7822440cf565e3d9919e973fec6b57753b0df2a7 HTTP/1.1" 200 1015
+INFO 2025-02-08 21:11:46,932 basehttp "GET /static/admin_interface/css/jquery.ui.tabs.css?v=0cfa230e56a1ce0d7822440cf565e3d9919e973fec6b57753b0df2a7 HTTP/1.1" 200 5481
+INFO 2025-02-08 21:11:46,936 basehttp "GET /static/admin_interface/css/inlines.css?v=0cfa230e56a1ce0d7822440cf565e3d9919e973fec6b57753b0df2a7 HTTP/1.1" 200 2715
+INFO 2025-02-08 21:11:46,937 basehttp "GET /static/admin_interface/css/language-chooser.css?v=0cfa230e56a1ce0d7822440cf565e3d9919e973fec6b57753b0df2a7 HTTP/1.1" 200 1734
+INFO 2025-02-08 21:11:46,947 basehttp "GET /static/admin_interface/css/list-filter.css?v=0cfa230e56a1ce0d7822440cf565e3d9919e973fec6b57753b0df2a7 HTTP/1.1" 200 1054
+INFO 2025-02-08 21:11:46,949 basehttp "GET /static/admin_interface/css/login.css?v=0cfa230e56a1ce0d7822440cf565e3d9919e973fec6b57753b0df2a7 HTTP/1.1" 200 1240
+INFO 2025-02-08 21:11:46,950 basehttp "GET /static/admin_interface/css/list-filter-dropdown.css?v=0cfa230e56a1ce0d7822440cf565e3d9919e973fec6b57753b0df2a7 HTTP/1.1" 200 785
+INFO 2025-02-08 21:11:46,952 basehttp "GET /static/admin_interface/css/nav-sidebar.css?v=0cfa230e56a1ce0d7822440cf565e3d9919e973fec6b57753b0df2a7 HTTP/1.1" 200 2377
+INFO 2025-02-08 21:11:46,954 basehttp "GET /static/admin_interface/css/modules.css?v=0cfa230e56a1ce0d7822440cf565e3d9919e973fec6b57753b0df2a7 HTTP/1.1" 200 404
+INFO 2025-02-08 21:11:46,958 basehttp "GET /static/admin_interface/css/paginator.css?v=0cfa230e56a1ce0d7822440cf565e3d9919e973fec6b57753b0df2a7 HTTP/1.1" 200 797
+INFO 2025-02-08 21:11:46,961 basehttp "GET /static/admin_interface/css/object-tools.css?v=0cfa230e56a1ce0d7822440cf565e3d9919e973fec6b57753b0df2a7 HTTP/1.1" 200 319
+INFO 2025-02-08 21:11:46,977 basehttp "GET /static/admin_interface/css/rtl.css?v=0cfa230e56a1ce0d7822440cf565e3d9919e973fec6b57753b0df2a7 HTTP/1.1" 200 1016
+INFO 2025-02-08 21:11:47,001 basehttp "GET /static/admin_interface/css/sticky-form-controls.css?v=0cfa230e56a1ce0d7822440cf565e3d9919e973fec6b57753b0df2a7 HTTP/1.1" 200 2437
+INFO 2025-02-08 21:11:47,001 basehttp "GET /static/admin_interface/css/tabbed-changeform.css?v=0cfa230e56a1ce0d7822440cf565e3d9919e973fec6b57753b0df2a7 HTTP/1.1" 200 2013
+INFO 2025-02-08 21:11:47,015 basehttp "GET /static/admin_interface/css/third-party/ckeditor.css?v=0cfa230e56a1ce0d7822440cf565e3d9919e973fec6b57753b0df2a7 HTTP/1.1" 200 2720
+INFO 2025-02-08 21:11:47,017 basehttp "GET /static/admin_interface/css/widgets.css?v=0cfa230e56a1ce0d7822440cf565e3d9919e973fec6b57753b0df2a7 HTTP/1.1" 200 5259
+INFO 2025-02-08 21:11:47,019 basehttp "GET /static/admin_interface/css/third-party/modeltranslation.css?v=0cfa230e56a1ce0d7822440cf565e3d9919e973fec6b57753b0df2a7 HTTP/1.1" 200 356
+INFO 2025-02-08 21:11:47,019 basehttp "GET /static/admin_interface/css/third-party/import-export.css?v=0cfa230e56a1ce0d7822440cf565e3d9919e973fec6b57753b0df2a7 HTTP/1.1" 200 189
+INFO 2025-02-08 21:11:47,021 basehttp "GET /static/admin_interface/css/third-party/json-widget.css?v=0cfa230e56a1ce0d7822440cf565e3d9919e973fec6b57753b0df2a7 HTTP/1.1" 200 993
+INFO 2025-02-08 21:11:47,023 basehttp "GET /static/admin_interface/css/third-party/rangefilter.css?v=0cfa230e56a1ce0d7822440cf565e3d9919e973fec6b57753b0df2a7 HTTP/1.1" 200 1238
+INFO 2025-02-08 21:11:47,030 basehttp "GET /static/admin_interface/css/third-party/streamfield.css?v=0cfa230e56a1ce0d7822440cf565e3d9919e973fec6b57753b0df2a7 HTTP/1.1" 200 6407
+INFO 2025-02-08 21:11:47,033 basehttp "GET /static/admin_interface/css/third-party/sorl-thumbnail.css?v=0cfa230e56a1ce0d7822440cf565e3d9919e973fec6b57753b0df2a7 HTTP/1.1" 200 1451
+INFO 2025-02-08 21:11:47,036 basehttp "GET /static/admin_interface/css/third-party/tinymce.css?v=0cfa230e56a1ce0d7822440cf565e3d9919e973fec6b57753b0df2a7 HTTP/1.1" 200 78
+INFO 2025-02-08 21:11:47,039 basehttp "GET /static/admin/css/responsive.css?v=0cfa230e56a1ce0d7822440cf565e3d9919e973fec6b57753b0df2a7 HTTP/1.1" 200 17972
+INFO 2025-02-08 21:11:47,044 basehttp "GET /static/admin/css/responsive_rtl.css?v=0cfa230e56a1ce0d7822440cf565e3d9919e973fec6b57753b0df2a7 HTTP/1.1" 200 2544
+INFO 2025-02-08 21:11:47,049 basehttp "GET /static/admin_interface/foldable-apps/foldable-apps.css?v=0cfa230e56a1ce0d7822440cf565e3d9919e973fec6b57753b0df2a7 HTTP/1.1" 200 1955
+INFO 2025-02-08 21:11:47,055 basehttp "GET /static/admin_interface/magnific-popup/magnific-popup.css?v=0cfa230e56a1ce0d7822440cf565e3d9919e973fec6b57753b0df2a7 HTTP/1.1" 200 6951
+INFO 2025-02-08 21:11:47,061 basehttp "GET /static/admin_interface/related-modal/related-modal.css?v=0cfa230e56a1ce0d7822440cf565e3d9919e973fec6b57753b0df2a7 HTTP/1.1" 200 2888
+INFO 2025-02-08 21:11:47,071 basehttp "GET /static/admin_interface/foldable-apps/foldable-apps.js?v=0cfa230e56a1ce0d7822440cf565e3d9919e973fec6b57753b0df2a7 HTTP/1.1" 200 1750
+INFO 2025-02-08 21:11:47,076 basehttp "GET /static/admin_interface/related-modal/related-modal.js?v=0cfa230e56a1ce0d7822440cf565e3d9919e973fec6b57753b0df2a7 HTTP/1.1" 200 7032
+INFO 2025-02-08 21:11:47,083 basehttp "GET /static/admin_interface/magnific-popup/jquery.magnific-popup.js?v=0cfa230e56a1ce0d7822440cf565e3d9919e973fec6b57753b0df2a7 HTTP/1.1" 200 60830
+INFO 2025-02-08 21:11:50,077 basehttp "GET /admin/admin_interface/theme/ HTTP/1.1" 200 24248
+INFO 2025-02-08 21:11:50,205 basehttp "GET /admin/jsi18n/ HTTP/1.1" 200 14010
+INFO 2025-02-08 21:11:53,271 basehttp "GET /admin/ HTTP/1.1" 200 21092
+INFO 2025-02-08 21:11:55,231 basehttp "GET /admin/auth/user/ HTTP/1.1" 200 23452
+INFO 2025-02-08 21:11:55,316 basehttp "GET /admin/jsi18n/ HTTP/1.1" 200 14010
+INFO 2025-02-08 21:11:57,054 basehttp "GET /admin/auth/user/1/change/ HTTP/1.1" 200 43592
+INFO 2025-02-08 21:11:57,119 basehttp "GET /admin/jsi18n/ HTTP/1.1" 200 14010
+INFO 2025-02-08 21:12:07,775 basehttp "GET /admin/auth/user/ HTTP/1.1" 200 23452
+INFO 2025-02-08 21:12:11,032 basehttp "GET /admin/documents/decree/ HTTP/1.1" 200 24387
+INFO 2025-02-08 21:12:11,125 basehttp "GET /static/admin_interface/css/admin-interface.css?v=0cfa230e56a1ce0d7822440cf565e3d9919e973fec6b57753b0df2a7 HTTP/1.1" 304 0
+INFO 2025-02-08 21:12:11,156 basehttp "GET /static/admin_interface/css/changelist.css?v=0cfa230e56a1ce0d7822440cf565e3d9919e973fec6b57753b0df2a7 HTTP/1.1" 304 0
+INFO 2025-02-08 21:12:11,159 basehttp "GET /static/admin_interface/css/change-form.css?v=0cfa230e56a1ce0d7822440cf565e3d9919e973fec6b57753b0df2a7 HTTP/1.1" 304 0
+INFO 2025-02-08 21:12:11,160 basehttp "GET /static/admin_interface/css/fieldsets.css?v=0cfa230e56a1ce0d7822440cf565e3d9919e973fec6b57753b0df2a7 HTTP/1.1" 304 0
+INFO 2025-02-08 21:12:11,161 basehttp "GET /static/admin_interface/css/header.css?v=0cfa230e56a1ce0d7822440cf565e3d9919e973fec6b57753b0df2a7 HTTP/1.1" 304 0
+INFO 2025-02-08 21:12:11,161 basehttp "GET /static/admin_interface/css/file-upload.css?v=0cfa230e56a1ce0d7822440cf565e3d9919e973fec6b57753b0df2a7 HTTP/1.1" 304 0
+INFO 2025-02-08 21:12:11,162 basehttp "GET /static/admin_interface/css/inlines.css?v=0cfa230e56a1ce0d7822440cf565e3d9919e973fec6b57753b0df2a7 HTTP/1.1" 304 0
+INFO 2025-02-08 21:12:11,171 basehttp "GET /static/admin_interface/css/jquery.ui.tabs.css?v=0cfa230e56a1ce0d7822440cf565e3d9919e973fec6b57753b0df2a7 HTTP/1.1" 304 0
+INFO 2025-02-08 21:12:11,172 basehttp "GET /static/admin_interface/css/language-chooser.css?v=0cfa230e56a1ce0d7822440cf565e3d9919e973fec6b57753b0df2a7 HTTP/1.1" 304 0
+INFO 2025-02-08 21:12:11,172 basehttp "GET /static/admin_interface/css/list-filter.css?v=0cfa230e56a1ce0d7822440cf565e3d9919e973fec6b57753b0df2a7 HTTP/1.1" 304 0
+INFO 2025-02-08 21:12:11,174 basehttp "GET /static/admin_interface/css/list-filter-dropdown.css?v=0cfa230e56a1ce0d7822440cf565e3d9919e973fec6b57753b0df2a7 HTTP/1.1" 304 0
+INFO 2025-02-08 21:12:11,208 basehttp "GET /static/admin_interface/css/login.css?v=0cfa230e56a1ce0d7822440cf565e3d9919e973fec6b57753b0df2a7 HTTP/1.1" 304 0
+INFO 2025-02-08 21:12:11,219 basehttp "GET /static/admin_interface/css/modules.css?v=0cfa230e56a1ce0d7822440cf565e3d9919e973fec6b57753b0df2a7 HTTP/1.1" 304 0
+INFO 2025-02-08 21:12:11,220 basehttp "GET /static/admin_interface/css/nav-sidebar.css?v=0cfa230e56a1ce0d7822440cf565e3d9919e973fec6b57753b0df2a7 HTTP/1.1" 304 0
+INFO 2025-02-08 21:12:11,230 basehttp "GET /static/admin_interface/css/paginator.css?v=0cfa230e56a1ce0d7822440cf565e3d9919e973fec6b57753b0df2a7 HTTP/1.1" 304 0
+INFO 2025-02-08 21:12:11,230 basehttp "GET /static/admin_interface/css/rtl.css?v=0cfa230e56a1ce0d7822440cf565e3d9919e973fec6b57753b0df2a7 HTTP/1.1" 304 0
+INFO 2025-02-08 21:12:11,230 basehttp "GET /static/admin_interface/css/object-tools.css?v=0cfa230e56a1ce0d7822440cf565e3d9919e973fec6b57753b0df2a7 HTTP/1.1" 304 0
+INFO 2025-02-08 21:12:11,269 basehttp "GET /static/admin_interface/css/sticky-form-controls.css?v=0cfa230e56a1ce0d7822440cf565e3d9919e973fec6b57753b0df2a7 HTTP/1.1" 304 0
+INFO 2025-02-08 21:12:11,270 basehttp "GET /static/admin_interface/css/tabbed-changeform.css?v=0cfa230e56a1ce0d7822440cf565e3d9919e973fec6b57753b0df2a7 HTTP/1.1" 304 0
+INFO 2025-02-08 21:12:11,281 basehttp "GET /static/admin_interface/css/widgets.css?v=0cfa230e56a1ce0d7822440cf565e3d9919e973fec6b57753b0df2a7 HTTP/1.1" 304 0
+INFO 2025-02-08 21:12:11,282 basehttp "GET /static/admin_interface/css/third-party/ckeditor.css?v=0cfa230e56a1ce0d7822440cf565e3d9919e973fec6b57753b0df2a7 HTTP/1.1" 304 0
+INFO 2025-02-08 21:12:11,283 basehttp "GET /static/admin_interface/css/third-party/json-widget.css?v=0cfa230e56a1ce0d7822440cf565e3d9919e973fec6b57753b0df2a7 HTTP/1.1" 304 0
+INFO 2025-02-08 21:12:11,283 basehttp "GET /static/admin_interface/css/third-party/import-export.css?v=0cfa230e56a1ce0d7822440cf565e3d9919e973fec6b57753b0df2a7 HTTP/1.1" 304 0
+INFO 2025-02-08 21:12:11,319 basehttp "GET /static/admin_interface/css/third-party/rangefilter.css?v=0cfa230e56a1ce0d7822440cf565e3d9919e973fec6b57753b0df2a7 HTTP/1.1" 304 0
+INFO 2025-02-08 21:12:11,320 basehttp "GET /static/admin_interface/css/third-party/modeltranslation.css?v=0cfa230e56a1ce0d7822440cf565e3d9919e973fec6b57753b0df2a7 HTTP/1.1" 304 0
+INFO 2025-02-08 21:12:11,331 basehttp "GET /static/admin_interface/css/third-party/streamfield.css?v=0cfa230e56a1ce0d7822440cf565e3d9919e973fec6b57753b0df2a7 HTTP/1.1" 304 0
+INFO 2025-02-08 21:12:11,333 basehttp "GET /static/admin_interface/foldable-apps/foldable-apps.css?v=0cfa230e56a1ce0d7822440cf565e3d9919e973fec6b57753b0df2a7 HTTP/1.1" 304 0
+INFO 2025-02-08 21:12:11,333 basehttp "GET /static/admin_interface/css/third-party/sorl-thumbnail.css?v=0cfa230e56a1ce0d7822440cf565e3d9919e973fec6b57753b0df2a7 HTTP/1.1" 304 0
+INFO 2025-02-08 21:12:11,333 basehttp "GET /static/admin_interface/css/third-party/tinymce.css?v=0cfa230e56a1ce0d7822440cf565e3d9919e973fec6b57753b0df2a7 HTTP/1.1" 304 0
+INFO 2025-02-08 21:12:11,371 basehttp "GET /static/admin_interface/related-modal/related-modal.css?v=0cfa230e56a1ce0d7822440cf565e3d9919e973fec6b57753b0df2a7 HTTP/1.1" 304 0
+INFO 2025-02-08 21:12:11,371 basehttp "GET /static/admin_interface/magnific-popup/magnific-popup.css?v=0cfa230e56a1ce0d7822440cf565e3d9919e973fec6b57753b0df2a7 HTTP/1.1" 304 0
+INFO 2025-02-08 21:12:11,391 basehttp "GET /static/admin_interface/foldable-apps/foldable-apps.js?v=0cfa230e56a1ce0d7822440cf565e3d9919e973fec6b57753b0df2a7 HTTP/1.1" 304 0
+INFO 2025-02-08 21:12:11,393 basehttp "GET /static/admin_interface/magnific-popup/jquery.magnific-popup.js?v=0cfa230e56a1ce0d7822440cf565e3d9919e973fec6b57753b0df2a7 HTTP/1.1" 304 0
+INFO 2025-02-08 21:12:11,395 basehttp "GET /static/admin_interface/related-modal/related-modal.js?v=0cfa230e56a1ce0d7822440cf565e3d9919e973fec6b57753b0df2a7 HTTP/1.1" 304 0
+INFO 2025-02-08 21:12:11,406 basehttp "GET /admin/jsi18n/ HTTP/1.1" 200 14010
+INFO 2025-02-08 21:12:13,260 basehttp "GET /admin/auth/group/ HTTP/1.1" 200 22425
+INFO 2025-02-08 21:12:13,317 basehttp "GET /admin/jsi18n/ HTTP/1.1" 200 14010
+INFO 2025-02-08 21:12:14,832 basehttp "GET /admin/documents/decree/ HTTP/1.1" 200 24387
+INFO 2025-02-08 21:12:14,895 basehttp "GET /admin/jsi18n/ HTTP/1.1" 200 14010
+INFO 2025-02-08 21:12:23,950 autoreload /workspaces/trademarks/core/settings.py changed, reloading.
+INFO 2025-02-08 21:12:25,647 autoreload Watching for file changes with StatReloader
+INFO 2025-02-08 21:12:28,291 basehttp "GET /admin/documents/decree/ HTTP/1.1" 200 24387
+INFO 2025-02-08 21:12:28,365 basehttp "GET /static/admin/css/base.css HTTP/1.1" 200 22092
+INFO 2025-02-08 21:12:28,407 basehttp "GET /static/admin/css/nav_sidebar.css HTTP/1.1" 200 2810
+INFO 2025-02-08 21:12:28,408 basehttp "GET /static/admin/css/dark_mode.css HTTP/1.1" 200 2804
+INFO 2025-02-08 21:12:28,409 basehttp "GET /static/admin/js/theme.js HTTP/1.1" 200 1653
+INFO 2025-02-08 21:12:28,414 basehttp "GET /static/admin_interface/css/admin-interface.css?v=0cfa230e56a1ce0d7822440cf565e3d9919e973fec6b57753b0df2a7 HTTP/1.1" 200 18580
+INFO 2025-02-08 21:12:28,419 basehttp "GET /static/admin_interface/css/changelist.css?v=0cfa230e56a1ce0d7822440cf565e3d9919e973fec6b57753b0df2a7 HTTP/1.1" 200 1517
+INFO 2025-02-08 21:12:28,424 basehttp "GET /static/admin_interface/css/change-form.css?v=0cfa230e56a1ce0d7822440cf565e3d9919e973fec6b57753b0df2a7 HTTP/1.1" 200 1125
+INFO 2025-02-08 21:12:28,434 basehttp "GET /static/admin_interface/css/fieldsets.css?v=0cfa230e56a1ce0d7822440cf565e3d9919e973fec6b57753b0df2a7 HTTP/1.1" 200 499
+INFO 2025-02-08 21:12:28,437 basehttp "GET /static/admin_interface/css/inlines.css?v=0cfa230e56a1ce0d7822440cf565e3d9919e973fec6b57753b0df2a7 HTTP/1.1" 200 2715
+INFO 2025-02-08 21:12:28,437 basehttp "GET /static/admin_interface/css/header.css?v=0cfa230e56a1ce0d7822440cf565e3d9919e973fec6b57753b0df2a7 HTTP/1.1" 200 1015
+INFO 2025-02-08 21:12:28,438 basehttp "GET /static/admin_interface/css/file-upload.css?v=0cfa230e56a1ce0d7822440cf565e3d9919e973fec6b57753b0df2a7 HTTP/1.1" 200 1169
+INFO 2025-02-08 21:12:28,439 basehttp "GET /static/admin_interface/css/jquery.ui.tabs.css?v=0cfa230e56a1ce0d7822440cf565e3d9919e973fec6b57753b0df2a7 HTTP/1.1" 200 5481
+INFO 2025-02-08 21:12:28,442 basehttp "GET /static/admin_interface/css/language-chooser.css?v=0cfa230e56a1ce0d7822440cf565e3d9919e973fec6b57753b0df2a7 HTTP/1.1" 200 1734
+INFO 2025-02-08 21:12:28,445 basehttp "GET /static/admin_interface/css/list-filter.css?v=0cfa230e56a1ce0d7822440cf565e3d9919e973fec6b57753b0df2a7 HTTP/1.1" 200 1054
+INFO 2025-02-08 21:12:28,447 basehttp "GET /static/admin_interface/css/list-filter-dropdown.css?v=0cfa230e56a1ce0d7822440cf565e3d9919e973fec6b57753b0df2a7 HTTP/1.1" 200 785
+INFO 2025-02-08 21:12:28,487 basehttp "GET /static/admin_interface/css/login.css?v=0cfa230e56a1ce0d7822440cf565e3d9919e973fec6b57753b0df2a7 HTTP/1.1" 200 1240
+INFO 2025-02-08 21:12:28,493 basehttp "GET /static/admin_interface/css/modules.css?v=0cfa230e56a1ce0d7822440cf565e3d9919e973fec6b57753b0df2a7 HTTP/1.1" 200 404
+INFO 2025-02-08 21:12:28,504 basehttp "GET /static/admin_interface/css/paginator.css?v=0cfa230e56a1ce0d7822440cf565e3d9919e973fec6b57753b0df2a7 HTTP/1.1" 200 797
+INFO 2025-02-08 21:12:28,505 basehttp "GET /static/admin_interface/css/object-tools.css?v=0cfa230e56a1ce0d7822440cf565e3d9919e973fec6b57753b0df2a7 HTTP/1.1" 200 319
+INFO 2025-02-08 21:12:28,507 basehttp "GET /static/admin_interface/css/nav-sidebar.css?v=0cfa230e56a1ce0d7822440cf565e3d9919e973fec6b57753b0df2a7 HTTP/1.1" 200 2377
+INFO 2025-02-08 21:12:28,508 basehttp "GET /static/admin_interface/css/sticky-form-controls.css?v=0cfa230e56a1ce0d7822440cf565e3d9919e973fec6b57753b0df2a7 HTTP/1.1" 200 2437
+INFO 2025-02-08 21:12:28,508 basehttp "GET /static/admin_interface/css/rtl.css?v=0cfa230e56a1ce0d7822440cf565e3d9919e973fec6b57753b0df2a7 HTTP/1.1" 200 1016
+INFO 2025-02-08 21:12:28,513 basehttp "GET /static/admin_interface/css/tabbed-changeform.css?v=0cfa230e56a1ce0d7822440cf565e3d9919e973fec6b57753b0df2a7 HTTP/1.1" 200 2013
+INFO 2025-02-08 21:12:28,514 basehttp "GET /static/admin_interface/css/widgets.css?v=0cfa230e56a1ce0d7822440cf565e3d9919e973fec6b57753b0df2a7 HTTP/1.1" 200 5259
+INFO 2025-02-08 21:12:28,519 basehttp "GET /static/admin_interface/css/third-party/ckeditor.css?v=0cfa230e56a1ce0d7822440cf565e3d9919e973fec6b57753b0df2a7 HTTP/1.1" 200 2720
+INFO 2025-02-08 21:12:28,523 basehttp "GET /static/admin_interface/css/third-party/import-export.css?v=0cfa230e56a1ce0d7822440cf565e3d9919e973fec6b57753b0df2a7 HTTP/1.1" 200 189
+INFO 2025-02-08 21:12:28,546 basehttp "GET /static/admin_interface/css/third-party/json-widget.css?v=0cfa230e56a1ce0d7822440cf565e3d9919e973fec6b57753b0df2a7 HTTP/1.1" 200 993
+INFO 2025-02-08 21:12:28,572 basehttp "GET /static/admin_interface/css/third-party/modeltranslation.css?v=0cfa230e56a1ce0d7822440cf565e3d9919e973fec6b57753b0df2a7 HTTP/1.1" 200 356
+INFO 2025-02-08 21:12:28,575 basehttp "GET /static/admin_interface/css/third-party/streamfield.css?v=0cfa230e56a1ce0d7822440cf565e3d9919e973fec6b57753b0df2a7 HTTP/1.1" 200 6407
+INFO 2025-02-08 21:12:28,576 basehttp "GET /static/admin_interface/css/third-party/sorl-thumbnail.css?v=0cfa230e56a1ce0d7822440cf565e3d9919e973fec6b57753b0df2a7 HTTP/1.1" 200 1451
+INFO 2025-02-08 21:12:28,578 basehttp "GET /static/admin_interface/css/third-party/rangefilter.css?v=0cfa230e56a1ce0d7822440cf565e3d9919e973fec6b57753b0df2a7 HTTP/1.1" 200 1238
+INFO 2025-02-08 21:12:28,581 basehttp "GET /static/admin_interface/css/third-party/tinymce.css?v=0cfa230e56a1ce0d7822440cf565e3d9919e973fec6b57753b0df2a7 HTTP/1.1" 200 78
+INFO 2025-02-08 21:12:28,585 basehttp "GET /static/admin/css/changelists.css HTTP/1.1" 200 6878
+INFO 2025-02-08 21:12:28,586 basehttp "GET /static/admin/css/rtl.css HTTP/1.1" 200 4696
+INFO 2025-02-08 21:12:28,589 basehttp "GET /static/admin/css/responsive.css HTTP/1.1" 200 17972
+INFO 2025-02-08 21:12:28,592 basehttp "GET /static/admin/css/responsive_rtl.css HTTP/1.1" 200 2544
+INFO 2025-02-08 21:12:28,597 basehttp "GET /static/admin/css/responsive.css?v=0cfa230e56a1ce0d7822440cf565e3d9919e973fec6b57753b0df2a7 HTTP/1.1" 200 17972
+INFO 2025-02-08 21:12:28,600 basehttp "GET /static/admin/css/responsive_rtl.css?v=0cfa230e56a1ce0d7822440cf565e3d9919e973fec6b57753b0df2a7 HTTP/1.1" 200 2544
+INFO 2025-02-08 21:12:28,607 basehttp "GET /static/admin_interface/foldable-apps/foldable-apps.css?v=0cfa230e56a1ce0d7822440cf565e3d9919e973fec6b57753b0df2a7 HTTP/1.1" 200 1955
+INFO 2025-02-08 21:12:28,612 basehttp "GET /static/admin_interface/related-modal/related-modal.css?v=0cfa230e56a1ce0d7822440cf565e3d9919e973fec6b57753b0df2a7 HTTP/1.1" 200 2888
+INFO 2025-02-08 21:12:28,613 basehttp "GET /static/admin_interface/magnific-popup/magnific-popup.css?v=0cfa230e56a1ce0d7822440cf565e3d9919e973fec6b57753b0df2a7 HTTP/1.1" 200 6951
+INFO 2025-02-08 21:12:28,620 basehttp "GET /static/admin/js/jquery.init.js HTTP/1.1" 200 347
+INFO 2025-02-08 21:12:28,623 basehttp "GET /static/admin/js/vendor/jquery/jquery.js HTTP/1.1" 200 285314
+INFO 2025-02-08 21:12:28,631 basehttp "GET /static/admin/js/core.js HTTP/1.1" 200 6208
+INFO 2025-02-08 21:12:28,646 basehttp "GET /static/admin/js/actions.js HTTP/1.1" 200 8076
+INFO 2025-02-08 21:12:28,647 basehttp "GET /static/admin/js/admin/RelatedObjectLookups.js HTTP/1.1" 200 9097
+INFO 2025-02-08 21:12:28,647 basehttp "GET /admin/jsi18n/ HTTP/1.1" 200 14010
+INFO 2025-02-08 21:12:28,647 basehttp "GET /static/admin/js/urlify.js HTTP/1.1" 200 7887
+INFO 2025-02-08 21:12:28,653 basehttp "GET /static/admin/js/prepopulate.js HTTP/1.1" 200 1531
+INFO 2025-02-08 21:12:28,658 basehttp "GET /static/admin_interface/foldable-apps/foldable-apps.js?v=0cfa230e56a1ce0d7822440cf565e3d9919e973fec6b57753b0df2a7 HTTP/1.1" 200 1750
+INFO 2025-02-08 21:12:28,662 basehttp "GET /static/admin_interface/related-modal/related-modal.js?v=0cfa230e56a1ce0d7822440cf565e3d9919e973fec6b57753b0df2a7 HTTP/1.1" 200 7032
+INFO 2025-02-08 21:12:28,664 basehttp "GET /static/admin_interface/magnific-popup/jquery.magnific-popup.js?v=0cfa230e56a1ce0d7822440cf565e3d9919e973fec6b57753b0df2a7 HTTP/1.1" 200 60830
+INFO 2025-02-08 21:12:28,665 basehttp "GET /static/admin/js/vendor/xregexp/xregexp.js HTTP/1.1" 200 325171
+INFO 2025-02-08 21:12:28,686 basehttp "GET /static/admin/js/nav_sidebar.js HTTP/1.1" 200 3063
+INFO 2025-02-08 21:12:28,692 basehttp "GET /static/admin/js/filters.js HTTP/1.1" 200 978
+INFO 2025-02-08 21:12:28,722 basehttp "GET /static/admin/img/icon-addlink.svg HTTP/1.1" 200 331
+INFO 2025-02-08 21:12:28,722 basehttp "GET /static/admin/img/tooltag-add.svg HTTP/1.1" 200 331
+WARNING 2025-02-08 21:12:28,833 log Not Found: /favicon.ico
+WARNING 2025-02-08 21:12:28,834 basehttp "GET /favicon.ico HTTP/1.1" 404 7325
+INFO 2025-02-08 21:12:32,623 basehttp "GET /admin/admin_interface/theme/ HTTP/1.1" 200 24248
+INFO 2025-02-08 21:12:32,679 basehttp "GET /admin/jsi18n/ HTTP/1.1" 200 14010
+INFO 2025-02-08 21:12:34,721 basehttp "GET /admin/admin_interface/theme/add/ HTTP/1.1" 200 72200
+INFO 2025-02-08 21:12:34,797 basehttp "GET /admin/jsi18n/ HTTP/1.1" 200 14010
+INFO 2025-02-08 21:12:34,804 basehttp "GET /static/colorfield/jscolor/jscolor.js HTTP/1.1" 200 102106
+INFO 2025-02-08 21:12:34,816 basehttp "GET /static/colorfield/colorfield.js HTTP/1.1" 200 408
+INFO 2025-02-08 21:12:37,967 basehttp "GET /admin/admin_interface/theme/ HTTP/1.1" 200 24248
+INFO 2025-02-08 21:12:40,512 basehttp "GET /admin/admin_interface/ HTTP/1.1" 200 18741
+INFO 2025-02-08 21:12:42,618 basehttp "GET /admin/ HTTP/1.1" 200 21092
+INFO 2025-02-08 21:20:27,560 autoreload /workspaces/trademarks/documents/admin.py changed, reloading.
+INFO 2025-02-08 21:20:29,202 autoreload Watching for file changes with StatReloader
+INFO 2025-02-08 21:20:40,189 autoreload Watching for file changes with StatReloader
+INFO 2025-02-08 21:20:45,815 basehttp "GET /admin/ HTTP/1.1" 200 21092
+INFO 2025-02-08 21:20:45,889 basehttp "GET /static/admin/css/base.css HTTP/1.1" 200 22092
+INFO 2025-02-08 21:20:45,926 basehttp "GET /static/admin/css/dark_mode.css HTTP/1.1" 200 2804
+INFO 2025-02-08 21:20:45,937 basehttp "GET /static/admin/js/theme.js HTTP/1.1" 200 1653
+INFO 2025-02-08 21:20:45,944 basehttp "GET /static/admin/css/nav_sidebar.css HTTP/1.1" 200 2810
+INFO 2025-02-08 21:20:45,950 basehttp "GET /static/admin_interface/css/fieldsets.css?v=0cfa230e56a1ce0d7822440cf565e3d9919e973fec6b57753b0df2a7 HTTP/1.1" 200 499
+INFO 2025-02-08 21:20:45,952 basehttp "GET /static/admin_interface/css/change-form.css?v=0cfa230e56a1ce0d7822440cf565e3d9919e973fec6b57753b0df2a7 HTTP/1.1" 200 1125
+INFO 2025-02-08 21:20:45,953 basehttp "GET /static/admin_interface/css/changelist.css?v=0cfa230e56a1ce0d7822440cf565e3d9919e973fec6b57753b0df2a7 HTTP/1.1" 200 1517
+INFO 2025-02-08 21:20:45,953 basehttp "GET /static/admin_interface/css/file-upload.css?v=0cfa230e56a1ce0d7822440cf565e3d9919e973fec6b57753b0df2a7 HTTP/1.1" 200 1169
+INFO 2025-02-08 21:20:45,954 basehttp "GET /static/admin_interface/css/admin-interface.css?v=0cfa230e56a1ce0d7822440cf565e3d9919e973fec6b57753b0df2a7 HTTP/1.1" 200 18580
+INFO 2025-02-08 21:20:45,957 basehttp "GET /static/admin_interface/css/header.css?v=0cfa230e56a1ce0d7822440cf565e3d9919e973fec6b57753b0df2a7 HTTP/1.1" 200 1015
+INFO 2025-02-08 21:20:45,962 basehttp "GET /static/admin_interface/css/inlines.css?v=0cfa230e56a1ce0d7822440cf565e3d9919e973fec6b57753b0df2a7 HTTP/1.1" 200 2715
+INFO 2025-02-08 21:20:45,962 basehttp "GET /static/admin_interface/css/jquery.ui.tabs.css?v=0cfa230e56a1ce0d7822440cf565e3d9919e973fec6b57753b0df2a7 HTTP/1.1" 200 5481
+INFO 2025-02-08 21:20:45,963 basehttp "GET /static/admin_interface/css/language-chooser.css?v=0cfa230e56a1ce0d7822440cf565e3d9919e973fec6b57753b0df2a7 HTTP/1.1" 200 1734
+INFO 2025-02-08 21:20:45,968 basehttp "GET /static/admin_interface/css/list-filter.css?v=0cfa230e56a1ce0d7822440cf565e3d9919e973fec6b57753b0df2a7 HTTP/1.1" 200 1054
+INFO 2025-02-08 21:20:45,969 basehttp "GET /static/admin_interface/css/list-filter-dropdown.css?v=0cfa230e56a1ce0d7822440cf565e3d9919e973fec6b57753b0df2a7 HTTP/1.1" 200 785
+INFO 2025-02-08 21:20:45,998 basehttp "GET /static/admin_interface/css/modules.css?v=0cfa230e56a1ce0d7822440cf565e3d9919e973fec6b57753b0df2a7 HTTP/1.1" 200 404
+INFO 2025-02-08 21:20:45,999 basehttp "GET /static/admin_interface/css/login.css?v=0cfa230e56a1ce0d7822440cf565e3d9919e973fec6b57753b0df2a7 HTTP/1.1" 200 1240
+INFO 2025-02-08 21:20:46,004 basehttp "GET /static/admin_interface/css/nav-sidebar.css?v=0cfa230e56a1ce0d7822440cf565e3d9919e973fec6b57753b0df2a7 HTTP/1.1" 200 2377
+INFO 2025-02-08 21:20:46,010 basehttp "GET /static/admin_interface/css/paginator.css?v=0cfa230e56a1ce0d7822440cf565e3d9919e973fec6b57753b0df2a7 HTTP/1.1" 200 797
+INFO 2025-02-08 21:20:46,022 basehttp "GET /static/admin_interface/css/object-tools.css?v=0cfa230e56a1ce0d7822440cf565e3d9919e973fec6b57753b0df2a7 HTTP/1.1" 200 319
+INFO 2025-02-08 21:20:46,025 basehttp "GET /static/admin_interface/css/tabbed-changeform.css?v=0cfa230e56a1ce0d7822440cf565e3d9919e973fec6b57753b0df2a7 HTTP/1.1" 200 2013
+INFO 2025-02-08 21:20:46,025 basehttp "GET /static/admin_interface/css/rtl.css?v=0cfa230e56a1ce0d7822440cf565e3d9919e973fec6b57753b0df2a7 HTTP/1.1" 200 1016
+INFO 2025-02-08 21:20:46,025 basehttp "GET /static/admin_interface/css/sticky-form-controls.css?v=0cfa230e56a1ce0d7822440cf565e3d9919e973fec6b57753b0df2a7 HTTP/1.1" 200 2437
+INFO 2025-02-08 21:20:46,030 basehttp "GET /static/admin_interface/css/widgets.css?v=0cfa230e56a1ce0d7822440cf565e3d9919e973fec6b57753b0df2a7 HTTP/1.1" 200 5259
+INFO 2025-02-08 21:20:46,030 basehttp "GET /static/admin_interface/css/third-party/ckeditor.css?v=0cfa230e56a1ce0d7822440cf565e3d9919e973fec6b57753b0df2a7 HTTP/1.1" 200 2720
+INFO 2025-02-08 21:20:46,034 basehttp "GET /static/admin_interface/css/third-party/import-export.css?v=0cfa230e56a1ce0d7822440cf565e3d9919e973fec6b57753b0df2a7 HTTP/1.1" 200 189
+INFO 2025-02-08 21:20:46,046 basehttp "GET /static/admin_interface/css/third-party/json-widget.css?v=0cfa230e56a1ce0d7822440cf565e3d9919e973fec6b57753b0df2a7 HTTP/1.1" 200 993
+INFO 2025-02-08 21:20:46,056 basehttp "GET /static/admin_interface/css/third-party/modeltranslation.css?v=0cfa230e56a1ce0d7822440cf565e3d9919e973fec6b57753b0df2a7 HTTP/1.1" 200 356
+INFO 2025-02-08 21:20:46,068 basehttp "GET /static/admin_interface/css/third-party/rangefilter.css?v=0cfa230e56a1ce0d7822440cf565e3d9919e973fec6b57753b0df2a7 HTTP/1.1" 200 1238
+INFO 2025-02-08 21:20:46,072 basehttp "GET /static/admin_interface/css/third-party/sorl-thumbnail.css?v=0cfa230e56a1ce0d7822440cf565e3d9919e973fec6b57753b0df2a7 HTTP/1.1" 200 1451
+INFO 2025-02-08 21:20:46,080 basehttp "GET /static/admin_interface/css/third-party/tinymce.css?v=0cfa230e56a1ce0d7822440cf565e3d9919e973fec6b57753b0df2a7 HTTP/1.1" 200 78
+INFO 2025-02-08 21:20:46,081 basehttp "GET /static/admin_interface/css/third-party/streamfield.css?v=0cfa230e56a1ce0d7822440cf565e3d9919e973fec6b57753b0df2a7 HTTP/1.1" 200 6407
+INFO 2025-02-08 21:20:46,082 basehttp "GET /static/admin/css/dashboard.css HTTP/1.1" 200 441
+INFO 2025-02-08 21:20:46,089 basehttp "GET /static/admin/css/rtl.css HTTP/1.1" 200 4696
+INFO 2025-02-08 21:20:46,093 basehttp "GET /static/admin/css/responsive.css HTTP/1.1" 200 17972
+INFO 2025-02-08 21:20:46,103 basehttp "GET /static/admin/css/responsive_rtl.css HTTP/1.1" 200 2544
+INFO 2025-02-08 21:20:46,106 basehttp "GET /static/admin/css/responsive.css?v=0cfa230e56a1ce0d7822440cf565e3d9919e973fec6b57753b0df2a7 HTTP/1.1" 200 17972
+INFO 2025-02-08 21:20:46,107 basehttp "GET /static/admin/css/responsive_rtl.css?v=0cfa230e56a1ce0d7822440cf565e3d9919e973fec6b57753b0df2a7 HTTP/1.1" 200 2544
+INFO 2025-02-08 21:20:46,125 basehttp "GET /static/admin_interface/foldable-apps/foldable-apps.css?v=0cfa230e56a1ce0d7822440cf565e3d9919e973fec6b57753b0df2a7 HTTP/1.1" 200 1955
+INFO 2025-02-08 21:20:46,127 basehttp "GET /static/admin_interface/magnific-popup/magnific-popup.css?v=0cfa230e56a1ce0d7822440cf565e3d9919e973fec6b57753b0df2a7 HTTP/1.1" 200 6951
+INFO 2025-02-08 21:20:46,130 basehttp "GET /static/admin_interface/related-modal/related-modal.css?v=0cfa230e56a1ce0d7822440cf565e3d9919e973fec6b57753b0df2a7 HTTP/1.1" 200 2888
+INFO 2025-02-08 21:20:46,133 basehttp "GET /static/admin_interface/foldable-apps/foldable-apps.js?v=0cfa230e56a1ce0d7822440cf565e3d9919e973fec6b57753b0df2a7 HTTP/1.1" 200 1750
+INFO 2025-02-08 21:20:46,140 basehttp "GET /static/admin_interface/related-modal/related-modal.js?v=0cfa230e56a1ce0d7822440cf565e3d9919e973fec6b57753b0df2a7 HTTP/1.1" 200 7032
+INFO 2025-02-08 21:20:46,141 basehttp "GET /static/admin_interface/magnific-popup/jquery.magnific-popup.js?v=0cfa230e56a1ce0d7822440cf565e3d9919e973fec6b57753b0df2a7 HTTP/1.1" 200 60830
+INFO 2025-02-08 21:20:46,170 basehttp "GET /static/admin/js/nav_sidebar.js HTTP/1.1" 200 3063
+INFO 2025-02-08 21:20:46,180 basehttp "GET /static/admin/img/icon-addlink.svg HTTP/1.1" 200 331
+INFO 2025-02-08 21:20:46,181 basehttp "GET /static/admin/img/icon-changelink.svg HTTP/1.1" 200 380
+WARNING 2025-02-08 21:20:46,295 log Not Found: /favicon.ico
+WARNING 2025-02-08 21:20:46,296 basehttp "GET /favicon.ico HTTP/1.1" 404 7325
+INFO 2025-02-08 21:20:50,427 basehttp "GET /admin/documents/decree/ HTTP/1.1" 200 51585
+INFO 2025-02-08 21:20:50,530 basehttp "GET /static/admin/img/search.svg HTTP/1.1" 304 0
+INFO 2025-02-08 21:20:50,533 basehttp "GET /admin/jsi18n/ HTTP/1.1" 200 14010
+INFO 2025-02-08 21:20:50,567 basehttp "GET /static/admin/img/sorting-icons.svg HTTP/1.1" 200 1097
+INFO 2025-02-08 21:20:50,569 basehttp "GET /static/admin/img/icon-viewlink.svg HTTP/1.1" 200 581
+INFO 2025-02-08 21:21:13,366 autoreload /workspaces/trademarks/documents/admin.py changed, reloading.
+INFO 2025-02-08 21:21:15,178 autoreload Watching for file changes with StatReloader
+INFO 2025-02-08 21:21:17,514 basehttp "GET /admin/documents/decree/ HTTP/1.1" 200 52282
+INFO 2025-02-08 21:21:17,639 basehttp "GET /static/admin/css/base.css HTTP/1.1" 200 22092
+INFO 2025-02-08 21:21:17,658 basehttp "GET /static/admin/css/dark_mode.css HTTP/1.1" 200 2804
+INFO 2025-02-08 21:21:17,671 basehttp "GET /static/admin_interface/css/fieldsets.css?v=0cfa230e56a1ce0d7822440cf565e3d9919e973fec6b57753b0df2a7 HTTP/1.1" 200 499
+INFO 2025-02-08 21:21:17,671 basehttp "GET /static/admin_interface/css/change-form.css?v=0cfa230e56a1ce0d7822440cf565e3d9919e973fec6b57753b0df2a7 HTTP/1.1" 200 1125
+INFO 2025-02-08 21:21:17,673 basehttp "GET /static/admin_interface/css/file-upload.css?v=0cfa230e56a1ce0d7822440cf565e3d9919e973fec6b57753b0df2a7 HTTP/1.1" 200 1169
+INFO 2025-02-08 21:21:17,673 basehttp "GET /static/admin/css/nav_sidebar.css HTTP/1.1" 200 2810
+INFO 2025-02-08 21:21:17,675 basehttp "GET /static/admin_interface/css/changelist.css?v=0cfa230e56a1ce0d7822440cf565e3d9919e973fec6b57753b0df2a7 HTTP/1.1" 200 1517
+INFO 2025-02-08 21:21:17,676 basehttp "GET /static/admin_interface/css/admin-interface.css?v=0cfa230e56a1ce0d7822440cf565e3d9919e973fec6b57753b0df2a7 HTTP/1.1" 200 18580
+INFO 2025-02-08 21:21:17,686 basehttp "GET /static/admin_interface/css/jquery.ui.tabs.css?v=0cfa230e56a1ce0d7822440cf565e3d9919e973fec6b57753b0df2a7 HTTP/1.1" 200 5481
+INFO 2025-02-08 21:21:17,686 basehttp "GET /static/admin_interface/css/header.css?v=0cfa230e56a1ce0d7822440cf565e3d9919e973fec6b57753b0df2a7 HTTP/1.1" 200 1015
+INFO 2025-02-08 21:21:17,687 basehttp "GET /static/admin_interface/css/inlines.css?v=0cfa230e56a1ce0d7822440cf565e3d9919e973fec6b57753b0df2a7 HTTP/1.1" 200 2715
+INFO 2025-02-08 21:21:17,689 basehttp "GET /static/admin_interface/css/language-chooser.css?v=0cfa230e56a1ce0d7822440cf565e3d9919e973fec6b57753b0df2a7 HTTP/1.1" 200 1734
+INFO 2025-02-08 21:21:17,694 basehttp "GET /static/admin_interface/css/list-filter.css?v=0cfa230e56a1ce0d7822440cf565e3d9919e973fec6b57753b0df2a7 HTTP/1.1" 200 1054
+INFO 2025-02-08 21:21:17,695 basehttp "GET /static/admin_interface/css/list-filter-dropdown.css?v=0cfa230e56a1ce0d7822440cf565e3d9919e973fec6b57753b0df2a7 HTTP/1.1" 200 785
+INFO 2025-02-08 21:21:17,715 basehttp "GET /static/admin_interface/css/login.css?v=0cfa230e56a1ce0d7822440cf565e3d9919e973fec6b57753b0df2a7 HTTP/1.1" 200 1240
+INFO 2025-02-08 21:21:17,719 basehttp "GET /static/admin_interface/css/modules.css?v=0cfa230e56a1ce0d7822440cf565e3d9919e973fec6b57753b0df2a7 HTTP/1.1" 200 404
+INFO 2025-02-08 21:21:17,735 basehttp "GET /static/admin_interface/css/nav-sidebar.css?v=0cfa230e56a1ce0d7822440cf565e3d9919e973fec6b57753b0df2a7 HTTP/1.1" 200 2377
+INFO 2025-02-08 21:21:17,740 basehttp "GET /static/admin_interface/css/paginator.css?v=0cfa230e56a1ce0d7822440cf565e3d9919e973fec6b57753b0df2a7 HTTP/1.1" 200 797
+INFO 2025-02-08 21:21:17,748 basehttp "GET /static/admin_interface/css/object-tools.css?v=0cfa230e56a1ce0d7822440cf565e3d9919e973fec6b57753b0df2a7 HTTP/1.1" 200 319
+INFO 2025-02-08 21:21:17,748 basehttp "GET /static/admin_interface/css/sticky-form-controls.css?v=0cfa230e56a1ce0d7822440cf565e3d9919e973fec6b57753b0df2a7 HTTP/1.1" 200 2437
+INFO 2025-02-08 21:21:17,749 basehttp "GET /static/admin_interface/css/rtl.css?v=0cfa230e56a1ce0d7822440cf565e3d9919e973fec6b57753b0df2a7 HTTP/1.1" 200 1016
+INFO 2025-02-08 21:21:17,755 basehttp "GET /static/admin_interface/css/tabbed-changeform.css?v=0cfa230e56a1ce0d7822440cf565e3d9919e973fec6b57753b0df2a7 HTTP/1.1" 200 2013
+INFO 2025-02-08 21:21:17,756 basehttp "GET /static/admin_interface/css/widgets.css?v=0cfa230e56a1ce0d7822440cf565e3d9919e973fec6b57753b0df2a7 HTTP/1.1" 200 5259
+INFO 2025-02-08 21:21:17,761 basehttp "GET /static/admin_interface/css/third-party/ckeditor.css?v=0cfa230e56a1ce0d7822440cf565e3d9919e973fec6b57753b0df2a7 HTTP/1.1" 200 2720
+INFO 2025-02-08 21:21:17,766 basehttp "GET /static/admin_interface/css/third-party/import-export.css?v=0cfa230e56a1ce0d7822440cf565e3d9919e973fec6b57753b0df2a7 HTTP/1.1" 200 189
+INFO 2025-02-08 21:21:17,766 basehttp "GET /static/admin_interface/css/third-party/json-widget.css?v=0cfa230e56a1ce0d7822440cf565e3d9919e973fec6b57753b0df2a7 HTTP/1.1" 200 993
+INFO 2025-02-08 21:21:17,798 basehttp "GET /static/admin_interface/css/third-party/rangefilter.css?v=0cfa230e56a1ce0d7822440cf565e3d9919e973fec6b57753b0df2a7 HTTP/1.1" 200 1238
+INFO 2025-02-08 21:21:17,799 basehttp "GET /static/admin_interface/css/third-party/modeltranslation.css?v=0cfa230e56a1ce0d7822440cf565e3d9919e973fec6b57753b0df2a7 HTTP/1.1" 200 356
+INFO 2025-02-08 21:21:17,800 basehttp "GET /static/admin_interface/css/third-party/sorl-thumbnail.css?v=0cfa230e56a1ce0d7822440cf565e3d9919e973fec6b57753b0df2a7 HTTP/1.1" 200 1451
+INFO 2025-02-08 21:21:17,805 basehttp "GET /static/admin_interface/css/third-party/streamfield.css?v=0cfa230e56a1ce0d7822440cf565e3d9919e973fec6b57753b0df2a7 HTTP/1.1" 200 6407
+INFO 2025-02-08 21:21:17,807 basehttp "GET /static/admin_interface/css/third-party/tinymce.css?v=0cfa230e56a1ce0d7822440cf565e3d9919e973fec6b57753b0df2a7 HTTP/1.1" 200 78
+INFO 2025-02-08 21:21:17,811 basehttp "GET /static/admin/css/changelists.css HTTP/1.1" 200 6878
+INFO 2025-02-08 21:21:17,823 basehttp "GET /static/admin/css/rtl.css HTTP/1.1" 200 4696
+INFO 2025-02-08 21:21:17,824 basehttp "GET /static/admin/css/responsive.css HTTP/1.1" 200 17972
+INFO 2025-02-08 21:21:17,824 basehttp "GET /static/admin/css/responsive_rtl.css HTTP/1.1" 200 2544
+INFO 2025-02-08 21:21:17,826 basehttp "GET /static/admin/css/responsive.css?v=0cfa230e56a1ce0d7822440cf565e3d9919e973fec6b57753b0df2a7 HTTP/1.1" 200 17972
+INFO 2025-02-08 21:21:17,832 basehttp "GET /static/admin_interface/foldable-apps/foldable-apps.css?v=0cfa230e56a1ce0d7822440cf565e3d9919e973fec6b57753b0df2a7 HTTP/1.1" 200 1955
+INFO 2025-02-08 21:21:17,833 basehttp "GET /static/admin/css/responsive_rtl.css?v=0cfa230e56a1ce0d7822440cf565e3d9919e973fec6b57753b0df2a7 HTTP/1.1" 200 2544
+INFO 2025-02-08 21:21:17,835 basehttp "GET /static/admin_interface/magnific-popup/magnific-popup.css?v=0cfa230e56a1ce0d7822440cf565e3d9919e973fec6b57753b0df2a7 HTTP/1.1" 200 6951
+INFO 2025-02-08 21:21:17,843 basehttp "GET /static/admin_interface/related-modal/related-modal.css?v=0cfa230e56a1ce0d7822440cf565e3d9919e973fec6b57753b0df2a7 HTTP/1.1" 200 2888
+INFO 2025-02-08 21:21:17,845 basehttp "GET /static/admin/js/theme.js HTTP/1.1" 200 1653
+INFO 2025-02-08 21:21:17,851 basehttp "GET /static/admin/js/jquery.init.js HTTP/1.1" 200 347
+INFO 2025-02-08 21:21:17,854 basehttp "GET /static/admin/js/core.js HTTP/1.1" 200 6208
+INFO 2025-02-08 21:21:17,856 basehttp "GET /static/admin/js/vendor/jquery/jquery.js HTTP/1.1" 200 285314
+INFO 2025-02-08 21:21:17,864 basehttp "GET /static/admin/js/admin/RelatedObjectLookups.js HTTP/1.1" 200 9097
+INFO 2025-02-08 21:21:17,872 basehttp "GET /static/admin/js/urlify.js HTTP/1.1" 200 7887
+INFO 2025-02-08 21:21:17,876 basehttp "GET /static/admin/js/actions.js HTTP/1.1" 200 8076
+INFO 2025-02-08 21:21:17,883 basehttp "GET /static/admin_interface/foldable-apps/foldable-apps.js?v=0cfa230e56a1ce0d7822440cf565e3d9919e973fec6b57753b0df2a7 HTTP/1.1" 200 1750
+INFO 2025-02-08 21:21:17,888 basehttp "GET /static/admin/js/prepopulate.js HTTP/1.1" 200 1531
+INFO 2025-02-08 21:21:17,894 basehttp "GET /static/admin_interface/magnific-popup/jquery.magnific-popup.js?v=0cfa230e56a1ce0d7822440cf565e3d9919e973fec6b57753b0df2a7 HTTP/1.1" 200 60830
+INFO 2025-02-08 21:21:17,898 basehttp "GET /static/admin_interface/related-modal/related-modal.js?v=0cfa230e56a1ce0d7822440cf565e3d9919e973fec6b57753b0df2a7 HTTP/1.1" 200 7032
+INFO 2025-02-08 21:21:17,903 basehttp "GET /admin/jsi18n/ HTTP/1.1" 200 14010
+INFO 2025-02-08 21:21:17,904 basehttp "GET /static/admin/img/search.svg HTTP/1.1" 200 458
+INFO 2025-02-08 21:21:17,907 basehttp "GET /static/admin/js/vendor/xregexp/xregexp.js HTTP/1.1" 200 325171
+INFO 2025-02-08 21:21:17,922 basehttp "GET /static/admin/js/nav_sidebar.js HTTP/1.1" 200 3063
+INFO 2025-02-08 21:21:17,931 basehttp "GET /static/admin/js/filters.js HTTP/1.1" 200 978
+INFO 2025-02-08 21:21:17,941 basehttp "GET /static/admin/img/icon-addlink.svg HTTP/1.1" 200 331
+INFO 2025-02-08 21:21:17,945 basehttp "GET /static/admin/img/sorting-icons.svg HTTP/1.1" 200 1097
+INFO 2025-02-08 21:21:17,945 basehttp "GET /static/admin/img/tooltag-add.svg HTTP/1.1" 200 331
+INFO 2025-02-08 21:21:17,946 basehttp "GET /static/admin/img/icon-viewlink.svg HTTP/1.1" 200 581
+WARNING 2025-02-08 21:21:18,061 log Not Found: /favicon.ico
+WARNING 2025-02-08 21:21:18,062 basehttp "GET /favicon.ico HTTP/1.1" 404 7325
+INFO 2025-02-08 21:21:20,845 basehttp "GET /admin/documents/decree/?o=3.1.4.5.2 HTTP/1.1" 200 56235
+INFO 2025-02-08 21:21:20,897 basehttp "GET /admin/jsi18n/ HTTP/1.1" 200 14010
+INFO 2025-02-08 21:21:21,911 basehttp "GET /admin/documents/decree/?o=-3.1.4.5.2 HTTP/1.1" 200 56467
+INFO 2025-02-08 21:21:21,970 basehttp "GET /admin/jsi18n/ HTTP/1.1" 200 14010
+INFO 2025-02-08 21:24:20,431 autoreload /workspaces/trademarks/documents/admin.py changed, reloading.
+INFO 2025-02-08 21:24:21,972 autoreload Watching for file changes with StatReloader
+INFO 2025-02-08 21:26:45,528 autoreload /workspaces/trademarks/documents/admin.py changed, reloading.
+INFO 2025-02-08 21:26:47,194 autoreload Watching for file changes with StatReloader
+INFO 2025-02-08 21:26:49,949 basehttp "GET /admin/documents/decree/?o=-3.1.4.5.2 HTTP/1.1" 200 56930
+INFO 2025-02-08 21:26:50,054 basehttp "GET /static/admin_interface/css/admin-interface.css?v=0cfa230e56a1ce0d7822440cf565e3d9919e973fec6b57753b0df2a7 HTTP/1.1" 304 0
+INFO 2025-02-08 21:26:50,055 basehttp "GET /static/admin_interface/css/changelist.css?v=0cfa230e56a1ce0d7822440cf565e3d9919e973fec6b57753b0df2a7 HTTP/1.1" 304 0
+INFO 2025-02-08 21:26:50,056 basehttp "GET /static/admin_interface/css/header.css?v=0cfa230e56a1ce0d7822440cf565e3d9919e973fec6b57753b0df2a7 HTTP/1.1" 304 0
+INFO 2025-02-08 21:26:50,057 basehttp "GET /static/admin_interface/css/change-form.css?v=0cfa230e56a1ce0d7822440cf565e3d9919e973fec6b57753b0df2a7 HTTP/1.1" 304 0
+INFO 2025-02-08 21:26:50,058 basehttp "GET /static/admin_interface/css/fieldsets.css?v=0cfa230e56a1ce0d7822440cf565e3d9919e973fec6b57753b0df2a7 HTTP/1.1" 304 0
+INFO 2025-02-08 21:26:50,058 basehttp "GET /static/admin_interface/css/file-upload.css?v=0cfa230e56a1ce0d7822440cf565e3d9919e973fec6b57753b0df2a7 HTTP/1.1" 304 0
+INFO 2025-02-08 21:26:50,064 basehttp "GET /static/admin_interface/css/inlines.css?v=0cfa230e56a1ce0d7822440cf565e3d9919e973fec6b57753b0df2a7 HTTP/1.1" 304 0
+INFO 2025-02-08 21:26:50,064 basehttp "GET /static/admin_interface/css/language-chooser.css?v=0cfa230e56a1ce0d7822440cf565e3d9919e973fec6b57753b0df2a7 HTTP/1.1" 304 0
+INFO 2025-02-08 21:26:50,066 basehttp "GET /static/admin_interface/css/jquery.ui.tabs.css?v=0cfa230e56a1ce0d7822440cf565e3d9919e973fec6b57753b0df2a7 HTTP/1.1" 304 0
+INFO 2025-02-08 21:26:50,070 basehttp "GET /static/admin_interface/css/list-filter.css?v=0cfa230e56a1ce0d7822440cf565e3d9919e973fec6b57753b0df2a7 HTTP/1.1" 304 0
+INFO 2025-02-08 21:26:50,071 basehttp "GET /static/admin_interface/css/list-filter-dropdown.css?v=0cfa230e56a1ce0d7822440cf565e3d9919e973fec6b57753b0df2a7 HTTP/1.1" 304 0
+INFO 2025-02-08 21:26:50,073 basehttp "GET /static/admin_interface/css/login.css?v=0cfa230e56a1ce0d7822440cf565e3d9919e973fec6b57753b0df2a7 HTTP/1.1" 304 0
+INFO 2025-02-08 21:26:50,121 basehttp "GET /static/admin_interface/css/paginator.css?v=0cfa230e56a1ce0d7822440cf565e3d9919e973fec6b57753b0df2a7 HTTP/1.1" 304 0
+INFO 2025-02-08 21:26:50,122 basehttp "GET /static/admin_interface/css/modules.css?v=0cfa230e56a1ce0d7822440cf565e3d9919e973fec6b57753b0df2a7 HTTP/1.1" 304 0
+INFO 2025-02-08 21:26:50,124 basehttp "GET /static/admin_interface/css/rtl.css?v=0cfa230e56a1ce0d7822440cf565e3d9919e973fec6b57753b0df2a7 HTTP/1.1" 304 0
+INFO 2025-02-08 21:26:50,124 basehttp "GET /static/admin_interface/css/nav-sidebar.css?v=0cfa230e56a1ce0d7822440cf565e3d9919e973fec6b57753b0df2a7 HTTP/1.1" 304 0
+INFO 2025-02-08 21:26:50,125 basehttp "GET /static/admin_interface/css/object-tools.css?v=0cfa230e56a1ce0d7822440cf565e3d9919e973fec6b57753b0df2a7 HTTP/1.1" 304 0
+INFO 2025-02-08 21:26:50,129 basehttp "GET /static/admin_interface/css/sticky-form-controls.css?v=0cfa230e56a1ce0d7822440cf565e3d9919e973fec6b57753b0df2a7 HTTP/1.1" 304 0
+INFO 2025-02-08 21:26:50,169 basehttp "GET /static/admin_interface/css/widgets.css?v=0cfa230e56a1ce0d7822440cf565e3d9919e973fec6b57753b0df2a7 HTTP/1.1" 304 0
+INFO 2025-02-08 21:26:50,171 basehttp "GET /static/admin_interface/css/third-party/ckeditor.css?v=0cfa230e56a1ce0d7822440cf565e3d9919e973fec6b57753b0df2a7 HTTP/1.1" 304 0
+INFO 2025-02-08 21:26:50,171 basehttp "GET /static/admin_interface/css/tabbed-changeform.css?v=0cfa230e56a1ce0d7822440cf565e3d9919e973fec6b57753b0df2a7 HTTP/1.1" 304 0
+INFO 2025-02-08 21:26:50,179 basehttp "GET /static/admin_interface/css/third-party/import-export.css?v=0cfa230e56a1ce0d7822440cf565e3d9919e973fec6b57753b0df2a7 HTTP/1.1" 304 0
+INFO 2025-02-08 21:26:50,180 basehttp "GET /static/admin_interface/css/third-party/json-widget.css?v=0cfa230e56a1ce0d7822440cf565e3d9919e973fec6b57753b0df2a7 HTTP/1.1" 304 0
+INFO 2025-02-08 21:26:50,187 basehttp "GET /static/admin_interface/css/third-party/modeltranslation.css?v=0cfa230e56a1ce0d7822440cf565e3d9919e973fec6b57753b0df2a7 HTTP/1.1" 304 0
+INFO 2025-02-08 21:26:50,237 basehttp "GET /static/admin_interface/css/third-party/rangefilter.css?v=0cfa230e56a1ce0d7822440cf565e3d9919e973fec6b57753b0df2a7 HTTP/1.1" 304 0
+INFO 2025-02-08 21:26:50,238 basehttp "GET /static/admin_interface/css/third-party/streamfield.css?v=0cfa230e56a1ce0d7822440cf565e3d9919e973fec6b57753b0df2a7 HTTP/1.1" 304 0
+INFO 2025-02-08 21:26:50,239 basehttp "GET /static/admin_interface/css/third-party/tinymce.css?v=0cfa230e56a1ce0d7822440cf565e3d9919e973fec6b57753b0df2a7 HTTP/1.1" 304 0
+INFO 2025-02-08 21:26:50,240 basehttp "GET /static/admin_interface/foldable-apps/foldable-apps.css?v=0cfa230e56a1ce0d7822440cf565e3d9919e973fec6b57753b0df2a7 HTTP/1.1" 304 0
+INFO 2025-02-08 21:26:50,241 basehttp "GET /static/admin_interface/css/third-party/sorl-thumbnail.css?v=0cfa230e56a1ce0d7822440cf565e3d9919e973fec6b57753b0df2a7 HTTP/1.1" 304 0
+INFO 2025-02-08 21:26:50,249 basehttp "GET /static/admin_interface/magnific-popup/magnific-popup.css?v=0cfa230e56a1ce0d7822440cf565e3d9919e973fec6b57753b0df2a7 HTTP/1.1" 304 0
+INFO 2025-02-08 21:26:50,304 basehttp "GET /static/admin_interface/related-modal/related-modal.css?v=0cfa230e56a1ce0d7822440cf565e3d9919e973fec6b57753b0df2a7 HTTP/1.1" 304 0
+INFO 2025-02-08 21:26:50,304 basehttp "GET /static/admin_interface/foldable-apps/foldable-apps.js?v=0cfa230e56a1ce0d7822440cf565e3d9919e973fec6b57753b0df2a7 HTTP/1.1" 304 0
+INFO 2025-02-08 21:26:50,306 basehttp "GET /static/admin_interface/magnific-popup/jquery.magnific-popup.js?v=0cfa230e56a1ce0d7822440cf565e3d9919e973fec6b57753b0df2a7 HTTP/1.1" 304 0
+INFO 2025-02-08 21:26:50,308 basehttp "GET /static/admin_interface/related-modal/related-modal.js?v=0cfa230e56a1ce0d7822440cf565e3d9919e973fec6b57753b0df2a7 HTTP/1.1" 304 0
+INFO 2025-02-08 21:26:50,326 basehttp "GET /admin/jsi18n/ HTTP/1.1" 200 14010
+INFO 2025-02-08 21:26:51,975 basehttp "GET /admin/documents/publication/ HTTP/1.1" 200 57200
+INFO 2025-02-08 21:26:52,040 basehttp "GET /admin/jsi18n/ HTTP/1.1" 200 14010
+INFO 2025-02-08 21:27:16,673 basehttp "POST /admin/documents/publication/ HTTP/1.1" 200 23137
+INFO 2025-02-08 21:27:16,730 basehttp "GET /static/admin/js/cancel.js HTTP/1.1" 200 729
+INFO 2025-02-08 21:27:17,721 basehttp "POST /admin/documents/publication/ HTTP/1.1" 302 0
+INFO 2025-02-08 21:27:17,796 basehttp "GET /admin/documents/publication/ HTTP/1.1" 200 54426
+INFO 2025-02-08 21:27:17,876 basehttp "GET /admin/jsi18n/ HTTP/1.1" 200 14010
+INFO 2025-02-08 21:27:17,905 basehttp "GET /static/admin/img/icon-yes.svg HTTP/1.1" 200 436
+INFO 2025-02-08 21:28:06,108 autoreload /workspaces/trademarks/documents/admin.py changed, reloading.
+INFO 2025-02-08 21:28:07,820 autoreload Watching for file changes with StatReloader
+INFO 2025-02-08 21:28:11,203 basehttp "GET /admin/documents/publication/ HTTP/1.1" 200 55164
+INFO 2025-02-08 21:28:11,306 basehttp "GET /static/admin/css/base.css HTTP/1.1" 200 22092
+INFO 2025-02-08 21:28:11,352 basehttp "GET /static/admin/css/dark_mode.css HTTP/1.1" 200 2804
+INFO 2025-02-08 21:28:11,352 basehttp "GET /static/admin/js/theme.js HTTP/1.1" 200 1653
+INFO 2025-02-08 21:28:11,353 basehttp "GET /static/admin/css/nav_sidebar.css HTTP/1.1" 200 2810
+INFO 2025-02-08 21:28:11,361 basehttp "GET /static/admin_interface/css/admin-interface.css?v=0cfa230e56a1ce0d7822440cf565e3d9919e973fec6b57753b0df2a7 HTTP/1.1" 200 18580
+INFO 2025-02-08 21:28:11,362 basehttp "GET /static/admin_interface/css/changelist.css?v=0cfa230e56a1ce0d7822440cf565e3d9919e973fec6b57753b0df2a7 HTTP/1.1" 200 1517
+INFO 2025-02-08 21:28:11,364 basehttp "GET /static/admin_interface/css/change-form.css?v=0cfa230e56a1ce0d7822440cf565e3d9919e973fec6b57753b0df2a7 HTTP/1.1" 200 1125
+INFO 2025-02-08 21:28:11,373 basehttp "GET /static/admin_interface/css/fieldsets.css?v=0cfa230e56a1ce0d7822440cf565e3d9919e973fec6b57753b0df2a7 HTTP/1.1" 200 499
+INFO 2025-02-08 21:28:11,373 basehttp "GET /static/admin_interface/css/file-upload.css?v=0cfa230e56a1ce0d7822440cf565e3d9919e973fec6b57753b0df2a7 HTTP/1.1" 200 1169
+INFO 2025-02-08 21:28:11,378 basehttp "GET /static/admin_interface/css/header.css?v=0cfa230e56a1ce0d7822440cf565e3d9919e973fec6b57753b0df2a7 HTTP/1.1" 200 1015
+INFO 2025-02-08 21:28:11,383 basehttp "GET /static/admin_interface/css/language-chooser.css?v=0cfa230e56a1ce0d7822440cf565e3d9919e973fec6b57753b0df2a7 HTTP/1.1" 200 1734
+INFO 2025-02-08 21:28:11,384 basehttp "GET /static/admin_interface/css/inlines.css?v=0cfa230e56a1ce0d7822440cf565e3d9919e973fec6b57753b0df2a7 HTTP/1.1" 200 2715
+INFO 2025-02-08 21:28:11,384 basehttp "GET /static/admin_interface/css/jquery.ui.tabs.css?v=0cfa230e56a1ce0d7822440cf565e3d9919e973fec6b57753b0df2a7 HTTP/1.1" 200 5481
+INFO 2025-02-08 21:28:11,395 basehttp "GET /static/admin_interface/css/list-filter-dropdown.css?v=0cfa230e56a1ce0d7822440cf565e3d9919e973fec6b57753b0df2a7 HTTP/1.1" 200 785
+INFO 2025-02-08 21:28:11,397 basehttp "GET /static/admin_interface/css/list-filter.css?v=0cfa230e56a1ce0d7822440cf565e3d9919e973fec6b57753b0df2a7 HTTP/1.1" 200 1054
+INFO 2025-02-08 21:28:11,428 basehttp "GET /static/admin_interface/css/login.css?v=0cfa230e56a1ce0d7822440cf565e3d9919e973fec6b57753b0df2a7 HTTP/1.1" 200 1240
+INFO 2025-02-08 21:28:11,450 basehttp "GET /static/admin_interface/css/nav-sidebar.css?v=0cfa230e56a1ce0d7822440cf565e3d9919e973fec6b57753b0df2a7 HTTP/1.1" 200 2377
+INFO 2025-02-08 21:28:11,464 basehttp "GET /static/admin_interface/css/paginator.css?v=0cfa230e56a1ce0d7822440cf565e3d9919e973fec6b57753b0df2a7 HTTP/1.1" 200 797
+INFO 2025-02-08 21:28:11,470 basehttp "GET /static/admin_interface/css/tabbed-changeform.css?v=0cfa230e56a1ce0d7822440cf565e3d9919e973fec6b57753b0df2a7 HTTP/1.1" 200 2013
+INFO 2025-02-08 21:28:11,471 basehttp "GET /static/admin_interface/css/sticky-form-controls.css?v=0cfa230e56a1ce0d7822440cf565e3d9919e973fec6b57753b0df2a7 HTTP/1.1" 200 2437
+INFO 2025-02-08 21:28:11,472 basehttp "GET /static/admin_interface/css/object-tools.css?v=0cfa230e56a1ce0d7822440cf565e3d9919e973fec6b57753b0df2a7 HTTP/1.1" 200 319
+INFO 2025-02-08 21:28:11,473 basehttp "GET /static/admin_interface/css/modules.css?v=0cfa230e56a1ce0d7822440cf565e3d9919e973fec6b57753b0df2a7 HTTP/1.1" 200 404
+INFO 2025-02-08 21:28:11,474 basehttp "GET /static/admin_interface/css/rtl.css?v=0cfa230e56a1ce0d7822440cf565e3d9919e973fec6b57753b0df2a7 HTTP/1.1" 200 1016
+INFO 2025-02-08 21:28:11,495 basehttp "GET /static/admin_interface/css/third-party/ckeditor.css?v=0cfa230e56a1ce0d7822440cf565e3d9919e973fec6b57753b0df2a7 HTTP/1.1" 200 2720
+INFO 2025-02-08 21:28:11,496 basehttp "GET /static/admin_interface/css/widgets.css?v=0cfa230e56a1ce0d7822440cf565e3d9919e973fec6b57753b0df2a7 HTTP/1.1" 200 5259
+INFO 2025-02-08 21:28:11,507 basehttp "GET /static/admin_interface/css/third-party/import-export.css?v=0cfa230e56a1ce0d7822440cf565e3d9919e973fec6b57753b0df2a7 HTTP/1.1" 200 189
+INFO 2025-02-08 21:28:11,517 basehttp "GET /static/admin_interface/css/third-party/json-widget.css?v=0cfa230e56a1ce0d7822440cf565e3d9919e973fec6b57753b0df2a7 HTTP/1.1" 200 993
+INFO 2025-02-08 21:28:11,533 basehttp "GET /static/admin_interface/css/third-party/rangefilter.css?v=0cfa230e56a1ce0d7822440cf565e3d9919e973fec6b57753b0df2a7 HTTP/1.1" 200 1238
+INFO 2025-02-08 21:28:11,533 basehttp "GET /static/admin_interface/css/third-party/modeltranslation.css?v=0cfa230e56a1ce0d7822440cf565e3d9919e973fec6b57753b0df2a7 HTTP/1.1" 200 356
+INFO 2025-02-08 21:28:11,534 basehttp "GET /static/admin_interface/css/third-party/sorl-thumbnail.css?v=0cfa230e56a1ce0d7822440cf565e3d9919e973fec6b57753b0df2a7 HTTP/1.1" 200 1451
+INFO 2025-02-08 21:28:11,543 basehttp "GET /static/admin_interface/css/third-party/streamfield.css?v=0cfa230e56a1ce0d7822440cf565e3d9919e973fec6b57753b0df2a7 HTTP/1.1" 200 6407
+INFO 2025-02-08 21:28:11,545 basehttp "GET /static/admin_interface/css/third-party/tinymce.css?v=0cfa230e56a1ce0d7822440cf565e3d9919e973fec6b57753b0df2a7 HTTP/1.1" 200 78
+INFO 2025-02-08 21:28:11,549 basehttp "GET /static/admin/css/changelists.css HTTP/1.1" 200 6878
+INFO 2025-02-08 21:28:11,553 basehttp "GET /static/admin/css/rtl.css HTTP/1.1" 200 4696
+INFO 2025-02-08 21:28:11,558 basehttp "GET /static/admin/css/responsive.css HTTP/1.1" 200 17972
+INFO 2025-02-08 21:28:11,562 basehttp "GET /static/admin/css/responsive_rtl.css HTTP/1.1" 200 2544
+INFO 2025-02-08 21:28:11,567 basehttp "GET /static/admin/css/responsive.css?v=0cfa230e56a1ce0d7822440cf565e3d9919e973fec6b57753b0df2a7 HTTP/1.1" 200 17972
+INFO 2025-02-08 21:28:11,570 basehttp "GET /static/admin_interface/foldable-apps/foldable-apps.css?v=0cfa230e56a1ce0d7822440cf565e3d9919e973fec6b57753b0df2a7 HTTP/1.1" 200 1955
+INFO 2025-02-08 21:28:11,574 basehttp "GET /static/admin/css/responsive_rtl.css?v=0cfa230e56a1ce0d7822440cf565e3d9919e973fec6b57753b0df2a7 HTTP/1.1" 200 2544
+INFO 2025-02-08 21:28:11,575 basehttp "GET /static/admin_interface/magnific-popup/magnific-popup.css?v=0cfa230e56a1ce0d7822440cf565e3d9919e973fec6b57753b0df2a7 HTTP/1.1" 200 6951
+INFO 2025-02-08 21:28:11,587 basehttp "GET /static/admin_interface/related-modal/related-modal.css?v=0cfa230e56a1ce0d7822440cf565e3d9919e973fec6b57753b0df2a7 HTTP/1.1" 200 2888
+INFO 2025-02-08 21:28:11,597 basehttp "GET /static/admin/js/jquery.init.js HTTP/1.1" 200 347
+INFO 2025-02-08 21:28:11,602 basehttp "GET /static/admin/js/core.js HTTP/1.1" 200 6208
+INFO 2025-02-08 21:28:11,603 basehttp "GET /static/admin/js/vendor/jquery/jquery.js HTTP/1.1" 200 285314
+INFO 2025-02-08 21:28:11,609 basehttp "GET /static/admin/js/admin/RelatedObjectLookups.js HTTP/1.1" 200 9097
+INFO 2025-02-08 21:28:11,626 basehttp "GET /static/admin/js/actions.js HTTP/1.1" 200 8076
+INFO 2025-02-08 21:28:11,635 basehttp "GET /static/admin/js/urlify.js HTTP/1.1" 200 7887
+INFO 2025-02-08 21:28:11,636 basehttp "GET /static/admin/js/prepopulate.js HTTP/1.1" 200 1531
+INFO 2025-02-08 21:28:11,639 basehttp "GET /static/admin/js/vendor/xregexp/xregexp.js HTTP/1.1" 200 325171
+INFO 2025-02-08 21:28:11,646 basehttp "GET /static/admin_interface/foldable-apps/foldable-apps.js?v=0cfa230e56a1ce0d7822440cf565e3d9919e973fec6b57753b0df2a7 HTTP/1.1" 200 1750
+INFO 2025-02-08 21:28:11,657 basehttp "GET /static/admin_interface/magnific-popup/jquery.magnific-popup.js?v=0cfa230e56a1ce0d7822440cf565e3d9919e973fec6b57753b0df2a7 HTTP/1.1" 200 60830
+INFO 2025-02-08 21:28:11,658 basehttp "GET /static/admin_interface/related-modal/related-modal.js?v=0cfa230e56a1ce0d7822440cf565e3d9919e973fec6b57753b0df2a7 HTTP/1.1" 200 7032
+INFO 2025-02-08 21:28:11,663 basehttp "GET /admin/jsi18n/ HTTP/1.1" 200 14010
+INFO 2025-02-08 21:28:11,679 basehttp "GET /static/admin/img/search.svg HTTP/1.1" 200 458
+INFO 2025-02-08 21:28:11,686 basehttp "GET /static/admin/js/nav_sidebar.js HTTP/1.1" 200 3063
+INFO 2025-02-08 21:28:11,710 basehttp "GET /static/admin/js/filters.js HTTP/1.1" 200 978
+INFO 2025-02-08 21:28:11,721 basehttp "GET /static/admin/img/icon-addlink.svg HTTP/1.1" 200 331
+INFO 2025-02-08 21:28:11,723 basehttp "GET /static/admin/img/tooltag-add.svg HTTP/1.1" 200 331
+INFO 2025-02-08 21:28:11,729 basehttp "GET /static/admin/img/sorting-icons.svg HTTP/1.1" 200 1097
+INFO 2025-02-08 21:28:11,732 basehttp "GET /static/admin/img/icon-viewlink.svg HTTP/1.1" 200 581
+WARNING 2025-02-08 21:28:11,880 log Not Found: /favicon.ico
+WARNING 2025-02-08 21:28:11,882 basehttp "GET /favicon.ico HTTP/1.1" 404 7325
+INFO 2025-02-08 21:28:19,330 basehttp "GET /admin/documents/decree/ HTTP/1.1" 200 54476
+INFO 2025-02-08 21:28:19,405 basehttp "GET /admin/jsi18n/ HTTP/1.1" 200 14010
+INFO 2025-02-08 21:28:26,558 basehttp "GET /admin/documents/publication/ HTTP/1.1" 200 55164
+INFO 2025-02-08 21:28:26,632 basehttp "GET /admin/jsi18n/ HTTP/1.1" 200 14010
+INFO 2025-02-08 21:29:12,144 basehttp "GET /admin/documents/publication/?o=6.1.2.7.8.4.13 HTTP/1.1" 200 60141
+INFO 2025-02-08 21:29:12,211 basehttp "GET /admin/jsi18n/ HTTP/1.1" 200 14010
+INFO 2025-02-08 21:29:18,974 basehttp "GET /admin/documents/publication/?o=-6.1.2.7.8.4.13 HTTP/1.1" 200 60376
+INFO 2025-02-08 21:29:19,038 basehttp "GET /admin/jsi18n/ HTTP/1.1" 200 14010
+INFO 2025-02-08 21:29:33,577 basehttp "GET /admin/admin_interface/theme/ HTTP/1.1" 200 24711
+INFO 2025-02-08 21:29:33,618 basehttp "GET /static/admin/css/forms.css HTTP/1.1" 304 0
+INFO 2025-02-08 21:29:33,634 basehttp "GET /static/admin/css/widgets.css HTTP/1.1" 304 0
+INFO 2025-02-08 21:29:33,641 basehttp "GET /admin/jsi18n/ HTTP/1.1" 200 14010
+INFO 2025-02-08 21:29:35,711 basehttp "GET /admin/admin_interface/theme/1/change/ HTTP/1.1" 200 72957
+INFO 2025-02-08 21:29:35,773 basehttp "GET /static/colorfield/colorfield.js HTTP/1.1" 304 0
+INFO 2025-02-08 21:29:35,773 basehttp "GET /static/colorfield/jscolor/jscolor.js HTTP/1.1" 304 0
+INFO 2025-02-08 21:29:35,774 basehttp "GET /static/admin/js/prepopulate_init.js HTTP/1.1" 304 0
+INFO 2025-02-08 21:29:35,786 basehttp "GET /admin/jsi18n/ HTTP/1.1" 200 14010
+INFO 2025-02-08 21:29:35,787 basehttp "GET /static/admin/js/change_form.js HTTP/1.1" 304 0
+INFO 2025-02-08 21:31:08,474 basehttp "POST /admin/admin_interface/theme/1/change/ HTTP/1.1" 302 0
+INFO 2025-02-08 21:31:08,537 basehttp "GET /admin/admin_interface/theme/ HTTP/1.1" 200 24915
+INFO 2025-02-08 21:31:08,630 basehttp "GET /static/admin_interface/css/admin-interface.css?v=0cfa230e56a1ce0d7822440cf565e3d9919e973fec6b57753b0df2a7 HTTP/1.1" 304 0
+INFO 2025-02-08 21:31:08,665 basehttp "GET /static/admin_interface/css/change-form.css?v=0cfa230e56a1ce0d7822440cf565e3d9919e973fec6b57753b0df2a7 HTTP/1.1" 304 0
+INFO 2025-02-08 21:31:08,666 basehttp "GET /static/admin_interface/css/changelist.css?v=0cfa230e56a1ce0d7822440cf565e3d9919e973fec6b57753b0df2a7 HTTP/1.1" 304 0
+INFO 2025-02-08 21:31:08,670 basehttp "GET /static/admin_interface/css/fieldsets.css?v=0cfa230e56a1ce0d7822440cf565e3d9919e973fec6b57753b0df2a7 HTTP/1.1" 304 0
+INFO 2025-02-08 21:31:08,671 basehttp "GET /static/admin_interface/css/file-upload.css?v=0cfa230e56a1ce0d7822440cf565e3d9919e973fec6b57753b0df2a7 HTTP/1.1" 304 0
+INFO 2025-02-08 21:31:08,671 basehttp "GET /static/admin_interface/css/header.css?v=0cfa230e56a1ce0d7822440cf565e3d9919e973fec6b57753b0df2a7 HTTP/1.1" 304 0
+INFO 2025-02-08 21:31:08,683 basehttp "GET /static/admin_interface/css/language-chooser.css?v=0cfa230e56a1ce0d7822440cf565e3d9919e973fec6b57753b0df2a7 HTTP/1.1" 304 0
+INFO 2025-02-08 21:31:08,686 basehttp "GET /static/admin_interface/css/inlines.css?v=0cfa230e56a1ce0d7822440cf565e3d9919e973fec6b57753b0df2a7 HTTP/1.1" 304 0
+INFO 2025-02-08 21:31:08,687 basehttp "GET /static/admin_interface/css/list-filter.css?v=0cfa230e56a1ce0d7822440cf565e3d9919e973fec6b57753b0df2a7 HTTP/1.1" 304 0
+INFO 2025-02-08 21:31:08,687 basehttp "GET /static/admin_interface/css/jquery.ui.tabs.css?v=0cfa230e56a1ce0d7822440cf565e3d9919e973fec6b57753b0df2a7 HTTP/1.1" 304 0
+INFO 2025-02-08 21:31:08,688 basehttp "GET /static/admin_interface/css/list-filter-dropdown.css?v=0cfa230e56a1ce0d7822440cf565e3d9919e973fec6b57753b0df2a7 HTTP/1.1" 304 0
+INFO 2025-02-08 21:31:08,689 basehttp "GET /static/admin_interface/css/login.css?v=0cfa230e56a1ce0d7822440cf565e3d9919e973fec6b57753b0df2a7 HTTP/1.1" 304 0
+INFO 2025-02-08 21:31:08,730 basehttp "GET /static/admin_interface/css/modules.css?v=0cfa230e56a1ce0d7822440cf565e3d9919e973fec6b57753b0df2a7 HTTP/1.1" 304 0
+INFO 2025-02-08 21:31:08,730 basehttp "GET /static/admin_interface/css/nav-sidebar.css?v=0cfa230e56a1ce0d7822440cf565e3d9919e973fec6b57753b0df2a7 HTTP/1.1" 304 0
+INFO 2025-02-08 21:31:08,743 basehttp "GET /static/admin_interface/css/sticky-form-controls.css?v=0cfa230e56a1ce0d7822440cf565e3d9919e973fec6b57753b0df2a7 HTTP/1.1" 304 0
+INFO 2025-02-08 21:31:08,743 basehttp "GET /static/admin_interface/css/rtl.css?v=0cfa230e56a1ce0d7822440cf565e3d9919e973fec6b57753b0df2a7 HTTP/1.1" 304 0
+INFO 2025-02-08 21:31:08,745 basehttp "GET /static/admin_interface/css/object-tools.css?v=0cfa230e56a1ce0d7822440cf565e3d9919e973fec6b57753b0df2a7 HTTP/1.1" 304 0
+INFO 2025-02-08 21:31:08,745 basehttp "GET /static/admin_interface/css/paginator.css?v=0cfa230e56a1ce0d7822440cf565e3d9919e973fec6b57753b0df2a7 HTTP/1.1" 304 0
+INFO 2025-02-08 21:31:08,797 basehttp "GET /static/admin_interface/css/widgets.css?v=0cfa230e56a1ce0d7822440cf565e3d9919e973fec6b57753b0df2a7 HTTP/1.1" 304 0
+INFO 2025-02-08 21:31:08,798 basehttp "GET /static/admin_interface/css/third-party/ckeditor.css?v=0cfa230e56a1ce0d7822440cf565e3d9919e973fec6b57753b0df2a7 HTTP/1.1" 304 0
+INFO 2025-02-08 21:31:08,800 basehttp "GET /static/admin_interface/css/third-party/import-export.css?v=0cfa230e56a1ce0d7822440cf565e3d9919e973fec6b57753b0df2a7 HTTP/1.1" 304 0
+INFO 2025-02-08 21:31:08,801 basehttp "GET /static/admin_interface/css/third-party/json-widget.css?v=0cfa230e56a1ce0d7822440cf565e3d9919e973fec6b57753b0df2a7 HTTP/1.1" 304 0
+INFO 2025-02-08 21:31:08,801 basehttp "GET /static/admin_interface/css/tabbed-changeform.css?v=0cfa230e56a1ce0d7822440cf565e3d9919e973fec6b57753b0df2a7 HTTP/1.1" 304 0
+INFO 2025-02-08 21:31:08,807 basehttp "GET /static/admin_interface/css/third-party/modeltranslation.css?v=0cfa230e56a1ce0d7822440cf565e3d9919e973fec6b57753b0df2a7 HTTP/1.1" 304 0
+INFO 2025-02-08 21:31:08,856 basehttp "GET /static/admin_interface/css/third-party/rangefilter.css?v=0cfa230e56a1ce0d7822440cf565e3d9919e973fec6b57753b0df2a7 HTTP/1.1" 304 0
+INFO 2025-02-08 21:31:08,867 basehttp "GET /static/admin_interface/css/third-party/sorl-thumbnail.css?v=0cfa230e56a1ce0d7822440cf565e3d9919e973fec6b57753b0df2a7 HTTP/1.1" 304 0
+INFO 2025-02-08 21:31:08,867 basehttp "GET /static/admin_interface/css/third-party/tinymce.css?v=0cfa230e56a1ce0d7822440cf565e3d9919e973fec6b57753b0df2a7 HTTP/1.1" 304 0
+INFO 2025-02-08 21:31:08,868 basehttp "GET /static/admin_interface/magnific-popup/magnific-popup.css?v=0cfa230e56a1ce0d7822440cf565e3d9919e973fec6b57753b0df2a7 HTTP/1.1" 304 0
+INFO 2025-02-08 21:31:08,869 basehttp "GET /static/admin_interface/css/third-party/streamfield.css?v=0cfa230e56a1ce0d7822440cf565e3d9919e973fec6b57753b0df2a7 HTTP/1.1" 304 0
+INFO 2025-02-08 21:31:08,870 basehttp "GET /static/admin_interface/foldable-apps/foldable-apps.css?v=0cfa230e56a1ce0d7822440cf565e3d9919e973fec6b57753b0df2a7 HTTP/1.1" 304 0
+INFO 2025-02-08 21:31:08,930 basehttp "GET /static/admin_interface/related-modal/related-modal.js?v=0cfa230e56a1ce0d7822440cf565e3d9919e973fec6b57753b0df2a7 HTTP/1.1" 304 0
+INFO 2025-02-08 21:31:08,930 basehttp "GET /static/admin_interface/related-modal/related-modal.css?v=0cfa230e56a1ce0d7822440cf565e3d9919e973fec6b57753b0df2a7 HTTP/1.1" 304 0
+INFO 2025-02-08 21:31:08,931 basehttp "GET /static/admin_interface/foldable-apps/foldable-apps.js?v=0cfa230e56a1ce0d7822440cf565e3d9919e973fec6b57753b0df2a7 HTTP/1.1" 304 0
+INFO 2025-02-08 21:31:08,932 basehttp "GET /static/admin_interface/magnific-popup/jquery.magnific-popup.js?v=0cfa230e56a1ce0d7822440cf565e3d9919e973fec6b57753b0df2a7 HTTP/1.1" 304 0
+INFO 2025-02-08 21:31:08,945 basehttp "GET /admin/jsi18n/ HTTP/1.1" 200 14010
+INFO 2025-02-08 21:31:17,148 basehttp "GET /admin/admin_interface/theme/1/change/ HTTP/1.1" 200 72957
+INFO 2025-02-08 21:31:17,224 basehttp "GET /admin/jsi18n/ HTTP/1.1" 200 14010
+INFO 2025-02-08 21:31:31,540 basehttp "POST /admin/admin_interface/theme/1/change/ HTTP/1.1" 302 0
+INFO 2025-02-08 21:31:31,596 basehttp "GET /admin/admin_interface/theme/ HTTP/1.1" 200 24915
+INFO 2025-02-08 21:31:31,662 basehttp "GET /admin/jsi18n/ HTTP/1.1" 200 14010
+INFO 2025-02-08 21:31:51,922 basehttp "GET /admin/auth/user/ HTTP/1.1" 200 23915
+INFO 2025-02-08 21:31:51,990 basehttp "GET /admin/jsi18n/ HTTP/1.1" 200 14010
+INFO 2025-02-08 21:32:00,525 basehttp "GET /admin/auth/user/1/change/ HTTP/1.1" 200 44055
+INFO 2025-02-08 21:32:00,608 basehttp "GET /static/admin/js/calendar.js HTTP/1.1" 304 0
+INFO 2025-02-08 21:32:00,608 basehttp "GET /static/admin/js/admin/DateTimeShortcuts.js HTTP/1.1" 304 0
+INFO 2025-02-08 21:32:00,611 basehttp "GET /static/admin/js/inlines.js HTTP/1.1" 304 0
+INFO 2025-02-08 21:32:00,622 basehttp "GET /admin/jsi18n/ HTTP/1.1" 200 14010
+INFO 2025-02-08 21:32:00,674 basehttp "GET /static/admin/img/inline-delete.svg HTTP/1.1" 304 0
+INFO 2025-02-08 21:32:00,731 basehttp "GET /static/admin/img/icon-calendar.svg HTTP/1.1" 304 0
+INFO 2025-02-08 21:32:00,732 basehttp "GET /static/admin/img/icon-clock.svg HTTP/1.1" 304 0
+INFO 2025-02-08 21:32:09,880 basehttp "GET /admin/auth/user/ HTTP/1.1" 200 23915
+INFO 2025-02-08 21:52:03,106 basehttp "GET / HTTP/1.1" 200 6879
+INFO 2025-02-09 16:22:44,559 basehttp "GET /admin/ HTTP/1.1" 200 23717
+INFO 2025-02-09 16:22:44,655 basehttp "GET /static/admin/css/base.css HTTP/1.1" 304 0
+INFO 2025-02-09 16:22:44,700 basehttp "GET /static/admin_interface/css/admin-interface.css?v=0cfa230e56a1ce0d7822440cf565e3d9919e973fec6b57753b0df2a7 HTTP/1.1" 304 0
+INFO 2025-02-09 16:22:44,702 basehttp "GET /static/admin/css/dark_mode.css HTTP/1.1" 304 0
+INFO 2025-02-09 16:22:44,703 basehttp "GET /static/admin/css/nav_sidebar.css HTTP/1.1" 304 0
+INFO 2025-02-09 16:22:44,704 basehttp "GET /static/admin/js/theme.js HTTP/1.1" 304 0
+INFO 2025-02-09 16:22:44,704 basehttp "GET /static/admin_interface/css/change-form.css?v=0cfa230e56a1ce0d7822440cf565e3d9919e973fec6b57753b0df2a7 HTTP/1.1" 304 0
+INFO 2025-02-09 16:22:44,706 basehttp "GET /static/admin_interface/css/changelist.css?v=0cfa230e56a1ce0d7822440cf565e3d9919e973fec6b57753b0df2a7 HTTP/1.1" 304 0
+INFO 2025-02-09 16:22:44,708 basehttp "GET /static/admin_interface/css/fieldsets.css?v=0cfa230e56a1ce0d7822440cf565e3d9919e973fec6b57753b0df2a7 HTTP/1.1" 304 0
+INFO 2025-02-09 16:22:44,710 basehttp "GET /static/admin_interface/css/file-upload.css?v=0cfa230e56a1ce0d7822440cf565e3d9919e973fec6b57753b0df2a7 HTTP/1.1" 304 0
+INFO 2025-02-09 16:22:44,713 basehttp "GET /static/admin_interface/css/header.css?v=0cfa230e56a1ce0d7822440cf565e3d9919e973fec6b57753b0df2a7 HTTP/1.1" 304 0
+INFO 2025-02-09 16:22:44,713 basehttp "GET /static/admin_interface/css/inlines.css?v=0cfa230e56a1ce0d7822440cf565e3d9919e973fec6b57753b0df2a7 HTTP/1.1" 304 0
+INFO 2025-02-09 16:22:44,715 basehttp "GET /static/admin_interface/css/jquery.ui.tabs.css?v=0cfa230e56a1ce0d7822440cf565e3d9919e973fec6b57753b0df2a7 HTTP/1.1" 304 0
+INFO 2025-02-09 16:22:44,756 basehttp "GET /static/admin_interface/css/language-chooser.css?v=0cfa230e56a1ce0d7822440cf565e3d9919e973fec6b57753b0df2a7 HTTP/1.1" 304 0
+INFO 2025-02-09 16:22:44,757 basehttp "GET /static/admin_interface/css/list-filter.css?v=0cfa230e56a1ce0d7822440cf565e3d9919e973fec6b57753b0df2a7 HTTP/1.1" 304 0
+INFO 2025-02-09 16:22:44,767 basehttp "GET /static/admin_interface/css/modules.css?v=0cfa230e56a1ce0d7822440cf565e3d9919e973fec6b57753b0df2a7 HTTP/1.1" 304 0
+INFO 2025-02-09 16:22:44,767 basehttp "GET /static/admin_interface/css/login.css?v=0cfa230e56a1ce0d7822440cf565e3d9919e973fec6b57753b0df2a7 HTTP/1.1" 304 0
+INFO 2025-02-09 16:22:44,767 basehttp "GET /static/admin_interface/css/list-filter-dropdown.css?v=0cfa230e56a1ce0d7822440cf565e3d9919e973fec6b57753b0df2a7 HTTP/1.1" 304 0
+INFO 2025-02-09 16:22:44,776 basehttp "GET /static/admin_interface/css/nav-sidebar.css?v=0cfa230e56a1ce0d7822440cf565e3d9919e973fec6b57753b0df2a7 HTTP/1.1" 304 0
+INFO 2025-02-09 16:22:44,805 basehttp "GET /static/admin_interface/css/paginator.css?v=0cfa230e56a1ce0d7822440cf565e3d9919e973fec6b57753b0df2a7 HTTP/1.1" 304 0
+INFO 2025-02-09 16:22:44,815 basehttp "GET /static/admin_interface/css/object-tools.css?v=0cfa230e56a1ce0d7822440cf565e3d9919e973fec6b57753b0df2a7 HTTP/1.1" 304 0
+INFO 2025-02-09 16:22:44,826 basehttp "GET /static/admin_interface/css/rtl.css?v=0cfa230e56a1ce0d7822440cf565e3d9919e973fec6b57753b0df2a7 HTTP/1.1" 304 0
+INFO 2025-02-09 16:22:44,827 basehttp "GET /static/admin_interface/css/tabbed-changeform.css?v=0cfa230e56a1ce0d7822440cf565e3d9919e973fec6b57753b0df2a7 HTTP/1.1" 304 0
+INFO 2025-02-09 16:22:44,828 basehttp "GET /static/admin_interface/css/sticky-form-controls.css?v=0cfa230e56a1ce0d7822440cf565e3d9919e973fec6b57753b0df2a7 HTTP/1.1" 304 0
+INFO 2025-02-09 16:22:44,835 basehttp "GET /static/admin_interface/css/widgets.css?v=0cfa230e56a1ce0d7822440cf565e3d9919e973fec6b57753b0df2a7 HTTP/1.1" 304 0
+INFO 2025-02-09 16:22:44,856 basehttp "GET /static/admin_interface/css/third-party/ckeditor.css?v=0cfa230e56a1ce0d7822440cf565e3d9919e973fec6b57753b0df2a7 HTTP/1.1" 304 0
+INFO 2025-02-09 16:22:44,865 basehttp "GET /static/admin_interface/css/third-party/import-export.css?v=0cfa230e56a1ce0d7822440cf565e3d9919e973fec6b57753b0df2a7 HTTP/1.1" 304 0
+INFO 2025-02-09 16:22:44,876 basehttp "GET /static/admin_interface/css/third-party/modeltranslation.css?v=0cfa230e56a1ce0d7822440cf565e3d9919e973fec6b57753b0df2a7 HTTP/1.1" 304 0
+INFO 2025-02-09 16:22:44,877 basehttp "GET /static/admin_interface/css/third-party/json-widget.css?v=0cfa230e56a1ce0d7822440cf565e3d9919e973fec6b57753b0df2a7 HTTP/1.1" 304 0
+INFO 2025-02-09 16:22:44,879 basehttp "GET /static/admin_interface/css/third-party/rangefilter.css?v=0cfa230e56a1ce0d7822440cf565e3d9919e973fec6b57753b0df2a7 HTTP/1.1" 304 0
+INFO 2025-02-09 16:22:44,885 basehttp "GET /static/admin_interface/css/third-party/sorl-thumbnail.css?v=0cfa230e56a1ce0d7822440cf565e3d9919e973fec6b57753b0df2a7 HTTP/1.1" 304 0
+INFO 2025-02-09 16:22:44,916 basehttp "GET /static/admin_interface/css/third-party/tinymce.css?v=0cfa230e56a1ce0d7822440cf565e3d9919e973fec6b57753b0df2a7 HTTP/1.1" 304 0
+INFO 2025-02-09 16:22:44,917 basehttp "GET /static/admin_interface/css/third-party/streamfield.css?v=0cfa230e56a1ce0d7822440cf565e3d9919e973fec6b57753b0df2a7 HTTP/1.1" 304 0
+INFO 2025-02-09 16:22:44,927 basehttp "GET /static/admin/css/rtl.css HTTP/1.1" 304 0
+INFO 2025-02-09 16:22:44,936 basehttp "GET /static/admin/css/responsive.css HTTP/1.1" 304 0
+INFO 2025-02-09 16:22:44,937 basehttp "GET /static/admin/css/responsive_rtl.css HTTP/1.1" 304 0
+INFO 2025-02-09 16:22:44,946 basehttp "GET /static/admin/css/dashboard.css HTTP/1.1" 304 0
+INFO 2025-02-09 16:22:44,967 basehttp "GET /static/admin/css/responsive.css?v=0cfa230e56a1ce0d7822440cf565e3d9919e973fec6b57753b0df2a7 HTTP/1.1" 304 0
+INFO 2025-02-09 16:22:44,967 basehttp "GET /static/admin/css/responsive_rtl.css?v=0cfa230e56a1ce0d7822440cf565e3d9919e973fec6b57753b0df2a7 HTTP/1.1" 304 0
+INFO 2025-02-09 16:22:44,976 basehttp "GET /static/admin_interface/foldable-apps/foldable-apps.css?v=0cfa230e56a1ce0d7822440cf565e3d9919e973fec6b57753b0df2a7 HTTP/1.1" 304 0
+INFO 2025-02-09 16:22:44,987 basehttp "GET /static/admin_interface/magnific-popup/magnific-popup.css?v=0cfa230e56a1ce0d7822440cf565e3d9919e973fec6b57753b0df2a7 HTTP/1.1" 304 0
+INFO 2025-02-09 16:22:44,987 basehttp "GET /static/admin_interface/related-modal/related-modal.css?v=0cfa230e56a1ce0d7822440cf565e3d9919e973fec6b57753b0df2a7 HTTP/1.1" 304 0
+INFO 2025-02-09 16:22:45,006 basehttp "GET /static/admin_interface/foldable-apps/foldable-apps.js?v=0cfa230e56a1ce0d7822440cf565e3d9919e973fec6b57753b0df2a7 HTTP/1.1" 304 0
+INFO 2025-02-09 16:22:45,026 basehttp "GET /static/admin_interface/related-modal/related-modal.js?v=0cfa230e56a1ce0d7822440cf565e3d9919e973fec6b57753b0df2a7 HTTP/1.1" 304 0
+INFO 2025-02-09 16:22:45,027 basehttp "GET /static/admin_interface/magnific-popup/jquery.magnific-popup.js?v=0cfa230e56a1ce0d7822440cf565e3d9919e973fec6b57753b0df2a7 HTTP/1.1" 304 0
+INFO 2025-02-09 16:22:45,090 basehttp "GET /static/admin/js/nav_sidebar.js HTTP/1.1" 304 0
+INFO 2025-02-09 16:22:45,104 basehttp "GET /static/admin/img/icon-addlink.svg HTTP/1.1" 304 0
+INFO 2025-02-09 16:22:45,107 basehttp "GET /static/admin/img/icon-changelink.svg HTTP/1.1" 304 0
+INFO 2025-02-09 16:22:45,107 basehttp "GET /static/admin/img/icon-deletelink.svg HTTP/1.1" 200 392
+INFO 2025-02-09 16:27:18,335 autoreload /workspaces/trademarks/documents/forms.py changed, reloading.
+INFO 2025-02-09 16:27:20,317 autoreload Watching for file changes with StatReloader
+INFO 2025-02-09 16:33:40,998 autoreload /workspaces/trademarks/documents/urls.py changed, reloading.
+INFO 2025-02-09 16:33:42,406 autoreload Watching for file changes with StatReloader
+INFO 2025-02-09 16:34:07,686 basehttp "GET /publications/ HTTP/1.1" 200 35353
+INFO 2025-02-09 16:34:07,810 basehttp "GET /static/css/style.css HTTP/1.1" 304 0
+INFO 2025-02-09 16:34:07,821 basehttp "GET /media/item_img/publication/3de715762e984ebcb3efddeb86bf71eb.jpg HTTP/1.1" 304 0
+INFO 2025-02-09 16:34:07,825 basehttp "GET /media/item_img/publication/c32f9bc8409748dbb415656539becee4.jpg HTTP/1.1" 304 0
+INFO 2025-02-09 16:34:07,825 basehttp "GET /static/img/delete.png HTTP/1.1" 304 0
+INFO 2025-02-09 16:34:07,826 basehttp "GET /media/item_img/publication/14d8034da5174dbfb8c79a604479c30b.jpg HTTP/1.1" 304 0
+INFO 2025-02-09 16:34:07,828 basehttp "GET /static/img/pdf.png HTTP/1.1" 304 0
+INFO 2025-02-09 16:34:07,828 basehttp "GET /media/item_img/publication/7f02da3ab8ac4f4fa6451449029f52a5.jpg HTTP/1.1" 304 0
+INFO 2025-02-09 16:34:09,150 basehttp "GET /publications/add/ HTTP/1.1" 200 28465
+INFO 2025-02-09 16:34:15,228 basehttp "GET /Decree-autocomplete/?q=4&year=2020 HTTP/1.1" 200 225
+INFO 2025-02-09 16:34:17,643 basehttp "GET /Decree-autocomplete/?q=1&year=2020 HTTP/1.1" 200 2
+INFO 2025-02-09 16:34:19,591 basehttp "GET /decrees/ HTTP/1.1" 200 32334
+INFO 2025-02-09 16:34:32,756 basehttp "GET /publications/ HTTP/1.1" 200 35353
+INFO 2025-02-09 16:34:34,060 basehttp "GET /decrees/ HTTP/1.1" 200 32334
+INFO 2025-02-09 16:34:36,534 basehttp "GET /decrees/add/ HTTP/1.1" 200 23783
+INFO 2025-02-09 16:36:03,448 basehttp "POST /decrees/add/ HTTP/1.1" 302 0
+INFO 2025-02-09 16:36:03,579 basehttp "GET /decrees/ HTTP/1.1" 200 34720
+INFO 2025-02-09 16:36:11,321 basehttp "GET /publications/ HTTP/1.1" 200 35353
+INFO 2025-02-09 16:36:13,017 basehttp "GET /publications/add/ HTTP/1.1" 200 28465
+INFO 2025-02-09 16:36:18,798 basehttp "GET /Decree-autocomplete/?q=5&year=2021 HTTP/1.1" 200 280
+INFO 2025-02-09 16:36:21,985 basehttp "GET /Decree-autocomplete/?q=4&year=2021 HTTP/1.1" 200 2
+INFO 2025-02-09 16:36:23,168 basehttp "GET /Decree-autocomplete/?q=1&year=2021 HTTP/1.1" 200 2
+INFO 2025-02-09 16:36:23,484 basehttp "GET /Decree-autocomplete/?q=1&year=2021 HTTP/1.1" 200 2
+INFO 2025-02-09 16:36:26,527 basehttp "GET /Decree-autocomplete/?q=1&year=2020 HTTP/1.1" 200 2
+INFO 2025-02-09 16:36:28,082 basehttp "GET /Decree-autocomplete/?q=4&year=2020 HTTP/1.1" 200 225
+INFO 2025-02-09 16:36:29,873 basehttp "GET /Decree-autocomplete/?q=4&year=2020 HTTP/1.1" 200 225
+INFO 2025-02-09 16:36:34,195 basehttp "GET /Decree-autocomplete/?q=4&year=2022 HTTP/1.1" 200 238
+INFO 2025-02-09 16:36:35,583 basehttp "GET /Decree-autocomplete/?q=1&year=2022 HTTP/1.1" 200 238
+INFO 2025-02-09 16:36:37,077 basehttp "GET /Decree-autocomplete/?q=5&year=2022 HTTP/1.1" 200 2
+INFO 2025-02-09 16:39:42,533 basehttp "GET /decrees/ HTTP/1.1" 200 34720
+INFO 2025-02-09 16:39:43,360 basehttp "GET /publications/ HTTP/1.1" 200 35353
+INFO 2025-02-09 16:51:02,486 basehttp "GET /publications/ HTTP/1.1" 200 35353
+INFO 2025-02-09 16:51:02,615 basehttp "GET /static/img/decrees.png HTTP/1.1" 200 15258
+INFO 2025-02-09 16:51:02,615 basehttp "GET /static/img/outgoing-mail.png HTTP/1.1" 200 27599
+INFO 2025-02-09 16:51:02,619 basehttp "GET /static/css/style.css HTTP/1.1" 200 4607
+INFO 2025-02-09 16:51:02,620 basehttp "GET /static/img/incoming-mail.png HTTP/1.1" 200 27510
+INFO 2025-02-09 16:51:02,636 basehttp "GET /static/bootstrap5/bootstrap-icons.css HTTP/1.1" 200 65625
+INFO 2025-02-09 16:51:02,663 basehttp "GET /static/flatpickr/flatpickr.min.css HTTP/1.1" 200 16166
+INFO 2025-02-09 16:51:02,681 basehttp "GET /static/img/settings.png HTTP/1.1" 200 21053
+INFO 2025-02-09 16:51:02,685 basehttp "GET /static/bootstrap5/bootstrap.rtl.css HTTP/1.1" 200 280259
+INFO 2025-02-09 16:51:02,690 basehttp "GET /static/flatpickr/locale/ar.js HTTP/1.1" 200 1928
+INFO 2025-02-09 16:51:02,727 basehttp "GET /static/img/pdf.png HTTP/1.1" 200 10910
+INFO 2025-02-09 16:51:02,730 basehttp "GET /static/img/view.png HTTP/1.1" 200 20714
+INFO 2025-02-09 16:51:02,769 basehttp "GET /static/flatpickr/flatpickr.min.js HTTP/1.1" 200 50679
+INFO 2025-02-09 16:51:02,782 basehttp "GET /media/item_img/publication/3de715762e984ebcb3efddeb86bf71eb.jpg HTTP/1.1" 200 198856
+INFO 2025-02-09 16:51:02,786 basehttp "GET /static/fonts/Shabwa.ttf HTTP/1.1" 200 51148
+INFO 2025-02-09 16:51:02,799 basehttp "GET /static/bootstrap5/bootstrap-icons.woff2 HTTP/1.1" 200 130396
+INFO 2025-02-09 16:51:02,834 basehttp "GET /static/fonts/Shabwa-Medium.ttf HTTP/1.1" 200 51776
+INFO 2025-02-09 16:51:02,835 basehttp "GET /static/fonts/Shabwa-Bold.ttf HTTP/1.1" 200 49452
+INFO 2025-02-09 16:51:02,860 basehttp "GET /media/item_img/publication/7f02da3ab8ac4f4fa6451449029f52a5.jpg HTTP/1.1" 200 104123
+INFO 2025-02-09 16:51:02,862 basehttp "GET /media/item_img/publication/c32f9bc8409748dbb415656539becee4.jpg HTTP/1.1" 200 104123
+INFO 2025-02-09 16:51:02,871 basehttp "GET /media/item_img/publication/14d8034da5174dbfb8c79a604479c30b.jpg HTTP/1.1" 200 175946
+INFO 2025-02-09 16:51:02,876 basehttp "GET /static/img/edit.png HTTP/1.1" 200 15244
+INFO 2025-02-09 16:51:02,888 basehttp "GET /static/img/delete.png HTTP/1.1" 200 14867
+INFO 2025-02-09 16:51:03,094 basehttp "GET /static/bootstrap5/bootstrap.bundle.js HTTP/1.1" 200 207819
+WARNING 2025-02-09 16:51:03,189 log Not Found: /favicon.ico
+WARNING 2025-02-09 16:51:03,190 basehttp "GET /favicon.ico HTTP/1.1" 404 7325
+INFO 2025-02-09 16:51:04,662 basehttp "GET /publications/add/ HTTP/1.1" 200 27822
+INFO 2025-02-09 16:51:11,779 basehttp "GET /Decree-autocomplete/?q=4&year=2020 HTTP/1.1" 200 225
+INFO 2025-02-09 16:51:15,718 basehttp "GET /decrees/ HTTP/1.1" 200 34720
+INFO 2025-02-09 16:51:16,335 basehttp "GET /publications/ HTTP/1.1" 200 35353
+INFO 2025-02-09 17:16:07,621 basehttp "GET /publications/add/ HTTP/1.1" 200 27822
+INFO 2025-02-09 17:16:09,896 basehttp "GET /Decree-autocomplete/?q=1&year= HTTP/1.1" 200 238
+INFO 2025-02-09 17:16:11,853 basehttp "GET /Decree-autocomplete/?q=4&year= HTTP/1.1" 200 463
+INFO 2025-02-09 17:16:13,923 basehttp "GET /Decree-autocomplete/?q=4&year= HTTP/1.1" 200 463
+INFO 2025-02-09 17:16:17,571 basehttp "GET /Decree-autocomplete/?q=5&year= HTTP/1.1" 200 280
+INFO 2025-02-09 17:21:48,122 basehttp "GET /decrees/ HTTP/1.1" 200 34720
+INFO 2025-02-09 17:22:04,246 basehttp "GET /publications/ HTTP/1.1" 200 35353
+INFO 2025-02-09 17:22:05,349 basehttp "GET /decrees/ HTTP/1.1" 200 34720
+INFO 2025-02-09 17:22:06,801 basehttp "GET /publications/ HTTP/1.1" 200 35353
+INFO 2025-02-09 20:27:29,159 autoreload /workspaces/trademarks/documents/views.py changed, reloading.
+INFO 2025-02-09 20:27:31,703 autoreload Watching for file changes with StatReloader
+INFO 2025-02-09 20:27:52,572 autoreload /workspaces/trademarks/documents/forms.py changed, reloading.
+INFO 2025-02-09 20:27:54,225 autoreload Watching for file changes with StatReloader

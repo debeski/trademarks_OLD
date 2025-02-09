@@ -204,7 +204,7 @@ def get_accepted_decrees_by_year(year=None):
 
 class PublicationForm(forms.ModelForm):
     # Extra field to filter decrees by year
-    year = forms.ChoiceField(choices=get_decree_year_choices(), required=False, label="سنة القرار")
+    year = forms.CharField(required=False, label="سنة القرار")
     # For the decree field, we use a ModelChoiceField; its widget will be enhanced by JavaScript.
     decree = forms.CharField(
         required=False,
@@ -264,3 +264,4 @@ class PublicationForm(forms.ModelForm):
                 HTML('<a class="btn btn-secondary" href="{% url \'publication_list\' %}">إلغاء</a>')
             )
         )
+

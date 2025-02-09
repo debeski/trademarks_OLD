@@ -3,9 +3,9 @@ from . import views
 from django.contrib.auth import views as auth_views
 
 urlpatterns = [
-    # path('', views.index, name='index'),  # Main index page
-    path('login/', auth_views.LoginView.as_view(), name='login'),
-    path('logout/', auth_views.LogoutView.as_view(), name='logout'),
+    path('', views.index, name='index'),  # Main index page
+    path('accounts/login/', auth_views.LoginView.as_view(), name='login'),
+    path('accounts/logout/', auth_views.LogoutView.as_view(), name='logout'),
     # path('manage-sections/<str:model_name>/', views.manage_sections, name='manage_sections'),
 
     path('decrees/', views.decree_list, name='decree_list'),
@@ -15,6 +15,7 @@ urlpatterns = [
     path('decrees/detail/<int:document_id>/', views.decree_detail, name='view_decree'),
     path('decrees/download/<int:document_id>/', views.download_decree, name='download_decree'),
     path('decrees/delete/<int:document_id>/', views.soft_delete_decree, name='delete_decree'),
+
     path('Decree-autocomplete/', views.DecreeAutocompleteView.as_view(), name='decree-autocomplete'),
 
     path('publications/', views.publication_list, name='publication_list'),
