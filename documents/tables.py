@@ -94,7 +94,8 @@ class FormPlusTable(tables.Table):
 
     class Meta:
         model = FormPlus
+        template_name = "django_tables2/bootstrap5.html"
         fields = ('number', 'date', 'title', 'keywords', 'pdf_file')
-        attrs = {'class': 'table table-striped table-bordered'}
+        attrs = {'class': 'table table-hover align-middle'}
 
 
