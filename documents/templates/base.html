@@ -14,6 +14,26 @@
     {% block extra_head%}{% endblock%}
 </head>
 <body>
+    <!-- Toggle Sidebar Script -->
+    <script>
+        // On page load, check if the sidebar state is saved in localStorage and apply it
+        document.addEventListener('DOMContentLoaded', function() {
+            const sidebar = document.getElementById('sidebar');
+            const sidebarState = localStorage.getItem('sidebarState');
+            if (sidebarState === 'closed') {
+                sidebar.classList.add('closed');
+            } else {
+                sidebar.classList.remove('closed');
+            }
+        });
+    
+        function toggleMenu() {
+            const sidebar = document.getElementById('sidebar');
+            sidebar.classList.toggle('closed');
+            // Save the sidebar state in localStorage
+            localStorage.setItem('sidebarState', sidebar.classList.contains('closed') ? 'closed' : 'open');
+        }
+    </script>
     <!-- Title Bar -->
     <div class="titlebar d-flex justify-content-between align-items-center">
         <div class="d-flex align-items-center">
@@ -118,26 +138,7 @@
         </div>
     </div>
     
-    <!-- Toggle Sidebar Script -->
-    <script>
-        // On page load, check if the sidebar state is saved in localStorage and apply it
-        document.addEventListener('DOMContentLoaded', function() {
-            const sidebar = document.getElementById('sidebar');
-            const sidebarState = localStorage.getItem('sidebarState');
-            if (sidebarState === 'closed') {
-                sidebar.classList.add('closed');
-            } else {
-                sidebar.classList.remove('closed');
-            }
-        });
-    
-        function toggleMenu() {
-            const sidebar = document.getElementById('sidebar');
-            sidebar.classList.toggle('closed');
-            // Save the sidebar state in localStorage
-            localStorage.setItem('sidebarState', sidebar.classList.contains('closed') ? 'closed' : 'open');
-        }
-    </script>
+
     
     {% block scripts %}{% endblock %}
     <!-- Include Bootstrap JS -->

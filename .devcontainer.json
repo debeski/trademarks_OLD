@@ -6,7 +6,7 @@
   "forwardPorts": [8001],
   "remoteUser": "vscode", // Set the user to vscode to avoid permission issues
   "mounts": [
-    "source=${localWorkspaceFolder}/trademarks,target=/workspace/trademarks,type=bind"
+    "source=${localWorkspaceFolder},target=/workspace/trademarks,type=bind"
   ],
   "customizations": {
     "vscode": {
@@ -15,7 +15,8 @@
         "ms-python.python",
         "batisteo.vscode-django",
         "ecmel.vscode-html-css",
-        "GitHub.remotehub"
+        "GitHub.remotehub",
+        "VisualStudioExptTeam.vscodeintellicode"
       ]
     }
   }
