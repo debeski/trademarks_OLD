@@ -1,5 +1,5 @@
 {% load static %}
-
+{% if request.user.is_authenticated %}
 <div class="d-flex gap-2 align-items-center justify-content-between">
     <!-- PDF Icon (Always Visible) -->
     {% if record.pdf_file %}
@@ -37,3 +37,4 @@
         </ul>
     </div>
 </div>
+{% endif %}

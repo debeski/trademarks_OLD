@@ -9,19 +9,70 @@
   <form method="get" class="mb-4 row">
       {% crispy filter.form %}
   </form>
-  <div class="card border-light shadow">
-    <div class="card-header text-center pe-5 bg-transparent">
-      <h3 class="card-title">اشهارات العلامات التجارية</h3>
+  
+  <!-- Bootstrap Tabs for Status -->
+  <ul class="nav nav-tabs" id="publicationTabs" role="tablist">
+    <li class="nav-item" role="presentation">
+        <a class="nav-link {% if current_status == 'initial' %}active{% endif %}" 
+           href="?status=initial{% for key, value in request.GET.items %}{% if key != 'status' %}&{{ key }}={{ value }}{% endif %}{% endfor %}">
+            نشر مبدئي
+        </a>
+    </li>
+    <li class="nav-item" role="presentation">
+        <a class="nav-link {% if current_status == 'conflict' %}active{% endif %}" 
+           href="?status=conflict{% for key, value in request.GET.items %}{% if key != 'status' %}&{{ key }}={{ value }}{% endif %}{% endfor %}">
+            متنازع عليه
+        </a>
+    </li>
+    <li class="nav-item" role="presentation">
+        <a class="nav-link {% if current_status == 'final' %}active{% endif %}" 
+           href="?status=final{% for key, value in request.GET.items %}{% if key != 'status' %}&{{ key }}={{ value }}{% endif %}{% endfor %}">
+            نشر نهائي
+        </a>
+    </li>
+  </ul>
+  
+  <div class="tab-content" id="publicationTabsContent">
+    <!-- Tab for Status 1 -->
+    <div class="tab-pane fade {% if current_status == 'initial' %}show active{% endif %}" id="status1" role="tabpanel" aria-labelledby="status1-tab">
+      <div class="card border-light shadow mt-3">
+        <div class="card-header text-center pe-5 bg-transparent">
+          <h3 class="card-title">اشهارات نشرت مبدئيا</h3>
+        </div>
+        <div class="card-body p-0">
+          {% render_table table %}
+        </div>
+      </div>
     </div>
-    <div class="card-body p-0">
-      <!-- Render the table -->
-      {% render_table table %}
+    <!-- Tab for Status 2 -->
+    <div class="tab-pane fade {% if current_status == 'conflict' %}show active{% endif %}" id="status2" role="tabpanel" aria-labelledby="status2-tab">
+      <div class="card border-light shadow mt-3">
+        <div class="card-header text-center pe-5 bg-transparent">
+          <h3 class="card-title">اشهارات متنازع عليها</h3>
+        </div>
+        <div class="card-body p-0">
+          {% render_table table %}
+        </div>
+      </div>
+    </div>
+    <!-- Tab for Status 3 -->
+    <div class="tab-pane fade {% if current_status == 'final' %}show active{% endif %}" id="status3" role="tabpanel" aria-labelledby="status3-tab">
+      <div class="card border-light shadow mt-3">
+        <div class="card-header text-center pe-5 bg-transparent">
+          <h3 class="card-title">اشهارات نشرت نهائيا</h3>
+        </div>
+        <div class="card-body p-0">
+          {% render_table table %}
+        </div>
+      </div>
     </div>
   </div>
 
-<form id="deleteForm" method="post">
-  {% csrf_token %}
-  <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel" aria-hidden="true">
+  {% if request.user.is_authenticated %}
+  <!-- Delete Modal -->
+  <form id="deleteForm" method="post">
+    {% csrf_token %}
+    <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel" aria-hidden="true">
       <div class="modal-dialog" role="document">
           <div class="modal-content">
               <div class="modal-header">
@@ -36,14 +87,15 @@
               </div>
           </div>
       </div>
-  </div>
-</form>
+    </div>
+  </form>
+  {% endif %}
   
-
 {% endblock %}
 
-{% block scripts%}
+{% block scripts %}
 
+<!-- JavaScript for the Delete Modal -->
 <script>
   document.addEventListener("DOMContentLoaded", function() {
       var deleteModal = document.getElementById("deleteModal");
@@ -80,6 +132,53 @@
           .catch(error => console.error("Error:", error));
       });
   });
+</script>
+
+<!-- JavaScript for the Advanced Search -->
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        // Get elements
+        var advancedSearch = document.getElementById("advanced-search");
+        var advancedSearchToggle = document.querySelector('[data-bs-target="#advanced-search"]');
+    
+        if (!advancedSearch || !advancedSearchToggle) {
+            console.error("Advanced search elements not found.");
+            return; // Stop execution if elements are missing
+        }
+    
+        // Restore state from LocalStorage
+        var advancedSearchState = localStorage.getItem("advanced_search_expanded");
+        if (advancedSearchState === "true") {
+            advancedSearch.classList.add("show");
+        } else {
+            advancedSearch.classList.remove("show");
+        }
+    
+        // Toggle state and update LocalStorage
+        advancedSearchToggle.addEventListener("click", function() {
+            console.log("Toggle button clicked!");
+            setTimeout(function() {
+                var isExpanded = advancedSearch.classList.contains("show");
+                localStorage.setItem("advanced_search_expanded", isExpanded ? "true" : "false");
+            }, 500);
+        });
+    });
+</script>
+
+<!-- JavaScript for the Active Tab -->
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        // Get all tab buttons
+        var tabButtons = document.querySelectorAll('#publicationTabs button');
+        tabButtons.forEach(function(button) {
+            button.addEventListener('shown.bs.tab', function(event) {
+                // Get the active tab ID from the data-bs-target attribute (e.g. "#status2")
+                var activeTab = event.target.getAttribute('data-bs-target').replace('#', '');
+                // Update the hidden field value
+                document.getElementById('active_tab').value = activeTab;
+            });
+        });
+    });
 </script>
 
 {% endblock %}

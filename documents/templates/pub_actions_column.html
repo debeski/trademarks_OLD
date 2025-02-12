@@ -1,11 +1,11 @@
 {% load static %}
-
+{% if request.user.is_authenticated %}
 <div class="d-flex gap-2 align-items-center justify-content-between">
     <!-- PDF Icon (Always Visible) -->
-    <a href="{% url 'gen_pub_pdf' record.id %}" title="تحميل">
-        <img src="{% static 'img/pdf.png' %}" alt="Download" class="action-icon">
+    <a href="{% url 'gen_pub_pdf' record.id %}" title="تحميل"><i class="action-icon bi bi-file-earmark-arrow-down-fill"></i>
     </a>
-
+    <a href="{% url 'gen_pub_pdf' record.id %}" title="تحميل"><i class="bi bi-check2-square text-primary"style="height: 20px"></i>
+    </a>
     <!-- Use the icon itself as the dropdown trigger -->
     <div class="dropdown-center">
         <a href="#" class="action-icon" id="actionDropdown{{ record.id }}" data-bs-toggle="dropdown" aria-expanded="false">
@@ -31,3 +31,4 @@
         </ul>
     </div>
 </div>
+{% endif %}

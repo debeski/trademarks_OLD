@@ -59,6 +59,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+
 ]
 
 ROOT_URLCONF = 'core.urls'
@@ -66,7 +67,7 @@ ROOT_URLCONF = 'core.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR, 'documents', 'templates')],
+        'DIRS': [os.path.join(BASE_DIR, 'documents', 'templates'), os.path.join(BASE_DIR, 'users', 'templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -187,8 +188,20 @@ LOGGING = {
 }
 
 
-LOGIN_REDIRECT_URL = 'index'  # Redirect to your index or home page
-LOGOUT_REDIRECT_URL = 'login'  # Redirect to login page after logout
+LOGIN_REDIRECT_URL = '/'
+LOGIN_URL = '/login/'
+
+LOGOUT_REDIRECT_URL = 'index'  # Redirect to login page after logout
 
 X_FRAME_OPTIONS = "SAMEORIGIN"
 SILENCED_SYSTEM_CHECKS = ["security.W019"]
+
+SESSION_COOKIE_SECURE = False
+CSRF_COOKIE_SECURE = False
+
+CACHES = {
+    'default': {
+        'BACKEND': 'django.core.cache.backends.locmem.LocMemCache',
+        'LOCATION': 'unique-snowflake',
+    }
+}

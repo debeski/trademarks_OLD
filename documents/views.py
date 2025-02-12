@@ -4,6 +4,7 @@ import os
 from django.utils import timezone
 from django.views import View
 
+from django.core.cache import cache
 from django.shortcuts import get_object_or_404
 from django.http import FileResponse, JsonResponse, HttpResponse, HttpResponseNotFound
 from django.views.decorators.http import require_http_methods
@@ -25,6 +26,9 @@ from .genpdf import pub_pdf
 
 from django_tables2 import RequestConfig
 from django.db.models import Q
+import pandas as pd
+import plotly.express as px
+
 logger = logging.getLogger('documents')
 ##################################################################
 
@@ -36,108 +40,90 @@ def log_action(action, model, object_id=None):
     logger.info(message)
 
 
-# # Function to create Chart for index:
-# def create_chart():
-#     # Define model names
-#     model_classes = [Outgoing, Incoming, Internal, Decree, Report]
-#     years = range(2008, 2025)
-#     data = []
+def create_chart(models, start_year=2012, end_year=2025):
+    """
+    Generates a Plotly bar chart for document counts per year across multiple models.
+    Uses caching to improve performance.
+        
+    :param models: List of Django models to include in the chart.
+    :param start_year: Start year for filtering (default: 2008).
+    :param end_year: End year for filtering (default: 2025).
+    :return: HTML representation of the Plotly chart.
+    """
+    
+    cache_key = f"chart_{start_year}_{end_year}_" + "_".join([model.__name__ for model in models])
+    cached_chart = cache.get(cache_key)
 
-#     # Fetch counts and Arabic names using get_model_name
-#     for model in model_classes:
-#         arabic_name = model().get_model_name
+    if cached_chart:
+        return cached_chart  # Return cached version if available
+    
+    years = range(start_year, end_year + 1)
+    data = []
 
-#         # Count documents for each year
-#         for year in years:
-#             count = model.objects.filter(date__year=year, deleted_at__isnull=True).count() or 0
-#             data.append({'Year': year, 'Count': count, 'Model': arabic_name})
+    # Collect data from each model
+    for model in models:
+        model_name = model._meta.verbose_name  # Uses Django's verbose_name for readability
+        for year in years:
+            count = model.objects.filter(year=year, deleted_at__isnull=True).count() or 0
+            data.append({'Year': year, 'Count': count, 'Model': model_name})
 
-#     # Create a DataFrame from the data
-#     df = pd.DataFrame(data)
+    # Convert to DataFrame
+    df = pd.DataFrame(data)
 
-#     # Create a Plotly Express bar chart
-#     fig = px.bar(
-#         df,
-#         x='Year',
-#         y='Count',
-#         color='Model',
-#         barmode='group',
-#         title='عدد الوثائق حسب السنة',
-#         labels={'Year': 'السنة', 'Count': 'عدد الوثائق'},
-#         text='Count',
-#         hover_name='Model',
-#         hover_data={'Model':False}
-#     )
+    # Create bar chart
+    fig = px.bar(
+        df, x='Year', y='Count', color='Model', barmode='group',
+        title='عدد الاشهارات حسب السنة',
+        labels={'Model': 'النوع','Year': 'السنة', 'Count': 'عدد الاشهارات'},
+        text='Count',
+        hover_data={'Model': False},
+    )
+    
+    # Update layout with hover label alignment for RTL
+    fig.update_layout(
+        height=340,
+        title_x=0.5,
+        xaxis_title='',
+        yaxis_title='عدد الاشهارات',
+        showlegend=False,
+        autosize=True,
+        margin=dict(l=40, r=20, t=40, b=0),
+        font=dict(family='Shabwa, sans-serif', size=16),
+        hoverlabel=dict(
+            font=dict(
+                family="Shabwa, sans-serif",
+                size=14,
+                color="white"  # For example, text color
+            ),
+            bgcolor="rgba(11, 27, 99, 0.9)"  # Background color if needed
+        )
+    )
 
-#     # Update layout for RTL
-#     fig.update_layout(
-#         selectdirection='h',
-#         height=370,
-#         title=dict(font=dict(size=30), automargin=True),
-#         title_x=0.55,  # Center the title
-#         xaxis_title='',
-#         yaxis_title='عدد الوثائق',
+    chart_html = fig.to_html(full_html=False)
 
-#         legend=dict(
-#             orientation='h',
-#             x=0.5,
-#             xanchor='center',
-#             y=-0,
-#             yanchor='bottom'
-#         ),
-#         hoverlabel=dict(
-#             align='right',  # Align hover text to the right
-#             bgcolor='rgba(255, 255, 255, 0.8)',  # Background color
-#             bordercolor='black',  # Border color
-#             font=dict(size=14, color='black')  # Font settings
-#         ),
-#         autosize=True,  # Enable autosizing
-#         margin=dict(l=50, r=50, t=40, b=0),  # Set margins
-#         font=dict(family='Shabwa, sans-serif', size=16, color='black'),  # Font settings
-#     )
-
-#     # Convert the figure to HTML and include the dynamic hover label script
-#     chart_html = fig.to_html(full_html=False)
-#     # JavaScript for dynamic hover label positioning
-#     dynamic_hover_script = """
-#     <script>
-#         const myDiv = document.getElementById('myDiv');
-#         myDiv.on('plotly_hover', function(eventData) {
-#             const hoverLabel = document.querySelector('.hovertext'); // Select the hover label
-#             if (hoverLabel) {
-#                 const mouseX = eventData.event.clientX; // Get mouse X position
-#                 const mouseY = eventData.event.clientY; // Get mouse Y position
-
-#                 // Adjust hover label position
-#                 hoverLabel.style.left = `${mouseX + 30}px`; // Add small offset
-#                 hoverLabel.style.top = `${mouseY + 40}px`;  // Add small offset
-#             }
-#         });
-#     </script>
-#     """
-
-#     return chart_html + dynamic_hover_script
-
+    # Store the chart in the cache for 1 hour (3600 seconds)
+    cache.set(cache_key, chart_html, timeout=3600)
+    return chart_html
 
 # Html & Chart Rendering Functions on main page only:
-@login_required
 def index(request):
-    # # Generate the chart HTML
-    # chart_html = create_chart()  # Get the chart HTML
+    # Generate the chart HTML
+    chart_html = create_chart([Publication])
 
-    # # Define model names based on the mapping in get_model_data
-    # model_names = ['incoming', 'outgoing', 'internal', 'decree', 'report']
-    
-    # latest_documents = []
+    # Get the total number of publications with status 'final'
+    total_publications_final = Publication.objects.filter(status='final').count()
 
-    # for model_name in model_names:
-    #     model, _, _, _, _ = get_model_data(model_name)
-    #     latest_documents += list(model.objects.order_by('-created_at')[:5])
+    # Get the total number of objections with status 'pending'
+    # total_objections_pending = Objection.objects.filter(status='pending').count()
 
-    # # Limit to the latest 5 documents across all models
-    # latest_documents = sorted(latest_documents, key=lambda x: x.created_at, reverse=True)[:5]
+    # Pass the values to the template context
+    context = {
+        'chart_html': chart_html,
+        'total_pub': total_publications_final,
+        # 'total_objections_pending': total_objections_pending,
+    }
 
-    return render(request, 'base.html')
+    return render(request, 'index.html', context)
 
 
 # # Function for Sections Management:
@@ -252,6 +238,7 @@ def add_edit_decree(request, document_id=None):
 
 
 # Main PDF download view for decrees
+@login_required
 def download_decree(request, document_id):
     """
     Downloads a decree's PDF file, attachment, or both as a ZIP file.
@@ -342,23 +329,24 @@ def decree_detail(request, document_id):
 
 
 # Main table view for publications
-@login_required
 def publication_list(request):
-    # Get the base queryset (only non-deleted items)
     qs = Publication.objects.filter(deleted_at__isnull=True)
+
+    # Get the status from GET parameters (default to 'initial')
+    status = request.GET.get("status", "initial")
     
-    # Apply django-filters (adjust if you have a PublicationFilter)
-    publication_filter = PublicationFilter(request.GET, queryset=qs)
-    
-    # Create the table based on the filtered queryset
+    # Apply the filter to show only records with the selected status
+    publication_filter = PublicationFilter(request.GET, queryset=qs.filter(status=status))
+
+    # Prepare tables for each status (optional, in case you still need them)
     table = PublicationTable(publication_filter.qs)
-    
-    # Configure pagination (10 publications per page)
-    RequestConfig(request, paginate={'per_page': 10}).configure(table)
-    
-    return render(request, 'pub_list.html', {
-        'table': table,
-        'filter': publication_filter,
+
+    RequestConfig(request).configure(table)
+
+    return render(request, "pub_list.html", {
+        "table": table,
+        "filter": publication_filter,
+        "current_status": status,  # Pass the current status to the template
     })
 
 
@@ -397,6 +385,7 @@ def add_edit_publication(request, document_id=None):
 
 
 # Main PDF download view for publications
+@login_required
 def download_publication(request, document_id):
     """
     Downloads a publication's image file or attachment as a ZIP file.
@@ -491,6 +480,22 @@ def publication_detail(request, document_id):
         'publication': publication,
         'decree': decree  # Pass the decree object
     })
+
+
+def update_status(request, publication_id):
+    """Change publication status from 'initial' to 'final'."""
+    if request.method == "POST":
+        publication = get_object_or_404(Publication, id=publication_id)
+
+        # Ensure status transitions only happen if it's 'initial'
+        if publication.status == "initial":
+            publication.status = "final"
+            publication.save()
+            return JsonResponse({"success": True, "new_status": publication.status})
+        
+        return JsonResponse({"success": False, "message": "Invalid status transition"})
+
+    return JsonResponse({"success": False, "message": "Invalid request"})
 
 
 # Function for fetching publication data for PDF generation:

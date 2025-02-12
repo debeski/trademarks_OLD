@@ -3,6 +3,7 @@ import uuid
 import json
 from django.http import JsonResponse
 from django.views import View
+from datetime import datetime, time
 
 
 
@@ -233,6 +234,10 @@ def get_img_upload_path(instance, filename):
     """Get the upload path for IMG files."""
     return f'item_img/{generate_random_filename_img(instance, filename)}'
 
+def default_created_at():
+    today = datetime.today().date()
+    return datetime.combine(today, time(15, 0))
+
 # # Section Models:
 # class Department(models.Model):
 #     """Model representing a department."""
@@ -269,7 +274,7 @@ def get_img_upload_path(instance, filename):
 # Document Models:
 class Decree(models.Model):
     """Model representing a minister decree."""
-    number = models.CharField(max_length=10, blank=False, null=False, verbose_name="رقم القرار")
+    number = models.IntegerField(blank=False, null=False, verbose_name="رقم القرار")
     date = models.DateField(blank=False, verbose_name="تاريخ القرار")
     status = models.CharField(max_length=50, choices=[
         ('accepted', 'قبول'),
@@ -282,17 +287,18 @@ class Decree(models.Model):
     company = models.CharField(max_length=255, blank=False, verbose_name="صاحب العلامة")
     country = models.CharField(max_length=50, choices=Countries, verbose_name="الدولة")
     date_applied = models.DateField(blank=False, verbose_name="تاريخ التقديم")
-    number_applied = models.CharField(max_length=10, blank=False, null=False, verbose_name="رقم القيد")
+    number_applied = models.IntegerField(blank=False, null=False, verbose_name="رقم القيد")
 
     ar_brand = models.CharField(max_length=255, blank=False, verbose_name="العلامة (عربي)")
     en_brand = models.CharField(max_length=255, blank=False, verbose_name="العلامة (انجليزي)")
-    category = models.CharField(max_length=255, blank=True, verbose_name="الفئة")
+    category = models.IntegerField(blank=True, verbose_name="الفئة")
 
     pdf_file = models.FileField(upload_to=get_pdf_upload_path, blank=True, verbose_name="ملف القرار")
     attach = models.FileField(upload_to=get_attach_upload_path, blank=True, verbose_name="المرفقات")
     notes = models.TextField(max_length=999, blank=True, verbose_name="ملاحظات")
-
-    objection_date = models.DateField(blank=True, null=True, verbose_name="تاريخ الاعتراض")
+    
+    is_published = models.BooleanField(default=False, verbose_name="تم اشهاره مبدئيا")
+    
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     deleted_at = models.DateTimeField(null=True, blank=True)
@@ -308,8 +314,8 @@ class Decree(models.Model):
 class Publication(models.Model):
     """Model representing a minister decree."""
     year = models.IntegerField(null=True, blank=True)  # Add this field
-    number = models.CharField(max_length=10, blank=False, null=False, verbose_name="رقم التسجيل")
-    decree = models.CharField(max_length=10, blank=False, null=False, verbose_name="رقم القرار")
+    number = models.IntegerField(blank=False, null=False, verbose_name="رقم التسجيل")
+    decree = models.IntegerField(blank=False, null=False, verbose_name="رقم القرار")
 
     applicant = models.CharField(max_length=255, blank=False, verbose_name="طالب التسجيل")
     owner = models.CharField(max_length=255, blank=False, verbose_name="مالك العلامة")
@@ -319,20 +325,24 @@ class Publication(models.Model):
 
     ar_brand = models.CharField(max_length=255, blank=False, verbose_name="العلامة (عربي)")
     en_brand = models.CharField(max_length=255, blank=False, verbose_name="العلامة (انجليزي)")
-    category = models.CharField(max_length=255, blank=True, verbose_name="الفئة")
+    category = models.IntegerField(blank=True, verbose_name="الفئة")
 
     img_file = models.ImageField(upload_to=get_img_upload_path, blank=True, verbose_name="الصورة")
     attach = models.FileField(upload_to=get_attach_upload_path, blank=True, verbose_name="المرفقات")
-    e_number = models.CharField(max_length=10, blank=False, null=False, verbose_name="رقم النشرية")
+    e_number = models.IntegerField(blank=False, null=False, verbose_name="رقم النشرية")
     status = models.CharField(max_length=50, choices=[
         ('initial', 'نشر مبدئي'),
-        ('final', 'نشر نهائي'),
-        ('conflict', 'متنازع عليه')
+        ('conflict', 'متنازع عليه'),
+        ('final', 'نشر نهائي')
     ], verbose_name="حالة التسجيل")
+    
     is_hidden = models.BooleanField(default=False, verbose_name="مخفي")
     notes = models.TextField(max_length=999, blank=True, verbose_name="ملاحظات")
+    
+    objection_date = models.DateField(blank=True, null=True, verbose_name="تاريخ الاعتراض")
+    is_objected = models.BooleanField(default=False, verbose_name="تم الاعتراض عليه")
 
-    created_at = models.DateTimeField(auto_now_add=True, verbose_name="تاريخ النشر")
+    created_at = models.DateTimeField(default=default_created_at, verbose_name="تاريخ النشر")
     updated_at = models.DateTimeField(auto_now=True)
     deleted_at = models.DateTimeField(null=True, blank=True)
 
@@ -342,7 +352,6 @@ class Publication(models.Model):
     @property
     def get_model_name(self):
         return "اشهارات"
-
 
 
 class Objection(models.Model):
@@ -358,9 +367,17 @@ class Objection(models.Model):
     com_og_address = models.CharField(max_length=255, blank=False, verbose_name="عنوان المقر الرئيسي للشركة")
     com_mail_address = models.CharField(max_length=255, blank=False, verbose_name="عنوان البريد الرئيسي لاستلام المكاتبات المتعلقة بالمعارضة")
 
+    status = models.CharField(max_length=50, choices=[
+        ('pending', 'معلق'),
+        ('accepted', 'موافقة'),
+        ('rejected', 'رفض')
+    ], verbose_name="حالة الاعتراض")
+
     complain_number = models.CharField(max_length=10, blank=False, null=False, verbose_name="رقم طلب التسجيل المعارض عليه")
     pdf_file = models.FileField(upload_to=get_pdf_upload_path, blank=True, verbose_name="ملف الاعتراض")
     notes = models.TextField(max_length=999, blank=True, verbose_name="تفاصيل")
+
+    is_paid = models.BooleanField(default=False, verbose_name="تم دفع الرسوم")
 
     created_at = models.DateTimeField(auto_now_add=True, verbose_name="تاريخ الاعتراض")
     updated_at = models.DateTimeField(auto_now=True)

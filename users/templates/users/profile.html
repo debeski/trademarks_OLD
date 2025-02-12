@@ -2,15 +2,15 @@
 {% load django_tables2 %}
 {% load crispy_forms_tags %}
 
-{% block title %}قرارات العلامات التجارية{% endblock %}
+{% block title %}الملف الشخصي{% endblock %}
 
 {% block content %}
 
-<h2>Edit Profile</h2>
+<h2>تعديل</h2>
 <form method="post">
   {% csrf_token %}
   {{ form.as_p }}
-  <button type="submit">Save</button>
+  <button type="submit">حفظ</button>
 </form>
 
 {% endblock %}
