@@ -82,7 +82,7 @@
             </a>
 
             <!-- Option 4: Forms List -->
-            <a href="#" class="list-group-item list-group-item-action">
+            <a href="{% url 'formplus_list' %}" class="list-group-item list-group-item-action {% if request.path == '/formplus/' %}disabled pressed{% elif '/formplus/' in request.path %}pressed{% endif %}">
                 <img src="{% static 'img/outgoing-mail.png' %}" alt="img" class="sidebar-icon">
                 النماذج والقرارات
             </a>

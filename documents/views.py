@@ -18,10 +18,10 @@ import mimetypes
 import zipfile
 from io import BytesIO
 
-from .models import Decree, Publication
-from .tables import DecreeTable, PublicationTable
-from .filters import DecreeFilter, PublicationFilter
-from .forms import DecreeForm, PublicationForm
+from .models import Decree, Publication, FormPlus
+from .tables import DecreeTable, PublicationTable, FormPlusTable
+from .filters import DecreeFilter, PublicationFilter, FormPlusFilter
+from .forms import DecreeForm, PublicationForm, FormPlusForm
 from .genpdf import pub_pdf
 
 from django_tables2 import RequestConfig
@@ -216,7 +216,7 @@ def decree_list(request):
         'table': table,
         'filter': decree_filter,
     })
-    
+
 
 # Main Adding and Editing view for decrees
 @login_required
@@ -537,6 +537,93 @@ def gen_pub_pdf(request, pub_id):
     #     return HttpResponse("Invalid model type", status=400)
     response = HttpResponse(pdf_data, content_type='application/pdf')
     response['Content-Disposition'] = f'attachment; filename="{pub_id}.pdf"'
+
+    return response
+
+
+# Main table view for decrees
+@login_required
+def formplus_list(request):
+    # Get the base queryset (only non-deleted items)
+    qs = FormPlus.objects.filter(deleted_at__isnull=True)
+    
+    # Apply django-filters
+    FormPlus_filter = FormPlusFilter(request.GET, queryset=qs)
+    
+    # Create the table based on the filtered queryset
+    table = FormPlusTable(FormPlus_filter.qs)
+    
+    # Configure pagination (10 decrees per page)
+    RequestConfig(request, paginate={'per_page': 10}).configure(table)
+    
+    return render(request, 'formplus_list.html', {
+        'table': table,
+        'filter': FormPlus_filter,
+    })
+
+
+# Main Adding and Editing view for FormPlus
+@login_required
+def add_edit_formplus(request, document_id=None):
+    instance = get_object_or_404(FormPlus, id=document_id) if document_id else None
+    form = FormPlusForm(request.POST or None, request.FILES or None, instance=instance)
+
+    if request.method == 'POST' and form.is_valid():
+        form.save()
+        return redirect(reverse('formplus_list'))  # Adjust URL name as needed
+
+    return render(request, 'formplus_form.html', {'form': form})
+
+
+# Main soft delete view for FormPlus
+@login_required
+def soft_delete_formplus(request, document_id):
+    """
+    Soft-delete a FormPlus document by setting its deleted_at timestamp.
+    """
+    if request.method == 'POST':  # Change from DELETE to POST
+        document = get_object_or_404(FormPlus, id=document_id)
+        document.deleted_at = timezone.now()  # Set the deletion timestamp
+        document.save()
+        return JsonResponse({'success': True})
+
+    return JsonResponse({'success': False, 'error': 'Invalid request method'}, status=400)
+
+
+# Main detail view for FormPlus
+@login_required
+def formplus_detail(request, document_id):
+    """
+    Displays details of a FormPlus document with a PDF preview.
+    """
+    formplus = get_object_or_404(FormPlus, pk=document_id)
+    return render(request, 'formplus_detail.html', {'formplus': formplus})
+
+
+@login_required
+def download_formplus(request, document_id):
+    """
+    Downloads a FormPlus document's PDF file.
+    """
+    formplus = get_object_or_404(FormPlus, pk=document_id)
+
+    # Check if the PDF file exists
+    if not formplus.pdf_file or not formplus.pdf_file.name:
+        return JsonResponse({'error': 'No document available for download.'}, status=404)
+
+    # Prepare file naming
+    date_str = formplus.date.strftime('%Y-%m-%d') if formplus.date else 'unknown_date'
+    identifier = formplus.number if formplus.number else 'unknown'
+    pdf_filename = f"formplus_{identifier}_{date_str}.pdf"
+
+    # Set content type and response
+    content_type, _ = mimetypes.guess_type(formplus.pdf_file.name) or ('application/pdf',)
+    response = HttpResponse(content_type=content_type)
+    response['Content-Disposition'] = f'attachment; filename="{pdf_filename}"'
+
+    # Serve the PDF file
+    with formplus.pdf_file.open('rb') as pdf_file:
+        response.write(pdf_file.read())
 
     return response
 

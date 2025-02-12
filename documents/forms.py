@@ -132,7 +132,7 @@ from django import forms
 from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Layout, Row, Column, Submit, Field, Div, HTML
 from crispy_forms.bootstrap import FormActions
-from .models import Decree, Publication
+from .models import Decree, Publication, FormPlus
 
 
 class DecreeForm(forms.ModelForm):
@@ -265,3 +265,31 @@ class PublicationForm(forms.ModelForm):
             )
         )
 
+
+class FormPlusForm(forms.ModelForm):
+    class Meta:
+        model = FormPlus
+        fields = ['number', 'date', 'title', 'keywords', 'pdf_file']
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+
+        self.helper = FormHelper()
+        self.helper.form_method = 'POST'
+        self.helper.form_enctype = 'multipart/form-data'
+        self.helper.form_class = 'w-75 mx-auto'
+
+        self.helper.layout = Layout(
+            Div(
+                Div(Field('number', css_class='form-control'), css_class='col'),
+                Div(Field('date', css_class='form-control flatpickr'), css_class='col'),
+                Div(Field('title', css_class='form-control'), css_class='col'),
+                Div(Field('keywords', css_class='form-control'), css_class='col'),
+                css_class='col'
+            ),
+            Field('pdf_file'),
+            FormActions(
+                Submit('submit', 'حفظ', css_class='btn btn-primary'),
+                HTML('<a class="btn btn-secondary" href="{% url \'formplus_list\' %}">إلغاء</a>')
+            )
+        )
