@@ -92,8 +92,8 @@ body {
 
 /* Container Fluid Layout */
 .layout {
-    display: flex;
-    flex-direction: row;
+    /* display: flex; */
+    /* flex-direction: row; */
     flex-grow: 1;
 }
 
@@ -160,7 +160,7 @@ body {
 
 /* Action Icons */
 .action-icon {
-    width: 30px;
+    width: 40px;
     height: auto;
     vertical-align: middle;
     transition: margin 0.2s, width 0.2s;
@@ -221,7 +221,7 @@ body {
     --bs-table-bg-type: whitesmoke;
   }
 
-  a {
+.table a {
     color: inherit;
     text-decoration:none;
   }
@@ -241,4 +241,13 @@ font-size: 20px;
     background:var(--body);
     box-shadow: inset -3px 0px 8px #c1c1c1;
     outline: none;
+}
+
+
+/* Target the text element inside Plotly's hover layer */
+.hoverlayer .hovertext text {
+    text-anchor: end !important;  /* Right-align the text */
+    direction: rtl !important;     /* Set text direction to RTL */
+    font-size: 14px !important;
+    font-family: 'Shabwa', sans-serif !important;
 }

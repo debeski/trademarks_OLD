@@ -9,6 +9,7 @@
   <form method="get" class="mb-4 row">
       {% crispy filter.form %}
   </form>
+
   <div class="card border-light shadow">
     <div class="card-header text-center pe-5 bg-transparent">
       <h3 class="card-title">قرارات العلامات التجارية</h3>
@@ -19,7 +20,7 @@
     </div>
   </div>
 
-
+{% if request.user.is_authenticated %}
 <form id="deleteForm" method="post">
   {% csrf_token %}
   <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel" aria-hidden="true">
@@ -39,14 +40,13 @@
       </div>
   </div>
 </form>
-
-
-
+{% endif %}
 
 {% endblock %}
 
 {% block scripts%}
 
+<!-- JavaScript for the Delete Modal -->
 <script>
   document.addEventListener("DOMContentLoaded", function() {
       var deleteModal = document.getElementById("deleteModal");
@@ -83,6 +83,37 @@
           .catch(error => console.error("Error:", error));
       });
   });
+</script>
+
+<!-- JavaScript for the Advanced Search -->
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        // Get elements
+        var advancedSearch = document.getElementById("advanced-search");
+        var advancedSearchToggle = document.querySelector('[data-bs-target="#advanced-search"]');
+    
+        if (!advancedSearch || !advancedSearchToggle) {
+            console.error("Advanced search elements not found.");
+            return; // Stop execution if elements are missing
+        }
+    
+        // Restore state from LocalStorage
+        var advancedSearchState = localStorage.getItem("advanced_search_expanded");
+        if (advancedSearchState === "true") {
+            advancedSearch.classList.add("show");
+        } else {
+            advancedSearch.classList.remove("show");
+        }
+    
+        // Toggle state and update LocalStorage
+        advancedSearchToggle.addEventListener("click", function() {
+            console.log("Toggle button clicked!");
+            setTimeout(function() {
+                var isExpanded = advancedSearch.classList.contains("show");
+                localStorage.setItem("advanced_search_expanded", isExpanded ? "true" : "false");
+            }, 500);
+        });
+    });
 </script>
 
 {% endblock %}

@@ -1,11 +1,8 @@
 from django.urls import path
 from . import views
-from django.contrib.auth import views as auth_views
 
 urlpatterns = [
     path('', views.index, name='index'),  # Main index page
-    path('accounts/login/', auth_views.LoginView.as_view(), name='login'),
-    path('accounts/logout/', auth_views.LogoutView.as_view(), name='logout'),
     # path('manage-sections/<str:model_name>/', views.manage_sections, name='manage_sections'),
 
     path('decrees/', views.decree_list, name='decree_list'),
@@ -30,6 +27,8 @@ urlpatterns = [
 
     # Soft delete for Publication
     path('publications/delete/<int:document_id>/', views.soft_delete_publication, name='delete_publication'),
+    path('update-status/<int:publication_id>/', views.update_status, name='update_status'),
+    
     path('publications/pdf/<int:pub_id>/', views.gen_pub_pdf, name='gen_pub_pdf'),
 
 

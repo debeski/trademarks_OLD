@@ -20,7 +20,7 @@
             {% if request.user.is_authenticated %}
                 <button class="menu-toggle" onclick="toggleMenu()">☰</button>
             {% endif %}
-            <a href="#" style="text-decoration: none; color: inherit;">
+            <a href="{% url 'index' %}" style="text-decoration: none; color: inherit;">
                 <h1>الاشهار الالكتروني للعلامات التجارية{% block header %}{% endblock %}</h1>
             </a>
         </div>
@@ -29,8 +29,8 @@
         {% if user.is_authenticated %}
             <!-- Dropdown Button and Menu for Authenticated User -->
             <div class="dropdown" style="z-index: 1050;">
-                <button class="btn btn-light dropdown-toggle" type="button" id="userDropdown" data-bs-toggle="dropdown" aria-expanded="false">
-                    <i class="bi bi-person-circle">&nbsp;</i> {{ user.username }}
+                <button class="btn btn-light me-2 dropdown-toggle" type="button" id="userDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                    <i class="bi bi-person-circle">&nbsp;</i> {{ user.first_name }} {{ user.last_name }}
                 </button>
                 <ul class="dropdown-menu dropdown-menu-start" aria-labelledby="userDropdown" style="min-width: 130px;">
                     <li>
@@ -40,9 +40,14 @@
                                 تسجيل الخروج  &nbsp; <i class="bi bi-box-arrow-left"></i>
                             </button>
                         </form>
+                        <a class="dropdown-item" href="#">
+                            الملف الشخصي &nbsp; <i class="bi bi-person-lines-fill"></i>
+                        </a>
+                        {% if user.is_superuser %}
                         <a class="dropdown-item" href="{% url 'admin:index' %}">
                             لوحة التحكم &nbsp; <i class="bi bi-shield-shaded"></i>
                         </a>
+                        {% endif %}
                     </li>
                 </ul>
             </div>
@@ -55,7 +60,7 @@
         </div>
     </div>
     {% if user.is_authenticated %}
-    <div class="layout">
+    <div class="layout d-flex">
         <!-- Sidebar -->
         <div class="list-group" id="sidebar">
             <!-- Option 1: Decrees List -->
@@ -100,7 +105,7 @@
                     <div id="collapseSettings" class="accordion-collapse collapse" aria-labelledby="headingSettings" data-bs-parent="#settingsAccordion">
                         <div class="accordion-body p-0">
                             <!-- You can add more links here as needed -->
-                            <a class="list-group-item list-group-item-action {% if '/manage/' in request.path %}active{% endif %}" href="{% url 'profile' %}">إعدادات عامة</a>
+                            <a class="list-group-item list-group-item-action {% if '/manage/' in request.path %}active{% endif %}" href="#">إعدادات عامة</a>
                         </div>
                     </div>
                 </div>
@@ -108,7 +113,7 @@
         </div>
         {% endif %}
         <!-- Main Content -->
-        <div class="main-content container-fluid mt-4 m-4">
+        <div class="main-content container-fluid mt-3 p-4 d-flex">
             {% block content %}{% endblock %}
         </div>
     </div>
