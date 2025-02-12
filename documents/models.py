@@ -255,12 +255,12 @@ def default_created_at():
 #     def __str__(self):
 #         return self.name
 
-# class Government(models.Model):
-#     """Model representing a government entity."""
-#     name = models.CharField(max_length=255, unique=True)
+class Government(models.Model):
+    """Model representing a government entity."""
+    name = models.CharField(max_length=255, unique=True)
 
-#     def __str__(self):
-#         return self.name
+    def __str__(self):
+        return self.name
 
 # class Minister(models.Model):
 #     """Model representing a minister."""
@@ -360,6 +360,7 @@ class Objection(models.Model):
     job = models.CharField(max_length=24, blank=False, null=False, verbose_name="المهنة")
     nationality = models.CharField(max_length=50, choices=Countries, verbose_name="الجنسية")
     address = models.CharField(max_length=255, blank=False, verbose_name="محل الاقامة")
+    phone = models.CharField(max_length=10, blank=False, verbose_name="رقم الهاتف")
 
     com_name = models.CharField(max_length=255, blank=False, verbose_name="اسم الشركة المقدمة للشكوى")
     com_job = models.CharField(max_length=24, choices=ComType, verbose_name="غرض الشركة")
@@ -372,7 +373,7 @@ class Objection(models.Model):
         ('accepted', 'موافقة'),
         ('rejected', 'رفض')
     ], verbose_name="حالة الاعتراض")
-
+    reason = models.CharField(max_length=100, verbose_name="اسباب الرفض", blank=True)
     complain_number = models.CharField(max_length=10, blank=False, null=False, verbose_name="رقم طلب التسجيل المعارض عليه")
     pdf_file = models.FileField(upload_to=get_pdf_upload_path, blank=True, verbose_name="ملف الاعتراض")
     notes = models.TextField(max_length=999, blank=True, verbose_name="تفاصيل")
@@ -392,21 +393,23 @@ class Objection(models.Model):
 
 
 
-# class Report(models.Model):
-#     """Ambiguous Model representing a report of some sort."""
-#     number = models.CharField(max_length=20, blank=True, null=True)
-#     date = models.DateField(blank=True)
-#     title = models.CharField(max_length=255, blank=False)
-#     keywords = models.TextField(max_length=999, blank=True)
-#     pdf_file = models.FileField(upload_to=get_pdf_upload_path, blank=True)
-#     created_at = models.DateTimeField(auto_now_add=True)
-#     updated_at = models.DateTimeField(auto_now=True)
-#     deleted_at = models.DateTimeField(null=True, blank=True)
+class FormPlus(models.Model):
+    """Ambiguous Model representing a report of some sort."""
+    number = models.CharField(max_length=20, blank=True, null=True)
+    date = models.DateField(blank=True)
+    government = models.ForeignKey(Government, on_delete=models.PROTECT)
+    title = models.CharField(max_length=255, blank=False)
+    keywords = models.TextField(max_length=999, blank=True)
+    pdf_file = models.FileField(upload_to=get_pdf_upload_path, blank=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+    deleted_at = models.DateTimeField(null=True, blank=True)
 
-#     def __str__(self):
-#         return self.title
+    def __str__(self):
+        return self.title
     
-#     @property
-#     def get_model_name(self):
-#         return "تقارير"
+    @property
+    def get_model_name(self):
+        return "تقارير"
+
 

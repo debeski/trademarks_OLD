@@ -31,6 +31,13 @@ urlpatterns = [
     
     path('publications/pdf/<int:pub_id>/', views.gen_pub_pdf, name='gen_pub_pdf'),
 
+    path('formplus/', views.formplus_list, name='formplus_list'),
+    path('formplus/add/', views.add_edit_formplus, name='add_formplus'),
+    path('formplus/edit/<int:document_id>/', views.add_edit_formplus, name='edit_formplus'),
+    path('formplus/detail/<int:document_id>/', views.formplus_detail, name='view_formplus'),
+    path('formplus/download/<int:document_id>/', views.download_formplus, name='download_formplus'),
+    path('formplus/delete/<int:document_id>/', views.soft_delete_formplus, name='delete_formplus'),
+
 
     # OLD Urls:
     # path('<str:model_name>/', views.document_view, name='document_view'),

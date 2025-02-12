@@ -1,11 +1,9 @@
-# filters.py
 from django import forms
 import django_filters
 from django.db.models import Q
 from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Layout, Row, Column, Submit, Field, HTML, Div
-from .models import Decree, Publication
-from django.urls import reverse_lazy
+from .models import Decree, Publication, FormPlus
 
 
 
@@ -172,3 +170,70 @@ class PublicationFilter(django_filters.FilterSet):
         return queryset.filter(q)
 
 
+class FormPlusFilter(django_filters.FilterSet):
+
+    keyword = django_filters.CharFilter(
+        method='filter_keyword',
+        label='',
+    )
+    
+    date__year = django_filters.NumberFilter(
+        field_name="date__year",
+        lookup_expr="exact",
+        widget=forms.NumberInput(attrs={'min': 2000, 'max': 2025, 'placeholder': 'السنة'}),
+    )
+
+    class Meta:
+        model = FormPlus
+        fields = {
+            'date': ['gte', 'lte'],
+        }
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+
+        # Initialize a Crispy Forms helper for the filter form.
+        self.form.helper = FormHelper()
+        self.form.helper.form_method = 'GET'
+        self.form.helper.form_class = 'form-inline'
+        self.form.helper.form_show_labels = False  # Disable default labels
+
+        self.form.helper.layout = Layout(
+            # Keyword search (Always visible)
+            Row(
+                Column(HTML('{% if request.user.is_authenticated %} <a href="{% url "add_formplus" %}" class="btn btn-primary active w-100"><i class="bi bi-plus"></i> إضافة جديد</a> {% endif %}'), css_class='col-md-auto text-center'),
+                Column(Field('keyword', placeholder="البحث (رقم، عنوان)"), css_class='form-group col-md-6'),
+                Column(Submit('submit', 'بحث', css_class='btn btn-secondary w-100'), css_class='form-group col-md-auto text-center'),
+                Column(HTML('<button class="btn btn-outline-secondary w-100" type="button" data-bs-toggle="collapse" data-bs-target="#advanced-search">بحث متقدم</button>'), css_class='form-group col-md-auto text-center'),
+                Column(HTML('{% if request.GET %} <a href="{% url "formplus_list" %}" class="btn btn-warning">clear</a> {% endif %}'), css_class='form-group col-md-auto text-center'),
+                css_class='form-row'
+            ),
+            
+            # Advanced filters (Initially hidden, expands on button click)
+            Div(
+                Row(
+                    Column(Field('date__year', placeholder="السنة", dir="rtl"), css_class='form-group col-md-2'),
+                    
+                    Column(HTML("<strong>تاريخ التقرير</strong>"), css_class='col-md-1 text-center align-self-center mb-3'),
+                    Column(Field('date__gte', css_class='flatpickr', placeholder="من "), css_class='form-group col-md-1'),
+                    Column(Field('date__lte', css_class='flatpickr', placeholder="إلى "), css_class='form-group col-md-1'),
+                    
+                    css_class='form-row mt-2 align-items-center'
+                ),
+                css_class="collapse mt-3",  # Bootstrap collapse class
+                id="advanced-search"
+            ),
+        )
+
+    def filter_keyword(self, queryset, name, value):
+        """
+        Filter the queryset by matching the keyword in number and title.
+        """
+        q = Q(number__icontains=value) | Q(title__icontains=value)
+        if value.isdigit():
+            try:
+                year = int(value)
+                q |= Q(date__year=year)
+            except ValueError:
+                pass
+        return queryset.filter(q)

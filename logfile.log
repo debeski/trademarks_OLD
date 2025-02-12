@@ -28899,3 +28899,835 @@ INFO 2025-02-11 20:45:34,200 basehttp "GET /static/fonts/Shabwa-Medium.ttf HTTP/
 INFO 2025-02-11 20:45:34,216 basehttp "GET /static/bootstrap5/bootstrap-icons.woff2 HTTP/1.1" 200 130396
 WARNING 2025-02-11 20:45:34,561 log Not Found: /favicon.ico
 WARNING 2025-02-11 20:45:34,563 basehttp "GET /favicon.ico HTTP/1.1" 404 7094
+INFO 2025-02-12 10:49:44,586 autoreload Watching for file changes with StatReloader
+INFO 2025-02-12 10:49:55,159 basehttp "GET / HTTP/1.1" 200 4574652
+INFO 2025-02-12 10:49:55,208 basehttp "GET /static/bootstrap5/bootstrap.rtl.css HTTP/1.1" 200 280259
+INFO 2025-02-12 10:49:55,244 basehttp "GET /static/bootstrap5/bootstrap.bundle.js HTTP/1.1" 200 207819
+INFO 2025-02-12 10:49:55,248 basehttp "GET /static/flatpickr/flatpickr.min.css HTTP/1.1" 200 16166
+INFO 2025-02-12 10:49:55,318 basehttp "GET /static/flatpickr/locale/ar.js HTTP/1.1" 200 1928
+INFO 2025-02-12 10:49:55,318 basehttp "GET /static/css/style.css HTTP/1.1" 200 4926
+INFO 2025-02-12 10:49:55,320 basehttp "GET /static/bootstrap5/bootstrap-icons.css HTTP/1.1" 200 65625
+INFO 2025-02-12 10:49:55,321 basehttp "GET /static/flatpickr/flatpickr.min.js HTTP/1.1" 200 50679
+INFO 2025-02-12 10:49:55,384 basehttp "GET /static/fonts/Shabwa-Bold.ttf HTTP/1.1" 200 49452
+INFO 2025-02-12 10:49:55,385 basehttp "GET /static/fonts/Shabwa.ttf HTTP/1.1" 200 51148
+INFO 2025-02-12 10:49:55,386 basehttp "GET /static/bootstrap5/bootstrap-icons.woff2 HTTP/1.1" 200 130396
+WARNING 2025-02-12 10:49:55,703 log Not Found: /favicon.ico
+WARNING 2025-02-12 10:49:55,704 basehttp "GET /favicon.ico HTTP/1.1" 404 7094
+INFO 2025-02-12 10:50:07,493 basehttp "GET /user/login/ HTTP/1.1" 200 6989
+INFO 2025-02-12 10:50:07,512 basehttp "GET /static/css/login.css HTTP/1.1" 200 2263
+INFO 2025-02-12 10:50:15,832 basehttp "POST /user/login/ HTTP/1.1" 302 0
+INFO 2025-02-12 10:50:15,859 basehttp "GET / HTTP/1.1" 200 4578708
+INFO 2025-02-12 10:50:15,882 basehttp "GET /static/img/settings.png HTTP/1.1" 200 21053
+INFO 2025-02-12 10:50:15,882 basehttp "GET /static/img/decrees.png HTTP/1.1" 200 15258
+INFO 2025-02-12 10:50:15,882 basehttp "GET /static/img/incoming-mail.png HTTP/1.1" 200 27510
+INFO 2025-02-12 10:50:15,883 basehttp "GET /static/fonts/Shabwa-Medium.ttf HTTP/1.1" 200 51776
+INFO 2025-02-12 10:50:15,884 basehttp "GET /static/img/outgoing-mail.png HTTP/1.1" 200 27599
+INFO 2025-02-12 10:50:24,941 basehttp "GET /decrees/ HTTP/1.1" 200 36327
+INFO 2025-02-12 10:50:25,005 basehttp "GET /static/img/delete.png HTTP/1.1" 200 14867
+INFO 2025-02-12 10:50:25,006 basehttp "GET /static/img/edit.png HTTP/1.1" 200 15244
+INFO 2025-02-12 10:50:25,006 basehttp "GET /static/img/pdf.png HTTP/1.1" 200 10910
+INFO 2025-02-12 10:50:25,007 basehttp "GET /static/img/view.png HTTP/1.1" 200 20714
+INFO 2025-02-12 10:50:25,859 basehttp "GET /publications/ HTTP/1.1" 200 42852
+INFO 2025-02-12 10:50:25,882 basehttp "GET /static/css/style.css HTTP/1.1" 304 0
+INFO 2025-02-12 10:50:25,885 basehttp "GET /media/item_img/publication/14d8034da5174dbfb8c79a604479c30b.jpg HTTP/1.1" 200 175946
+INFO 2025-02-12 10:50:29,045 basehttp "GET /decrees/ HTTP/1.1" 200 36327
+INFO 2025-02-12 10:55:29,285 autoreload /workspaces/trademarks/documents/models.py changed, reloading.
+INFO 2025-02-12 10:55:29,940 autoreload Watching for file changes with StatReloader
+INFO 2025-02-12 11:07:57,516 autoreload /workspaces/trademarks/documents/models.py changed, reloading.
+INFO 2025-02-12 11:07:58,147 autoreload Watching for file changes with StatReloader
+INFO 2025-02-12 11:08:58,764 autoreload /workspaces/trademarks/documents/models.py changed, reloading.
+INFO 2025-02-12 11:08:59,375 autoreload Watching for file changes with StatReloader
+INFO 2025-02-12 11:13:19,268 autoreload Watching for file changes with StatReloader
+INFO 2025-02-12 11:13:55,496 basehttp "GET / HTTP/1.1" 200 4578708
+INFO 2025-02-12 11:13:55,514 basehttp "GET /static/css/style.css HTTP/1.1" 304 0
+WARNING 2025-02-12 11:13:56,011 log Not Found: /favicon.ico
+WARNING 2025-02-12 11:13:56,012 basehttp "GET /favicon.ico HTTP/1.1" 404 7094
+INFO 2025-02-12 11:13:57,375 basehttp "GET /decrees/ HTTP/1.1" 200 36327
+INFO 2025-02-12 11:14:00,449 basehttp "GET /publications/ HTTP/1.1" 200 42852
+INFO 2025-02-12 11:14:00,463 basehttp "GET /media/item_img/publication/14d8034da5174dbfb8c79a604479c30b.jpg HTTP/1.1" 304 0
+INFO 2025-02-12 11:14:02,467 basehttp "GET /publications/?status=conflict HTTP/1.1" 200 35076
+INFO 2025-02-12 11:14:03,090 basehttp "GET /publications/?status=final HTTP/1.1" 200 59060
+INFO 2025-02-12 11:14:03,116 basehttp "GET /media/item_img/publication/c32f9bc8409748dbb415656539becee4.jpg HTTP/1.1" 200 104123
+INFO 2025-02-12 11:14:03,117 basehttp "GET /media/item_img/publication/3de715762e984ebcb3efddeb86bf71eb.jpg HTTP/1.1" 200 198856
+INFO 2025-02-12 11:14:03,185 basehttp "GET /media/item_img/publication/7f02da3ab8ac4f4fa6451449029f52a5.jpg HTTP/1.1" 200 104123
+INFO 2025-02-12 11:14:07,119 basehttp "GET /publications/?status=initial HTTP/1.1" 200 43381
+INFO 2025-02-12 11:14:09,079 basehttp "GET /publications/pdf/8/ HTTP/1.1" 200 385741
+INFO 2025-02-12 11:14:14,183 basehttp "GET /publications/?status=final HTTP/1.1" 200 59060
+INFO 2025-02-12 11:14:15,012 basehttp "GET /publications/?status=initial HTTP/1.1" 200 43381
+INFO 2025-02-12 11:16:26,336 autoreload /workspaces/trademarks/documents/views.py changed, reloading.
+INFO 2025-02-12 11:16:27,042 autoreload Watching for file changes with StatReloader
+INFO 2025-02-12 11:18:01,461 autoreload /workspaces/trademarks/documents/views.py changed, reloading.
+INFO 2025-02-12 11:18:02,067 autoreload Watching for file changes with StatReloader
+INFO 2025-02-12 11:20:54,598 autoreload /workspaces/trademarks/documents/tables.py changed, reloading.
+INFO 2025-02-12 11:20:55,409 autoreload Watching for file changes with StatReloader
+INFO 2025-02-12 11:21:23,960 autoreload /workspaces/trademarks/documents/tables.py changed, reloading.
+INFO 2025-02-12 11:21:24,531 autoreload Watching for file changes with StatReloader
+INFO 2025-02-12 11:23:59,665 autoreload /workspaces/trademarks/documents/filters.py changed, reloading.
+INFO 2025-02-12 11:24:00,296 autoreload Watching for file changes with StatReloader
+INFO 2025-02-12 11:24:34,451 autoreload /workspaces/trademarks/documents/filters.py changed, reloading.
+INFO 2025-02-12 11:24:35,134 autoreload Watching for file changes with StatReloader
+INFO 2025-02-12 11:24:48,759 autoreload /workspaces/trademarks/documents/views.py changed, reloading.
+INFO 2025-02-12 11:24:49,350 autoreload Watching for file changes with StatReloader
+INFO 2025-02-12 11:25:43,875 autoreload /workspaces/trademarks/documents/views.py changed, reloading.
+INFO 2025-02-12 11:25:44,506 autoreload Watching for file changes with StatReloader
+INFO 2025-02-12 11:30:07,122 autoreload /workspaces/trademarks/documents/urls.py changed, reloading.
+INFO 2025-02-12 11:30:07,812 autoreload Watching for file changes with StatReloader
+INFO 2025-02-12 11:31:12,076 basehttp "GET /publications/?status=initial HTTP/1.1" 200 43391
+INFO 2025-02-12 11:31:12,092 basehttp "GET /static/css/style.css HTTP/1.1" 304 0
+INFO 2025-02-12 11:31:12,112 basehttp "GET /media/item_img/publication/14d8034da5174dbfb8c79a604479c30b.jpg HTTP/1.1" 304 0
+ERROR 2025-02-12 11:31:14,925 log Internal Server Error: /formplus/
+Traceback (most recent call last):
+  File "/home/vscode/.local/lib/python3.13/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/home/vscode/.local/lib/python3.13/site-packages/django/core/handlers/base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/home/vscode/.local/lib/python3.13/site-packages/django/contrib/auth/decorators.py", line 60, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "/workspaces/trademarks/documents/views.py", line 559, in formplus_list
+    return render(request, 'formplus_list.html', {
+        'table': table,
+        'filter': FormPlus_filter,
+    })
+  File "/home/vscode/.local/lib/python3.13/site-packages/django/shortcuts.py", line 25, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "/home/vscode/.local/lib/python3.13/site-packages/django/template/loader.py", line 62, in render_to_string
+    return template.render(context, request)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+  File "/home/vscode/.local/lib/python3.13/site-packages/django/template/backends/django.py", line 107, in render
+    return self.template.render(context)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "/home/vscode/.local/lib/python3.13/site-packages/django/template/base.py", line 171, in render
+    return self._render(context)
+           ~~~~~~~~~~~~^^^^^^^^^
+  File "/home/vscode/.local/lib/python3.13/site-packages/django/template/base.py", line 163, in _render
+    return self.nodelist.render(context)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "/home/vscode/.local/lib/python3.13/site-packages/django/template/base.py", line 1008, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "/home/vscode/.local/lib/python3.13/site-packages/django/template/base.py", line 969, in render_annotated
+    return self.render(context)
+           ~~~~~~~~~~~^^^^^^^^^
+  File "/home/vscode/.local/lib/python3.13/site-packages/django/template/loader_tags.py", line 159, in render
+    return compiled_parent._render(context)
+           ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "/home/vscode/.local/lib/python3.13/site-packages/django/template/base.py", line 163, in _render
+    return self.nodelist.render(context)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "/home/vscode/.local/lib/python3.13/site-packages/django/template/base.py", line 1008, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "/home/vscode/.local/lib/python3.13/site-packages/django/template/base.py", line 969, in render_annotated
+    return self.render(context)
+           ~~~~~~~~~~~^^^^^^^^^
+  File "/home/vscode/.local/lib/python3.13/site-packages/django/template/loader_tags.py", line 65, in render
+    result = block.nodelist.render(context)
+  File "/home/vscode/.local/lib/python3.13/site-packages/django/template/base.py", line 1008, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "/home/vscode/.local/lib/python3.13/site-packages/django/template/base.py", line 969, in render_annotated
+    return self.render(context)
+           ~~~~~~~~~~~^^^^^^^^^
+  File "/home/vscode/.local/lib/python3.13/site-packages/crispy_forms/templatetags/crispy_forms_tags.py", line 199, in render
+    c = self.get_render(context).flatten()
+        ~~~~~~~~~~~~~~~^^^^^^^^^
+  File "/home/vscode/.local/lib/python3.13/site-packages/crispy_forms/templatetags/crispy_forms_tags.py", line 117, in get_render
+    actual_form.form_html = helper.render_layout(
+                            ~~~~~~~~~~~~~~~~~~~~^
+        actual_form, node_context, template_pack=self.template_pack
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "/home/vscode/.local/lib/python3.13/site-packages/crispy_forms/helper.py", line 276, in render_layout
+    html = self.layout.render(form, context, template_pack=template_pack)
+  File "/home/vscode/.local/lib/python3.13/site-packages/crispy_forms/layout.py", line 142, in render
+    return self.get_rendered_fields(form, context, template_pack, **kwargs)
+           ~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/vscode/.local/lib/python3.13/site-packages/crispy_forms/layout.py", line 105, in get_rendered_fields
+    "".join(render_field(field, form, context, template_pack=template_pack, **kwargs) for field in self.fields)
+    ~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/vscode/.local/lib/python3.13/site-packages/crispy_forms/layout.py", line 105, in <genexpr>
+    "".join(render_field(field, form, context, template_pack=template_pack, **kwargs) for field in self.fields)
+            ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/vscode/.local/lib/python3.13/site-packages/crispy_forms/utils.py", line 65, in render_field
+    return field.render(form, context, template_pack=template_pack)
+           ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/vscode/.local/lib/python3.13/site-packages/crispy_forms/layout.py", line 748, in render
+    fields = self.get_rendered_fields(form, context, template_pack, **kwargs)
+  File "/home/vscode/.local/lib/python3.13/site-packages/crispy_forms/layout.py", line 105, in get_rendered_fields
+    "".join(render_field(field, form, context, template_pack=template_pack, **kwargs) for field in self.fields)
+    ~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/vscode/.local/lib/python3.13/site-packages/crispy_forms/layout.py", line 105, in <genexpr>
+    "".join(render_field(field, form, context, template_pack=template_pack, **kwargs) for field in self.fields)
+            ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/vscode/.local/lib/python3.13/site-packages/crispy_forms/utils.py", line 65, in render_field
+    return field.render(form, context, template_pack=template_pack)
+           ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/vscode/.local/lib/python3.13/site-packages/crispy_forms/layout.py", line 748, in render
+    fields = self.get_rendered_fields(form, context, template_pack, **kwargs)
+  File "/home/vscode/.local/lib/python3.13/site-packages/crispy_forms/layout.py", line 105, in get_rendered_fields
+    "".join(render_field(field, form, context, template_pack=template_pack, **kwargs) for field in self.fields)
+    ~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/vscode/.local/lib/python3.13/site-packages/crispy_forms/layout.py", line 105, in <genexpr>
+    "".join(render_field(field, form, context, template_pack=template_pack, **kwargs) for field in self.fields)
+            ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/vscode/.local/lib/python3.13/site-packages/crispy_forms/utils.py", line 65, in render_field
+    return field.render(form, context, template_pack=template_pack)
+           ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/vscode/.local/lib/python3.13/site-packages/crispy_forms/layout.py", line 875, in render
+    return Template(str(self.html)).render(context)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "/home/vscode/.local/lib/python3.13/site-packages/django/template/base.py", line 173, in render
+    return self._render(context)
+           ~~~~~~~~~~~~^^^^^^^^^
+  File "/home/vscode/.local/lib/python3.13/site-packages/django/template/base.py", line 163, in _render
+    return self.nodelist.render(context)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "/home/vscode/.local/lib/python3.13/site-packages/django/template/base.py", line 1008, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "/home/vscode/.local/lib/python3.13/site-packages/django/template/base.py", line 969, in render_annotated
+    return self.render(context)
+           ~~~~~~~~~~~^^^^^^^^^
+  File "/home/vscode/.local/lib/python3.13/site-packages/django/template/defaulttags.py", line 327, in render
+    return nodelist.render(context)
+           ~~~~~~~~~~~~~~~^^^^^^^^^
+  File "/home/vscode/.local/lib/python3.13/site-packages/django/template/base.py", line 1008, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "/home/vscode/.local/lib/python3.13/site-packages/django/template/base.py", line 969, in render_annotated
+    return self.render(context)
+           ~~~~~~~~~~~^^^^^^^^^
+  File "/home/vscode/.local/lib/python3.13/site-packages/django/template/defaulttags.py", line 480, in render
+    url = reverse(view_name, args=args, kwargs=kwargs, current_app=current_app)
+  File "/home/vscode/.local/lib/python3.13/site-packages/django/urls/base.py", line 88, in reverse
+    return resolver._reverse_with_prefix(view, prefix, *args, **kwargs)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/vscode/.local/lib/python3.13/site-packages/django/urls/resolvers.py", line 831, in _reverse_with_prefix
+    raise NoReverseMatch(msg)
+django.urls.exceptions.NoReverseMatch: Reverse for 'add_formplus' not found. 'add_formplus' is not a valid view function or pattern name.
+ERROR 2025-02-12 11:31:14,932 basehttp "GET /formplus/ HTTP/1.1" 500 323974
+INFO 2025-02-12 11:35:16,955 autoreload /workspaces/trademarks/documents/urls.py changed, reloading.
+INFO 2025-02-12 11:35:17,616 autoreload Watching for file changes with StatReloader
+INFO 2025-02-12 11:36:46,180 autoreload /workspaces/trademarks/documents/views.py changed, reloading.
+INFO 2025-02-12 11:36:46,804 autoreload Watching for file changes with StatReloader
+INFO 2025-02-12 11:36:57,915 basehttp "GET /formplus/ HTTP/1.1" 200 14986
+INFO 2025-02-12 11:36:57,933 basehttp "GET /static/css/style.css HTTP/1.1" 304 0
+INFO 2025-02-12 11:37:15,948 basehttp "GET /publications/ HTTP/1.1" 200 42862
+INFO 2025-02-12 11:37:15,959 basehttp "GET /media/item_img/publication/14d8034da5174dbfb8c79a604479c30b.jpg HTTP/1.1" 304 0
+INFO 2025-02-12 11:37:18,243 basehttp "GET /decrees/ HTTP/1.1" 200 36337
+INFO 2025-02-12 11:37:19,208 basehttp "GET /publications/ HTTP/1.1" 200 42862
+INFO 2025-02-12 11:37:21,103 basehttp "GET /formplus/ HTTP/1.1" 200 14986
+INFO 2025-02-12 11:38:12,462 autoreload /workspaces/trademarks/documents/views.py changed, reloading.
+INFO 2025-02-12 11:38:13,197 autoreload Watching for file changes with StatReloader
+INFO 2025-02-12 11:42:43,638 basehttp "GET /formplus/ HTTP/1.1" 200 14986
+INFO 2025-02-12 11:42:43,657 basehttp "GET /static/css/style.css HTTP/1.1" 304 0
+INFO 2025-02-12 11:42:48,010 basehttp "GET /publications/ HTTP/1.1" 200 42862
+INFO 2025-02-12 11:42:48,024 basehttp "GET /media/item_img/publication/14d8034da5174dbfb8c79a604479c30b.jpg HTTP/1.1" 304 0
+INFO 2025-02-12 11:42:48,794 basehttp "GET /formplus/ HTTP/1.1" 200 14986
+INFO 2025-02-12 11:42:50,402 basehttp "GET /formplus/add/ HTTP/1.1" 200 10824
+INFO 2025-02-12 11:42:53,944 basehttp "GET /formplus/ HTTP/1.1" 200 14986
+INFO 2025-02-12 11:42:55,417 basehttp "GET /formplus/add/ HTTP/1.1" 200 10824
+INFO 2025-02-12 11:47:03,488 basehttp "POST /formplus/add/ HTTP/1.1" 302 0
+ERROR 2025-02-12 11:47:03,529 log Internal Server Error: /formplus/
+Traceback (most recent call last):
+  File "/home/vscode/.local/lib/python3.13/site-packages/django/template/backends/django.py", line 107, in render
+    return self.template.render(context)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "/home/vscode/.local/lib/python3.13/site-packages/django/template/base.py", line 171, in render
+    return self._render(context)
+           ~~~~~~~~~~~~^^^^^^^^^
+  File "/home/vscode/.local/lib/python3.13/site-packages/django/template/base.py", line 163, in _render
+    return self.nodelist.render(context)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "/home/vscode/.local/lib/python3.13/site-packages/django/template/base.py", line 1008, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "/home/vscode/.local/lib/python3.13/site-packages/django/template/base.py", line 969, in render_annotated
+    return self.render(context)
+           ~~~~~~~~~~~^^^^^^^^^
+  File "/home/vscode/.local/lib/python3.13/site-packages/django/template/loader_tags.py", line 56, in render
+    result = self.nodelist.render(context)
+  File "/home/vscode/.local/lib/python3.13/site-packages/django/template/base.py", line 1008, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "/home/vscode/.local/lib/python3.13/site-packages/django/template/base.py", line 969, in render_annotated
+    return self.render(context)
+           ~~~~~~~~~~~^^^^^^^^^
+  File "/home/vscode/.local/lib/python3.13/site-packages/django/template/loader_tags.py", line 56, in render
+    result = self.nodelist.render(context)
+  File "/home/vscode/.local/lib/python3.13/site-packages/django/template/base.py", line 1008, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "/home/vscode/.local/lib/python3.13/site-packages/django/template/base.py", line 969, in render_annotated
+    return self.render(context)
+           ~~~~~~~~~~~^^^^^^^^^
+  File "/home/vscode/.local/lib/python3.13/site-packages/django/template/loader_tags.py", line 56, in render
+    result = self.nodelist.render(context)
+  File "/home/vscode/.local/lib/python3.13/site-packages/django/template/base.py", line 1008, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "/home/vscode/.local/lib/python3.13/site-packages/django/template/base.py", line 969, in render_annotated
+    return self.render(context)
+           ~~~~~~~~~~~^^^^^^^^^
+  File "/home/vscode/.local/lib/python3.13/site-packages/django/template/defaulttags.py", line 243, in render
+    nodelist.append(node.render_annotated(context))
+                    ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "/home/vscode/.local/lib/python3.13/site-packages/django/template/base.py", line 969, in render_annotated
+    return self.render(context)
+           ~~~~~~~~~~~^^^^^^^^^
+  File "/home/vscode/.local/lib/python3.13/site-packages/django/template/loader_tags.py", line 56, in render
+    result = self.nodelist.render(context)
+  File "/home/vscode/.local/lib/python3.13/site-packages/django/template/base.py", line 1008, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "/home/vscode/.local/lib/python3.13/site-packages/django/template/base.py", line 969, in render_annotated
+    return self.render(context)
+           ~~~~~~~~~~~^^^^^^^^^
+  File "/home/vscode/.local/lib/python3.13/site-packages/django/template/defaulttags.py", line 198, in render
+    values = list(values)
+  File "/home/vscode/.local/lib/python3.13/site-packages/django_tables2/rows.py", line 244, in items
+    column.current_value = self.get_cell(column.name)
+                           ~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "/home/vscode/.local/lib/python3.13/site-packages/django_tables2/rows.py", line 197, in get_cell
+    return self._get_and_render_with(
+           ~~~~~~~~~~~~~~~~~~~~~~~~~^
+        bound_column, render_func=self._call_render, default=bound_column.default
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "/home/vscode/.local/lib/python3.13/site-packages/django_tables2/rows.py", line 173, in _get_and_render_with
+    return render_func(bound_column, value)
+  File "/home/vscode/.local/lib/python3.13/site-packages/django_tables2/rows.py", line 206, in _call_render
+    content = call_with_appropriate(bound_column.render, render_kwargs)
+  File "/home/vscode/.local/lib/python3.13/site-packages/django_tables2/utils.py", line 577, in call_with_appropriate
+    return fn(**kwargs)
+  File "/home/vscode/.local/lib/python3.13/site-packages/django_tables2/columns/templatecolumn.py", line 68, in render
+    return get_template(self.template_name).render(context.flatten())
+           ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^
+  File "/home/vscode/.local/lib/python3.13/site-packages/django/template/loader.py", line 19, in get_template
+    raise TemplateDoesNotExist(template_name, chain=chain)
+django.template.exceptions.TemplateDoesNotExist: partials/formplus_actions.html
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/vscode/.local/lib/python3.13/site-packages/django/template/backends/django.py", line 107, in render
+    return self.template.render(context)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "/home/vscode/.local/lib/python3.13/site-packages/django/template/base.py", line 171, in render
+    return self._render(context)
+           ~~~~~~~~~~~~^^^^^^^^^
+  File "/home/vscode/.local/lib/python3.13/site-packages/django/template/base.py", line 163, in _render
+    return self.nodelist.render(context)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "/home/vscode/.local/lib/python3.13/site-packages/django/template/base.py", line 1008, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "/home/vscode/.local/lib/python3.13/site-packages/django/template/base.py", line 969, in render_annotated
+    return self.render(context)
+           ~~~~~~~~~~~^^^^^^^^^
+  File "/home/vscode/.local/lib/python3.13/site-packages/django/template/loader_tags.py", line 159, in render
+    return compiled_parent._render(context)
+           ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "/home/vscode/.local/lib/python3.13/site-packages/django/template/base.py", line 163, in _render
+    return self.nodelist.render(context)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "/home/vscode/.local/lib/python3.13/site-packages/django/template/base.py", line 1008, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "/home/vscode/.local/lib/python3.13/site-packages/django/template/base.py", line 969, in render_annotated
+    return self.render(context)
+           ~~~~~~~~~~~^^^^^^^^^
+  File "/home/vscode/.local/lib/python3.13/site-packages/django/template/loader_tags.py", line 65, in render
+    result = block.nodelist.render(context)
+  File "/home/vscode/.local/lib/python3.13/site-packages/django/template/base.py", line 1008, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "/home/vscode/.local/lib/python3.13/site-packages/django/template/base.py", line 969, in render_annotated
+    return self.render(context)
+           ~~~~~~~~~~~^^^^^^^^^
+  File "/home/vscode/.local/lib/python3.13/site-packages/django_tables2/templatetags/django_tables2.py", line 166, in render
+    return template.render(context={"table": table}, request=request)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/vscode/.local/lib/python3.13/site-packages/django/template/backends/django.py", line 109, in render
+    reraise(exc, self.backend)
+    ~~~~~~~^^^^^^^^^^^^^^^^^^^
+  File "/home/vscode/.local/lib/python3.13/site-packages/django/template/backends/django.py", line 130, in reraise
+    raise new from exc
+django.template.exceptions.TemplateDoesNotExist: partials/formplus_actions.html
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/vscode/.local/lib/python3.13/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/home/vscode/.local/lib/python3.13/site-packages/django/core/handlers/base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/home/vscode/.local/lib/python3.13/site-packages/django/contrib/auth/decorators.py", line 60, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "/workspaces/trademarks/documents/views.py", line 559, in formplus_list
+    return render(request, 'formplus_list.html', {
+        'table': table,
+        'filter': FormPlus_filter,
+    })
+  File "/home/vscode/.local/lib/python3.13/site-packages/django/shortcuts.py", line 25, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "/home/vscode/.local/lib/python3.13/site-packages/django/template/loader.py", line 62, in render_to_string
+    return template.render(context, request)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+  File "/home/vscode/.local/lib/python3.13/site-packages/django/template/backends/django.py", line 109, in render
+    reraise(exc, self.backend)
+    ~~~~~~~^^^^^^^^^^^^^^^^^^^
+  File "/home/vscode/.local/lib/python3.13/site-packages/django/template/backends/django.py", line 130, in reraise
+    raise new from exc
+django.template.exceptions.TemplateDoesNotExist: partials/formplus_actions.html
+ERROR 2025-02-12 11:47:03,534 basehttp "GET /formplus/ HTTP/1.1" 500 301024
+ERROR 2025-02-12 11:47:55,671 log Internal Server Error: /formplus/
+Traceback (most recent call last):
+  File "/home/vscode/.local/lib/python3.13/site-packages/django/template/backends/django.py", line 107, in render
+    return self.template.render(context)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "/home/vscode/.local/lib/python3.13/site-packages/django/template/base.py", line 171, in render
+    return self._render(context)
+           ~~~~~~~~~~~~^^^^^^^^^
+  File "/home/vscode/.local/lib/python3.13/site-packages/django/template/base.py", line 163, in _render
+    return self.nodelist.render(context)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "/home/vscode/.local/lib/python3.13/site-packages/django/template/base.py", line 1008, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "/home/vscode/.local/lib/python3.13/site-packages/django/template/base.py", line 969, in render_annotated
+    return self.render(context)
+           ~~~~~~~~~~~^^^^^^^^^
+  File "/home/vscode/.local/lib/python3.13/site-packages/django/template/loader_tags.py", line 56, in render
+    result = self.nodelist.render(context)
+  File "/home/vscode/.local/lib/python3.13/site-packages/django/template/base.py", line 1008, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "/home/vscode/.local/lib/python3.13/site-packages/django/template/base.py", line 969, in render_annotated
+    return self.render(context)
+           ~~~~~~~~~~~^^^^^^^^^
+  File "/home/vscode/.local/lib/python3.13/site-packages/django/template/loader_tags.py", line 56, in render
+    result = self.nodelist.render(context)
+  File "/home/vscode/.local/lib/python3.13/site-packages/django/template/base.py", line 1008, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "/home/vscode/.local/lib/python3.13/site-packages/django/template/base.py", line 969, in render_annotated
+    return self.render(context)
+           ~~~~~~~~~~~^^^^^^^^^
+  File "/home/vscode/.local/lib/python3.13/site-packages/django/template/loader_tags.py", line 56, in render
+    result = self.nodelist.render(context)
+  File "/home/vscode/.local/lib/python3.13/site-packages/django/template/base.py", line 1008, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "/home/vscode/.local/lib/python3.13/site-packages/django/template/base.py", line 969, in render_annotated
+    return self.render(context)
+           ~~~~~~~~~~~^^^^^^^^^
+  File "/home/vscode/.local/lib/python3.13/site-packages/django/template/defaulttags.py", line 243, in render
+    nodelist.append(node.render_annotated(context))
+                    ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "/home/vscode/.local/lib/python3.13/site-packages/django/template/base.py", line 969, in render_annotated
+    return self.render(context)
+           ~~~~~~~~~~~^^^^^^^^^
+  File "/home/vscode/.local/lib/python3.13/site-packages/django/template/loader_tags.py", line 56, in render
+    result = self.nodelist.render(context)
+  File "/home/vscode/.local/lib/python3.13/site-packages/django/template/base.py", line 1008, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "/home/vscode/.local/lib/python3.13/site-packages/django/template/base.py", line 969, in render_annotated
+    return self.render(context)
+           ~~~~~~~~~~~^^^^^^^^^
+  File "/home/vscode/.local/lib/python3.13/site-packages/django/template/defaulttags.py", line 198, in render
+    values = list(values)
+  File "/home/vscode/.local/lib/python3.13/site-packages/django_tables2/rows.py", line 244, in items
+    column.current_value = self.get_cell(column.name)
+                           ~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "/home/vscode/.local/lib/python3.13/site-packages/django_tables2/rows.py", line 197, in get_cell
+    return self._get_and_render_with(
+           ~~~~~~~~~~~~~~~~~~~~~~~~~^
+        bound_column, render_func=self._call_render, default=bound_column.default
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "/home/vscode/.local/lib/python3.13/site-packages/django_tables2/rows.py", line 173, in _get_and_render_with
+    return render_func(bound_column, value)
+  File "/home/vscode/.local/lib/python3.13/site-packages/django_tables2/rows.py", line 206, in _call_render
+    content = call_with_appropriate(bound_column.render, render_kwargs)
+  File "/home/vscode/.local/lib/python3.13/site-packages/django_tables2/utils.py", line 577, in call_with_appropriate
+    return fn(**kwargs)
+  File "/home/vscode/.local/lib/python3.13/site-packages/django_tables2/columns/templatecolumn.py", line 68, in render
+    return get_template(self.template_name).render(context.flatten())
+           ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^
+  File "/home/vscode/.local/lib/python3.13/site-packages/django/template/loader.py", line 19, in get_template
+    raise TemplateDoesNotExist(template_name, chain=chain)
+django.template.exceptions.TemplateDoesNotExist: partials/formplus_actions.html
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/vscode/.local/lib/python3.13/site-packages/django/template/backends/django.py", line 107, in render
+    return self.template.render(context)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "/home/vscode/.local/lib/python3.13/site-packages/django/template/base.py", line 171, in render
+    return self._render(context)
+           ~~~~~~~~~~~~^^^^^^^^^
+  File "/home/vscode/.local/lib/python3.13/site-packages/django/template/base.py", line 163, in _render
+    return self.nodelist.render(context)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "/home/vscode/.local/lib/python3.13/site-packages/django/template/base.py", line 1008, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "/home/vscode/.local/lib/python3.13/site-packages/django/template/base.py", line 969, in render_annotated
+    return self.render(context)
+           ~~~~~~~~~~~^^^^^^^^^
+  File "/home/vscode/.local/lib/python3.13/site-packages/django/template/loader_tags.py", line 159, in render
+    return compiled_parent._render(context)
+           ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "/home/vscode/.local/lib/python3.13/site-packages/django/template/base.py", line 163, in _render
+    return self.nodelist.render(context)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "/home/vscode/.local/lib/python3.13/site-packages/django/template/base.py", line 1008, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "/home/vscode/.local/lib/python3.13/site-packages/django/template/base.py", line 969, in render_annotated
+    return self.render(context)
+           ~~~~~~~~~~~^^^^^^^^^
+  File "/home/vscode/.local/lib/python3.13/site-packages/django/template/loader_tags.py", line 65, in render
+    result = block.nodelist.render(context)
+  File "/home/vscode/.local/lib/python3.13/site-packages/django/template/base.py", line 1008, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "/home/vscode/.local/lib/python3.13/site-packages/django/template/base.py", line 969, in render_annotated
+    return self.render(context)
+           ~~~~~~~~~~~^^^^^^^^^
+  File "/home/vscode/.local/lib/python3.13/site-packages/django_tables2/templatetags/django_tables2.py", line 166, in render
+    return template.render(context={"table": table}, request=request)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/vscode/.local/lib/python3.13/site-packages/django/template/backends/django.py", line 109, in render
+    reraise(exc, self.backend)
+    ~~~~~~~^^^^^^^^^^^^^^^^^^^
+  File "/home/vscode/.local/lib/python3.13/site-packages/django/template/backends/django.py", line 130, in reraise
+    raise new from exc
+django.template.exceptions.TemplateDoesNotExist: partials/formplus_actions.html
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/vscode/.local/lib/python3.13/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/home/vscode/.local/lib/python3.13/site-packages/django/core/handlers/base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/home/vscode/.local/lib/python3.13/site-packages/django/contrib/auth/decorators.py", line 60, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "/workspaces/trademarks/documents/views.py", line 559, in formplus_list
+    return render(request, 'formplus_list.html', {
+        'table': table,
+        'filter': FormPlus_filter,
+    })
+  File "/home/vscode/.local/lib/python3.13/site-packages/django/shortcuts.py", line 25, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "/home/vscode/.local/lib/python3.13/site-packages/django/template/loader.py", line 62, in render_to_string
+    return template.render(context, request)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+  File "/home/vscode/.local/lib/python3.13/site-packages/django/template/backends/django.py", line 109, in render
+    reraise(exc, self.backend)
+    ~~~~~~~^^^^^^^^^^^^^^^^^^^
+  File "/home/vscode/.local/lib/python3.13/site-packages/django/template/backends/django.py", line 130, in reraise
+    raise new from exc
+django.template.exceptions.TemplateDoesNotExist: partials/formplus_actions.html
+ERROR 2025-02-12 11:47:55,674 basehttp "GET /formplus/ HTTP/1.1" 500 301024
+ERROR 2025-02-12 11:48:06,582 log Internal Server Error: /formplus/
+Traceback (most recent call last):
+  File "/home/vscode/.local/lib/python3.13/site-packages/django/template/backends/django.py", line 107, in render
+    return self.template.render(context)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "/home/vscode/.local/lib/python3.13/site-packages/django/template/base.py", line 171, in render
+    return self._render(context)
+           ~~~~~~~~~~~~^^^^^^^^^
+  File "/home/vscode/.local/lib/python3.13/site-packages/django/template/base.py", line 163, in _render
+    return self.nodelist.render(context)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "/home/vscode/.local/lib/python3.13/site-packages/django/template/base.py", line 1008, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "/home/vscode/.local/lib/python3.13/site-packages/django/template/base.py", line 969, in render_annotated
+    return self.render(context)
+           ~~~~~~~~~~~^^^^^^^^^
+  File "/home/vscode/.local/lib/python3.13/site-packages/django/template/loader_tags.py", line 56, in render
+    result = self.nodelist.render(context)
+  File "/home/vscode/.local/lib/python3.13/site-packages/django/template/base.py", line 1008, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "/home/vscode/.local/lib/python3.13/site-packages/django/template/base.py", line 969, in render_annotated
+    return self.render(context)
+           ~~~~~~~~~~~^^^^^^^^^
+  File "/home/vscode/.local/lib/python3.13/site-packages/django/template/loader_tags.py", line 56, in render
+    result = self.nodelist.render(context)
+  File "/home/vscode/.local/lib/python3.13/site-packages/django/template/base.py", line 1008, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "/home/vscode/.local/lib/python3.13/site-packages/django/template/base.py", line 969, in render_annotated
+    return self.render(context)
+           ~~~~~~~~~~~^^^^^^^^^
+  File "/home/vscode/.local/lib/python3.13/site-packages/django/template/loader_tags.py", line 56, in render
+    result = self.nodelist.render(context)
+  File "/home/vscode/.local/lib/python3.13/site-packages/django/template/base.py", line 1008, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "/home/vscode/.local/lib/python3.13/site-packages/django/template/base.py", line 969, in render_annotated
+    return self.render(context)
+           ~~~~~~~~~~~^^^^^^^^^
+  File "/home/vscode/.local/lib/python3.13/site-packages/django/template/defaulttags.py", line 243, in render
+    nodelist.append(node.render_annotated(context))
+                    ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "/home/vscode/.local/lib/python3.13/site-packages/django/template/base.py", line 969, in render_annotated
+    return self.render(context)
+           ~~~~~~~~~~~^^^^^^^^^
+  File "/home/vscode/.local/lib/python3.13/site-packages/django/template/loader_tags.py", line 56, in render
+    result = self.nodelist.render(context)
+  File "/home/vscode/.local/lib/python3.13/site-packages/django/template/base.py", line 1008, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "/home/vscode/.local/lib/python3.13/site-packages/django/template/base.py", line 969, in render_annotated
+    return self.render(context)
+           ~~~~~~~~~~~^^^^^^^^^
+  File "/home/vscode/.local/lib/python3.13/site-packages/django/template/defaulttags.py", line 198, in render
+    values = list(values)
+  File "/home/vscode/.local/lib/python3.13/site-packages/django_tables2/rows.py", line 244, in items
+    column.current_value = self.get_cell(column.name)
+                           ~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "/home/vscode/.local/lib/python3.13/site-packages/django_tables2/rows.py", line 197, in get_cell
+    return self._get_and_render_with(
+           ~~~~~~~~~~~~~~~~~~~~~~~~~^
+        bound_column, render_func=self._call_render, default=bound_column.default
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "/home/vscode/.local/lib/python3.13/site-packages/django_tables2/rows.py", line 173, in _get_and_render_with
+    return render_func(bound_column, value)
+  File "/home/vscode/.local/lib/python3.13/site-packages/django_tables2/rows.py", line 206, in _call_render
+    content = call_with_appropriate(bound_column.render, render_kwargs)
+  File "/home/vscode/.local/lib/python3.13/site-packages/django_tables2/utils.py", line 577, in call_with_appropriate
+    return fn(**kwargs)
+  File "/home/vscode/.local/lib/python3.13/site-packages/django_tables2/columns/templatecolumn.py", line 68, in render
+    return get_template(self.template_name).render(context.flatten())
+           ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^
+  File "/home/vscode/.local/lib/python3.13/site-packages/django/template/loader.py", line 19, in get_template
+    raise TemplateDoesNotExist(template_name, chain=chain)
+django.template.exceptions.TemplateDoesNotExist: partials/formplus_actions.html
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/vscode/.local/lib/python3.13/site-packages/django/template/backends/django.py", line 107, in render
+    return self.template.render(context)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "/home/vscode/.local/lib/python3.13/site-packages/django/template/base.py", line 171, in render
+    return self._render(context)
+           ~~~~~~~~~~~~^^^^^^^^^
+  File "/home/vscode/.local/lib/python3.13/site-packages/django/template/base.py", line 163, in _render
+    return self.nodelist.render(context)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "/home/vscode/.local/lib/python3.13/site-packages/django/template/base.py", line 1008, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "/home/vscode/.local/lib/python3.13/site-packages/django/template/base.py", line 969, in render_annotated
+    return self.render(context)
+           ~~~~~~~~~~~^^^^^^^^^
+  File "/home/vscode/.local/lib/python3.13/site-packages/django/template/loader_tags.py", line 159, in render
+    return compiled_parent._render(context)
+           ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "/home/vscode/.local/lib/python3.13/site-packages/django/template/base.py", line 163, in _render
+    return self.nodelist.render(context)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "/home/vscode/.local/lib/python3.13/site-packages/django/template/base.py", line 1008, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "/home/vscode/.local/lib/python3.13/site-packages/django/template/base.py", line 969, in render_annotated
+    return self.render(context)
+           ~~~~~~~~~~~^^^^^^^^^
+  File "/home/vscode/.local/lib/python3.13/site-packages/django/template/loader_tags.py", line 65, in render
+    result = block.nodelist.render(context)
+  File "/home/vscode/.local/lib/python3.13/site-packages/django/template/base.py", line 1008, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "/home/vscode/.local/lib/python3.13/site-packages/django/template/base.py", line 969, in render_annotated
+    return self.render(context)
+           ~~~~~~~~~~~^^^^^^^^^
+  File "/home/vscode/.local/lib/python3.13/site-packages/django_tables2/templatetags/django_tables2.py", line 166, in render
+    return template.render(context={"table": table}, request=request)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/vscode/.local/lib/python3.13/site-packages/django/template/backends/django.py", line 109, in render
+    reraise(exc, self.backend)
+    ~~~~~~~^^^^^^^^^^^^^^^^^^^
+  File "/home/vscode/.local/lib/python3.13/site-packages/django/template/backends/django.py", line 130, in reraise
+    raise new from exc
+django.template.exceptions.TemplateDoesNotExist: partials/formplus_actions.html
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/vscode/.local/lib/python3.13/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/home/vscode/.local/lib/python3.13/site-packages/django/core/handlers/base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/home/vscode/.local/lib/python3.13/site-packages/django/contrib/auth/decorators.py", line 60, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "/workspaces/trademarks/documents/views.py", line 559, in formplus_list
+    return render(request, 'formplus_list.html', {
+        'table': table,
+        'filter': FormPlus_filter,
+    })
+  File "/home/vscode/.local/lib/python3.13/site-packages/django/shortcuts.py", line 25, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "/home/vscode/.local/lib/python3.13/site-packages/django/template/loader.py", line 62, in render_to_string
+    return template.render(context, request)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+  File "/home/vscode/.local/lib/python3.13/site-packages/django/template/backends/django.py", line 109, in render
+    reraise(exc, self.backend)
+    ~~~~~~~^^^^^^^^^^^^^^^^^^^
+  File "/home/vscode/.local/lib/python3.13/site-packages/django/template/backends/django.py", line 130, in reraise
+    raise new from exc
+django.template.exceptions.TemplateDoesNotExist: partials/formplus_actions.html
+ERROR 2025-02-12 11:48:06,585 basehttp "GET /formplus/ HTTP/1.1" 500 301024
+INFO 2025-02-12 11:49:09,702 autoreload /workspaces/trademarks/documents/urls.py changed, reloading.
+INFO 2025-02-12 11:49:10,429 autoreload Watching for file changes with StatReloader
+INFO 2025-02-12 11:52:35,530 autoreload /workspaces/trademarks/documents/tables.py changed, reloading.
+INFO 2025-02-12 11:52:36,169 autoreload Watching for file changes with StatReloader
+INFO 2025-02-12 11:52:40,146 basehttp "GET /formplus/ HTTP/1.1" 200 17182
+INFO 2025-02-12 11:52:40,159 basehttp "GET /static/css/style.css HTTP/1.1" 304 0
+INFO 2025-02-12 11:52:43,713 basehttp "GET /publications/ HTTP/1.1" 200 42862
+INFO 2025-02-12 11:52:43,725 basehttp "GET /media/item_img/publication/14d8034da5174dbfb8c79a604479c30b.jpg HTTP/1.1" 304 0
+INFO 2025-02-12 11:52:44,438 basehttp "GET /decrees/ HTTP/1.1" 200 36337
+INFO 2025-02-12 11:52:45,932 basehttp "GET /publications/ HTTP/1.1" 200 42862
+INFO 2025-02-12 11:52:47,184 basehttp "GET /decrees/ HTTP/1.1" 200 36337
+INFO 2025-02-12 11:52:48,806 basehttp "GET /formplus/ HTTP/1.1" 200 17182
+INFO 2025-02-12 11:52:52,402 basehttp "GET /formplus/detail/1/ HTTP/1.1" 200 10108
+INFO 2025-02-12 11:52:52,430 basehttp "GET /static/pdfjs/build/pdf.mjs HTTP/1.1" 200 628531
+INFO 2025-02-12 11:52:52,491 basehttp "GET /static/pdfjs/build/pdf.worker.mjs HTTP/1.1" 200 2202494
+INFO 2025-02-12 11:52:52,530 basehttp "GET /media/pdfs/formplus/4a274f152da841c59c4feb73cdc7d2b3.pdf HTTP/1.1" 200 157906
+INFO 2025-02-12 11:53:05,398 basehttp "GET /static/bootstrap5/bootstrap.bundle.js.map HTTP/1.1" 200 444579
+INFO 2025-02-12 11:53:05,404 basehttp "GET /static/bootstrap5/bootstrap.rtl.css.map HTTP/1.1" 200 679615
+INFO 2025-02-12 11:53:05,413 basehttp "GET /static/pdfjs/build/pdf.mjs.map HTTP/1.1" 200 1683640
+INFO 2025-02-12 11:53:05,550 basehttp "GET /static/pdfjs/build/pdf.worker.mjs.map HTTP/1.1" 200 5263556
+INFO 2025-02-12 11:53:23,572 basehttp "GET /decrees/ HTTP/1.1" 200 36337
+INFO 2025-02-12 11:53:25,912 basehttp "GET /decrees/detail/3/ HTTP/1.1" 200 10585
+INFO 2025-02-12 11:53:25,997 basehttp "GET /media/pdfs/decree/e42515586eae4eb0a2ab3f40d40e73ec.pdf HTTP/1.1" 200 401698
+INFO 2025-02-12 11:53:30,513 basehttp "GET /publications/ HTTP/1.1" 200 42862
+INFO 2025-02-12 11:53:33,341 basehttp "GET /publications/detail/8/ HTTP/1.1" 200 10076
+INFO 2025-02-12 11:53:37,535 basehttp "GET /formplus/ HTTP/1.1" 200 17182
+INFO 2025-02-12 11:53:40,668 basehttp "GET /formplus/edit/1/ HTTP/1.1" 200 11481
+INFO 2025-02-12 11:53:42,602 basehttp "GET /formplus/ HTTP/1.1" 200 17182
+INFO 2025-02-12 11:53:44,851 basehttp "GET /formplus/detail/1/ HTTP/1.1" 200 10108
+INFO 2025-02-12 11:53:44,920 basehttp "GET /media/pdfs/formplus/4a274f152da841c59c4feb73cdc7d2b3.pdf HTTP/1.1" 304 0
+INFO 2025-02-12 11:54:01,848 autoreload /workspaces/trademarks/documents/tables.py changed, reloading.
+INFO 2025-02-12 11:54:02,504 autoreload Watching for file changes with StatReloader
+INFO 2025-02-12 12:05:32,865 basehttp "GET /formplus/detail/1/ HTTP/1.1" 200 10108
+INFO 2025-02-12 12:05:32,884 basehttp "GET /static/css/style.css HTTP/1.1" 304 0
+INFO 2025-02-12 12:05:32,997 basehttp "GET /media/pdfs/formplus/4a274f152da841c59c4feb73cdc7d2b3.pdf HTTP/1.1" 304 0
+INFO 2025-02-12 12:10:17,062 autoreload /workspaces/trademarks/documents/models.py changed, reloading.
+INFO 2025-02-12 12:10:17,706 autoreload Watching for file changes with StatReloader
+INFO 2025-02-12 12:12:44,983 autoreload /workspaces/trademarks/documents/models.py changed, reloading.
+INFO 2025-02-12 12:12:45,566 autoreload Watching for file changes with StatReloader
+INFO 2025-02-12 12:13:30,930 autoreload /workspaces/trademarks/documents/models.py changed, reloading.
+INFO 2025-02-12 12:13:31,579 autoreload Watching for file changes with StatReloader
+ERROR 2025-02-12 12:15:51,566 log Internal Server Error: /formplus/detail/1/
+Traceback (most recent call last):
+  File "/home/vscode/.local/lib/python3.13/site-packages/django/db/backends/utils.py", line 105, in _execute
+    return self.cursor.execute(sql, params)
+           ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "/home/vscode/.local/lib/python3.13/site-packages/django/db/backends/sqlite3/base.py", line 354, in execute
+    return super().execute(query, params)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+sqlite3.OperationalError: no such column: documents_formplus.government_id
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/vscode/.local/lib/python3.13/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/home/vscode/.local/lib/python3.13/site-packages/django/core/handlers/base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/home/vscode/.local/lib/python3.13/site-packages/django/contrib/auth/decorators.py", line 60, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "/workspaces/trademarks/documents/views.py", line 599, in formplus_detail
+    formplus = get_object_or_404(FormPlus, pk=document_id)
+  File "/home/vscode/.local/lib/python3.13/site-packages/django/shortcuts.py", line 86, in get_object_or_404
+    return queryset.get(*args, **kwargs)
+           ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "/home/vscode/.local/lib/python3.13/site-packages/django/db/models/query.py", line 645, in get
+    num = len(clone)
+  File "/home/vscode/.local/lib/python3.13/site-packages/django/db/models/query.py", line 382, in __len__
+    self._fetch_all()
+    ~~~~~~~~~~~~~~~^^
+  File "/home/vscode/.local/lib/python3.13/site-packages/django/db/models/query.py", line 1928, in _fetch_all
+    self._result_cache = list(self._iterable_class(self))
+                         ~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/vscode/.local/lib/python3.13/site-packages/django/db/models/query.py", line 91, in __iter__
+    results = compiler.execute_sql(
+        chunked_fetch=self.chunked_fetch, chunk_size=self.chunk_size
+    )
+  File "/home/vscode/.local/lib/python3.13/site-packages/django/db/models/sql/compiler.py", line 1574, in execute_sql
+    cursor.execute(sql, params)
+    ~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "/home/vscode/.local/lib/python3.13/site-packages/django/db/backends/utils.py", line 122, in execute
+    return super().execute(sql, params)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "/home/vscode/.local/lib/python3.13/site-packages/django/db/backends/utils.py", line 79, in execute
+    return self._execute_with_wrappers(
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        sql, params, many=False, executor=self._execute
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "/home/vscode/.local/lib/python3.13/site-packages/django/db/backends/utils.py", line 92, in _execute_with_wrappers
+    return executor(sql, params, many, context)
+  File "/home/vscode/.local/lib/python3.13/site-packages/django/db/backends/utils.py", line 100, in _execute
+    with self.db.wrap_database_errors:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/vscode/.local/lib/python3.13/site-packages/django/db/utils.py", line 91, in __exit__
+    raise dj_exc_value.with_traceback(traceback) from exc_value
+  File "/home/vscode/.local/lib/python3.13/site-packages/django/db/backends/utils.py", line 105, in _execute
+    return self.cursor.execute(sql, params)
+           ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "/home/vscode/.local/lib/python3.13/site-packages/django/db/backends/sqlite3/base.py", line 354, in execute
+    return super().execute(query, params)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+django.db.utils.OperationalError: no such column: documents_formplus.government_id
+ERROR 2025-02-12 12:15:51,569 basehttp "GET /formplus/detail/1/ HTTP/1.1" 500 144443
+INFO 2025-02-12 12:24:53,537 autoreload Watching for file changes with StatReloader
+INFO 2025-02-12 12:25:04,820 basehttp "GET /formplus/detail/1/ HTTP/1.1" 200 9633
+INFO 2025-02-12 12:25:04,834 basehttp "GET /static/css/style.css HTTP/1.1" 304 0
+INFO 2025-02-12 12:25:04,962 basehttp "GET /media/pdfs/formplus/4a274f152da841c59c4feb73cdc7d2b3.pdf HTTP/1.1" 304 0
+INFO 2025-02-12 12:25:21,698 basehttp "GET /formplus/detail/1/ HTTP/1.1" 200 9633
+INFO 2025-02-12 12:25:49,858 basehttp "GET /formplus/detail/1/ HTTP/1.1" 200 9633
+INFO 2025-02-12 12:25:50,642 basehttp "GET /formplus/detail/1/ HTTP/1.1" 200 9633
+INFO 2025-02-12 12:25:51,109 basehttp "GET /formplus/detail/1/ HTTP/1.1" 200 9633
+INFO 2025-02-12 12:26:00,237 basehttp "GET /formplus/detail/1/ HTTP/1.1" 200 9633
+INFO 2025-02-12 12:26:01,002 basehttp "GET /formplus/detail/1/ HTTP/1.1" 200 9633
+INFO 2025-02-12 12:26:11,806 basehttp "GET /decrees/ HTTP/1.1" 200 36337
+INFO 2025-02-12 12:26:14,723 basehttp "GET /decrees/detail/3/ HTTP/1.1" 200 10585
+INFO 2025-02-12 12:26:14,798 basehttp "GET /media/pdfs/decree/e42515586eae4eb0a2ab3f40d40e73ec.pdf HTTP/1.1" 304 0
+INFO 2025-02-12 12:26:18,529 basehttp "GET /decrees/add/ HTTP/1.1" 200 23996
+INFO 2025-02-12 12:26:20,801 basehttp "GET /decrees/ HTTP/1.1" 200 36337
+INFO 2025-02-12 12:26:23,064 basehttp "GET /decrees/edit/3/ HTTP/1.1" 200 25247
+INFO 2025-02-12 12:26:29,243 basehttp "POST /decrees/edit/3/ HTTP/1.1" 302 0
+INFO 2025-02-12 12:26:29,272 basehttp "GET /decrees/ HTTP/1.1" 200 36337
+INFO 2025-02-12 12:26:31,592 basehttp "GET /decrees/detail/3/ HTTP/1.1" 200 10585
+INFO 2025-02-12 12:26:31,667 basehttp "GET /media/pdfs/decree/4e95bd0f764647a98128e312e410b1a0.pdf HTTP/1.1" 200 157906
+INFO 2025-02-12 12:26:35,407 basehttp "GET /formplus/ HTTP/1.1" 200 17182
+INFO 2025-02-12 12:26:50,478 basehttp "GET /formplus/ HTTP/1.1" 200 17182
+INFO 2025-02-12 12:26:52,238 basehttp "GET /formplus/detail/1/ HTTP/1.1" 200 9633
+INFO 2025-02-12 12:27:05,141 basehttp "GET /formplus/detail/1/ HTTP/1.1" 200 9633
+INFO 2025-02-12 12:27:05,859 basehttp "GET /formplus/detail/1/ HTTP/1.1" 200 9633
+INFO 2025-02-12 12:27:39,553 basehttp "GET /formplus/detail/1/ HTTP/1.1" 200 9633
+INFO 2025-02-12 12:27:49,596 basehttp "GET /formplus/edit/1/ HTTP/1.1" 200 11481
+INFO 2025-02-12 12:27:52,379 basehttp "GET /formplus/ HTTP/1.1" 200 17182
+INFO 2025-02-12 12:28:28,737 basehttp "GET /formplus/ HTTP/1.1" 200 17182
+INFO 2025-02-12 12:28:29,626 basehttp "GET /formplus/ HTTP/1.1" 200 17182
+INFO 2025-02-12 12:28:32,806 basehttp "GET /decrees/ HTTP/1.1" 200 36337
+INFO 2025-02-12 12:28:34,386 basehttp "GET / HTTP/1.1" 200 4578718
+INFO 2025-02-12 12:28:36,186 basehttp "GET / HTTP/1.1" 200 4578718
+INFO 2025-02-12 12:28:36,829 basehttp "GET / HTTP/1.1" 200 4578718
+INFO 2025-02-12 12:28:40,309 basehttp "GET / HTTP/1.1" 200 4578718

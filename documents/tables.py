@@ -1,7 +1,7 @@
 import os
 from django.utils.html import mark_safe
 import django_tables2 as tables
-from .models import Decree, Publication
+from .models import Decree, Publication, FormPlus
 # from django.urls import reverse
 # from django.utils.safestring import mark_safe
 # from babel.dates import format_date
@@ -46,7 +46,7 @@ from .models import Decree, Publication
 
 class DecreeTable(tables.Table):
     actions = tables.TemplateColumn(
-        template_name='decree_actions_column.html',
+        template_name='partials/decree_actions.html',
         orderable=False,
         verbose_name=''
     )
@@ -65,7 +65,7 @@ class PublicationTable(tables.Table):
 
     # Define actions column for edit/delete
     actions = tables.TemplateColumn(
-        template_name='pub_actions_column.html',
+        template_name='partials/pub_actions.html',
         orderable=False,
         verbose_name=''
     )
@@ -83,3 +83,18 @@ class PublicationTable(tables.Table):
         # List the fields you want to show in the table
         fields = ('number', 'decree', 'applicant', 'country', 'address', 'date_applied', 'category', 'img_file', 'e_number', 'created_at', 'actions')
         attrs = {'class': 'table table-hover align-middle'}
+
+
+class FormPlusTable(tables.Table):
+    actions = tables.TemplateColumn(
+        template_name='partials/formplus_actions.html', 
+        orderable=False, 
+        verbose_name='إجراءات'
+    )
+
+    class Meta:
+        model = FormPlus
+        fields = ('number', 'date', 'title', 'keywords', 'pdf_file')
+        attrs = {'class': 'table table-striped table-bordered'}
+
+
