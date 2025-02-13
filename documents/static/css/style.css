@@ -229,12 +229,37 @@ body {
 .table thead th {
     background-color: whitesmoke;
     font-size: 20px;
-
+    transition: font-size 0.3s;
   }
 
+@media (max-width: 880px) {
+    .table thead th {
+        font-size: 14px;
+    }
+}
+
+@media (max-width: 720px) {
+    .table thead th {
+        font-size: 12px;
+    }
+}
+
+@media (max-width: 800px) {
+    .table tbody tr td {
+        font-size: 14px !important;
+    }
+}
+
+@media (max-width: 720px) {
+    .table tbody tr td {
+        font-size: 12px !important;
+    }
+}
+
 .table tbody tr td {
-border-style: none;
-font-size: 20px;
+    border-style: none;
+    font-size: 20px;
+    transition: font-size 0.3s;
 }
 
 .pressed{
@@ -255,22 +280,19 @@ font-size: 20px;
 th a {
     text-decoration: none;
     color: inherit;
-    position: relative;
-    padding-right: 15px;
 }
 
 th a::after {
     font-family: "bootstrap-icons";
-    content: "\f282"; /* Default Sort Icon (bi-arrow-down-up) */
-    font-size: 16px;
-    position: absolute;
-    left: -20px;
+    content: "\f282"; /* Default: bi-arrow-down-up */
+    font-size: 14px;
+    margin-right: 3px;
 }
 
 th.asc a::after {
-    content: "\f286"; /* Bootstrap Icon for Ascending (bi-chevron-up) */
+    content: "\f286"; /* bi-chevron-up */
 }
 
 th.desc a::after {
-    content: "\f282"; /* Bootstrap Icon for Descending (bi-chevron-down) */
+    content: "\f282"; /* bi-chevron-down */
 }

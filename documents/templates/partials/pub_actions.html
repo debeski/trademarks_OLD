@@ -1,31 +1,33 @@
 {% load static %}
 {% if request.user.is_authenticated %}
-<div class="d-flex gap-2 align-items-center justify-content-between">
+<div class="d-flex gap-2 align-items-center justify-content-end">
     <!-- PDF Icon (Always Visible) -->
-    <a href="{% url 'gen_pub_pdf' record.id %}" title="تحميل"><i class="action-icon bi bi-file-earmark-arrow-down-fill"></i>
+    <a href="{% url 'gen_pub_pdf' record.id %}" title="تحميل"><i class="bi bi-file-earmark-pdf-fill" style="font-size: 36px;"></i>
     </a>
-    <a href="{% url 'gen_pub_pdf' record.id %}" title="تحميل"><i class="bi bi-check2-square text-primary"style="height: 20px"></i>
-    </a>
+    {% if record.status == 'initial' %}
+        <a href="{% url 'gen_pub_pdf' record.id %}" title="موافقة"><i class="bi bi-check2-square text-success" style="font-size: 36px;"></i>
+        </a>
+    {% endif%}
     <!-- Use the icon itself as the dropdown trigger -->
     <div class="dropdown-center">
         <a href="#" class="action-icon" id="actionDropdown{{ record.id }}" data-bs-toggle="dropdown" aria-expanded="false">
-            <i class="bi bi-three-dots-vertical action-icon"></i>
+            <i class="bi bi-three-dots-vertical text-dark"></i>
         </a>
         <ul class="dropdown-menu" aria-labelledby="actionDropdown{{ record.id }}">
             <li>
                 <a class="dropdown-item" href="{% url 'view_publication' record.id %}" title="عرض">
-                    <img src="{% static 'img/view.png' %}" alt="View" class="sidebar-icon me-1"> عرض
+                    <i class="bi bi-binoculars-fill text-dark me-1" style="font-size: 22px;"> </i> عرض
                 </a>
             </li>
             <li>
-                <a class="dropdown-item" href="{% url 'edit_publication' record.id %}" title="تعديل">
-                    <img src="{% static 'img/edit.png' %}" alt="Edit" class="sidebar-icon me-1"> تعديل
+                <a class="dropdown-item" href="{% url 'edit_formplus' record.id %}" title="تعديل">
+                    <i class="bi bi-pencil-square text-dark me-1" style="font-size: 22px;"> </i> تعديل
                 </a>
             </li>
             <li>
                 <a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#deleteModal"
                    data-doc-id="{{ record.id }}" data-doc-number="{{ record.number }}">
-                    <img src="{% static 'img/delete.png' %}" alt="Delete" class="sidebar-icon me-1"> حذف
+                   <i class="bi bi-x-octagon text-danger me-1" style="font-size: 22px;"> </i> حذف
                 </a>
             </li>
         </ul>

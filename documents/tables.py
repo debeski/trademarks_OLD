@@ -56,7 +56,7 @@ class DecreeTable(tables.Table):
         template_name = "django_tables2/bootstrap5.html"
         # List the fields you want to show in the table
         fields = ('number', 'date', 'status', 'applicant', 'company', 'country', 'ar_brand', 'en_brand', 'category', 'actions')
-        attrs = {'class': 'table table-hover align-middle'}
+        attrs = {'class': 'table table-hover table-responsive align-middle'}
 
 
 class PublicationTable(tables.Table):
@@ -89,13 +89,13 @@ class FormPlusTable(tables.Table):
     actions = tables.TemplateColumn(
         template_name='partials/formplus_actions.html', 
         orderable=False, 
-        verbose_name='إجراءات'
+        verbose_name=''
     )
 
     class Meta:
         model = FormPlus
         template_name = "django_tables2/bootstrap5.html"
-        fields = ('number', 'date', 'title', 'keywords', 'pdf_file')
+        fields = ('number', 'date', 'title', 'type', 'keywords')
         attrs = {'class': 'table table-hover align-middle'}
 
 
