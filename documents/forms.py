@@ -1,138 +1,108 @@
-import re
-
-
-# class DepartmentForm(forms.ModelForm):
-#     class Meta:
-#         model = Department
-#         fields = ['name']
-#         labels = {
-#             'name': 'اسم الادارة او المكتب',
-#         }
-#         widgets = {
-#             'title': forms.TextInput(attrs={
-#                 'class': 'form-control',
-#                 'required': 'required'
-#             }),
-#         }
-        
-
-# class AffiliateForm(forms.ModelForm):
-#     class Meta:
-#         model = Affiliate
-#         fields = ['name']
-#         labels = {
-#             'name': 'اسم الجهة',
-#             "is_attached": "هل جهة تابعة للوزارة؟"
-#         }
-#         widgets = {
-#             'title': forms.TextInput(attrs={
-#                 'class': 'form-control',
-#                 'required': 'required'
-#             }),
-#             'is_attached': forms.CheckboxInput(attrs={
-#                 'class': 'form-check-input',
-#             }),
-#         }
-
-
-# class GovernmentForm(forms.ModelForm):
-#     class Meta:
-#         model = Government
-#         fields = ['name']
-#         labels = {
-#             'name': 'اسم الحكومة',
-#         }
-#         widgets = {
-#             'title': forms.TextInput(attrs={
-#                 'class': 'form-control',
-#                 'required': 'required'
-#             }),
-#         }
-
-
-# class MinisterForm(forms.ModelForm):
-#     government = forms.ModelMultipleChoiceField(
-#         queryset=Government.objects.all(),
-#         widget=forms.CheckboxSelectMultiple,  # Change to SelectMultiple if you prefer dropdown
-#         required=True,
-#         label='الحكومات'
-#     )
-
-#     class Meta:
-#         model = Minister
-#         fields = ['name', 'government']  # Use 'governments' instead of 'government'
-#         labels = {
-#             'name': 'اسم الوزير',
-#         }
-#         widgets = {
-#             'name': forms.TextInput(attrs={
-#                 'class': 'form-control',
-#                 'required': 'required'
-#             }),
-#         }
-
-
-# class AddOutgoingForm(forms.ModelForm):
-#     """Form for creating or updating outgoing mail."""
-
-#     class Meta:
-#         model = Outgoing
-#         fields = ['number', 'date', 'dept_from', 'dept_to', 'title', 'keywords', 'pdf_file']
-#         labels = {
-#             'number': 'رقم الرسالة:',
-#             'date': 'تاريخ الرسالة: (يوم-شهر-سنة)',
-#             'dept_from': 'من (إدارة):',
-#             'dept_to': 'إلى (جهة):',
-#             'title': 'العنوان:',
-#             'keywords': 'الكلمات المفتاحية:',
-#             'pdf_file': 'ملف PDF',
-#         }
-#         widgets = {
-#             'number': forms.TextInput(attrs={
-#                 'class': 'form-control',
-#                 'placeholder': '',
-#                 'required': 'required',
-#                 'autocomplete': 'off'
-#             }),
-#             'date': forms.DateInput(attrs={
-#                 'class': 'form-control form-control-lg',  # Larger input field
-#                 'placeholder': 'YYYY-MM-DD',  # Placeholder for the user
-#                 'type': 'text',  # Set as text input for Flatpickr
-#                 'required': 'required',
-#                 'autocomplete': 'off'
-#             }),
-#             'dept_from': forms.Select(attrs={
-#                 'class': 'form-control',
-#                 'placeholder': '',
-#                 'required': 'required',
-#             }),
-#             'dept_to': forms.Select(attrs={
-#                 'class': 'form-control',
-#                 'placeholder': '',
-#                 'required': 'required',
-#             }),
-#             'title': forms.TextInput(attrs={
-#                 'class': 'form-control',
-#                 'placeholder': '',
-#                 'required': 'required'
-#             }),
-#             'keywords': forms.Textarea(attrs={
-#                 'class': 'form-control',
-#                 'placeholder': '',
-#                 'style': 'height: 150px;'
-#             }),
-#             'pdf_file': forms.ClearableFileInput(attrs={
-#                 'class': 'form-control form-control-lg'
-#             }),
-#         }
-
-
-
 from django import forms
 from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Layout, Row, Column, Submit, Field, Div, HTML
 from crispy_forms.bootstrap import FormActions
-from .models import Decree, Publication, FormPlus
+from .models import Decree, Publication, FormPlus, Objection, Country, Government, ComType, DocType
+
+class CountryForm(forms.ModelForm):
+    class Meta:
+        model = Country
+        fields = ['en_name', 'ar_name']
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.helper = FormHelper()
+        self.helper.form_method = 'POST'
+        self.helper.form_show_labels = False
+        self.helper.layout = Layout(
+            Row(
+                Div(Field('en_name', css_class='form-control', placeholder="الاسم بالانجليزية"), css_class='col-md-5'),
+                Div(Field('ar_name', css_class='form-control', placeholder="الاسم بالعربية"), css_class='col-md-5'),
+                FormActions(
+                    Submit('submit', '{% if id %} حفظ {% else %} اضافة جديد {% endif %}', css_class='btn btn-primary'),
+                    HTML(
+                        '{% if id %}'
+                        ' <a class="btn btn-secondary" href="{% url "manage_sections" %}">الغاء</a>'
+                        '{% endif %}'
+                    ), css_class='col-md-auto'
+                )
+            ),
+        )
+
+class GovernmentForm(forms.ModelForm):
+    class Meta:
+        model = Government
+        fields = ['name']
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.helper = FormHelper()
+        self.helper.form_method = 'POST'
+        self.helper.form_show_labels = False
+
+        self.helper.layout = Layout(
+            Row(
+                Div(Field('name', css_class='form-control', placeholder="اسم النوع"), css_class='col-md-10'),
+                FormActions(
+                    Submit('submit', '{% if id %} حفظ {% else %} اضافة جديد {% endif %}', css_class='btn btn-primary'),
+                    HTML(
+                        '{% if id %}'
+                        ' <a class="btn btn-secondary" href="{% url "manage_sections" %}">الغاء</a>'
+                        '{% endif %}'
+                    ), css_class='col-md-auto'
+                )
+            ),
+        )
+
+class ComTypeForm(forms.ModelForm):
+    class Meta:
+        model = ComType
+        fields = ['name']
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.helper = FormHelper()
+        self.helper.form_method = 'POST'
+        self.helper.form_show_labels = False
+
+        self.helper.layout = Layout(
+            Row(
+                Div(Field('name', css_class='form-control', placeholder="اسم النوع"), css_class='col-md-10'),
+                FormActions(
+                    Submit('submit', '{% if id %} حفظ {% else %} اضافة جديد {% endif %}', css_class='btn btn-primary'),
+                    HTML(
+                        '{% if id %}'
+                        ' <a class="btn btn-secondary" href="{% url "manage_sections" %}">الغاء</a>'
+                        '{% endif %}'
+                    ), css_class='col-md-auto'
+                )
+            ),
+        )
+
+class DocTypeForm(forms.ModelForm):
+    class Meta:
+        model = DocType
+        fields = ['name']
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.helper = FormHelper()
+        self.helper.form_method = 'POST'
+        self.helper.form_show_labels = False
+
+        self.helper.layout = Layout(
+            Row(
+                Div(Field('name', css_class='form-control', placeholder="اسم النوع"), css_class='col-md-10'),
+                FormActions(
+                    Submit('submit', '{% if id %} حفظ {% else %} اضافة جديد {% endif %}', css_class='btn btn-primary'),
+                    HTML(
+                        '{% if id %}'
+                        ' <a class="btn btn-secondary" href="{% url "manage_sections" %}">الغاء</a>'
+                        '{% endif %}'
+                    ), css_class='col-md-auto'
+                )
+            ),
+        )
 
 
 class DecreeForm(forms.ModelForm):

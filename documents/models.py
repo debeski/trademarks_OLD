@@ -1,3 +1,5 @@
+# Imports:
+##########
 from django.db import models
 import uuid
 import os
@@ -7,8 +9,8 @@ from django.views import View
 from datetime import datetime, time
 
 
-
-
+# Temporary Lists:
+##################
 Countries = [
     ('Afghanistan', 'أفغانستان'),
     ('Albania', 'ألبانيا'),
@@ -204,12 +206,21 @@ Countries = [
     ('Zimbabwe', 'زيمبابوي'),
 ]
 
-ComType = [
+ComTypes = [
     ('commercial', 'تجارية'),
     ('industrial', 'صناعية'),
     ('both', 'صناعية - تجارية')
 ]
 
+DocTypes = [
+        ('decree', 'قرار'),
+        ('form', 'نموذج'),
+        ('list', 'لائحة')
+]
+
+
+# Helper Functions:
+###################
 def generate_random_filename(instance, filename):
     """Generate a random filename with the same extension as the uploaded file."""
     # Get the file extension
@@ -224,8 +235,10 @@ def generate_random_filename(instance, filename):
     # Return the full path where the file will be uploaded
     return f'{model_name}/{random_filename}'
 
+def default_created_at():
+    today = datetime.today().date()
+    return datetime.combine(today, time(15, 0))
 
-# # PDF Files Naming Functions:
 # def generate_random_filename(instance, filename):
 #     """Generate a random filename for uploaded files."""
 #     random_filename = f"{uuid.uuid4().hex}.pdf"
@@ -250,44 +263,106 @@ def generate_random_filename(instance, filename):
 #     """Get the upload path for IMG files."""
 #     return f'item_img/{generate_random_filename_img(instance, filename)}'
 
-def default_created_at():
-    today = datetime.today().date()
-    return datetime.combine(today, time(15, 0))
 
-# # Section Models:
-# class Department(models.Model):
-#     """Model representing a department."""
-#     name = models.CharField(max_length=255, unique=True)
+# Section Models:
+#################
+class Country(models.Model):
+    """Model representing a government entity."""
+    en_name = models.CharField(max_length=255, unique=True, verbose_name="الاسم بالانجليزية")
+    ar_name = models.CharField(max_length=255, unique=True, verbose_name="الاسم بالعربية")
 
-#     def __str__(self):
-#         return self.name
+    class Meta:
+        verbose_name = "دولة"
+        verbose_name_plural = "الدول"
 
-# class Affiliate(models.Model):
-#     """Model representing an affiliate."""
-#     name = models.CharField(max_length=255, unique=True)
-#     is_attached = models.BooleanField(default=False)
+    def __str__(self):
+        return self.en_name
 
+    @classmethod
+    def get_table_class(cls):
+        return 'documents.tables.CountryTable'
 
-#     def __str__(self):
-#         return self.name
+    @classmethod
+    def get_filter_class(cls):
+        return 'documents.filters.CountryFilter'
+
+    @classmethod
+    def get_form_class(cls):
+        return 'documents.forms.CountryForm'
 
 class Government(models.Model):
     """Model representing a government entity."""
-    name = models.CharField(max_length=255, unique=True)
+    name = models.CharField(max_length=255, unique=True, verbose_name="الاسم")
+        
+    class Meta:
+        verbose_name = "حكومة"
+        verbose_name_plural = "الحكومات"
+        
+    def __str__(self):
+        return self.name
+
+    @classmethod
+    def get_table_class(cls):
+        return 'documents.tables.GovernmentTable'
+
+    @classmethod
+    def get_filter_class(cls):
+        return 'documents.filters.GovernmentFilter'
+
+    @classmethod
+    def get_form_class(cls):
+        return 'documents.forms.GovernmentForm'
+
+class ComType(models.Model):
+    """Model representing a government entity."""
+    name = models.CharField(max_length=255, unique=True, verbose_name="الاسم")
+
+    class Meta:
+        verbose_name = "نوع شركة"
+        verbose_name_plural = "انواع الشركات"
 
     def __str__(self):
         return self.name
 
-# class Minister(models.Model):
-#     """Model representing a minister."""
-#     name = models.CharField(max_length=255, unique=True)
-#     government = models.ManyToManyField(Government, related_name='minister_on_duty')
+    @classmethod
+    def get_table_class(cls):
+        return 'documents.tables.ComTypeTable'
 
-#     def __str__(self):
-#         return self.name
+    @classmethod
+    def get_filter_class(cls):
+        return 'documents.filters.ComTypeFilter'
+
+    @classmethod
+    def get_form_class(cls):
+        return 'documents.forms.ComTypeForm'
+
+class DocType(models.Model):
+    """Model representing a government entity."""
+    name = models.CharField(max_length=255, unique=True, verbose_name="الاسم")
+
+    class Meta:
+        verbose_name = "نوع مستند"
+        verbose_name_plural = "انواع المستندات"
+
+    def __str__(self):
+        return self.name
+
+    @classmethod
+    def get_table_class(cls):
+        return 'documents.tables.DocTypeTable'
+
+    @classmethod
+    def get_filter_class(cls):
+        return 'documents.filters.DocTypeFilter'
+
+    @classmethod
+    def get_form_class(cls):
+        return 'documents.forms.DocTypeForm'
+
 
 
 # Document Models:
+##################
 class Decree(models.Model):
     """Model representing a minister decree."""
     number = models.IntegerField(blank=False, null=False, verbose_name="رقم القرار")
@@ -298,17 +373,17 @@ class Decree(models.Model):
         ('withdraw', 'سحب'),
         ('canceled', 'الغاء')
     ], verbose_name="حالة القرار")
-
+    
     applicant = models.CharField(max_length=255, blank=False, verbose_name="مقدم الطلب")
     company = models.CharField(max_length=255, blank=False, verbose_name="صاحب العلامة")
     country = models.CharField(max_length=50, choices=Countries, verbose_name="الدولة")
     date_applied = models.DateField(blank=False, verbose_name="تاريخ التقديم")
     number_applied = models.IntegerField(blank=False, null=False, verbose_name="رقم القيد")
-
+    
     ar_brand = models.CharField(max_length=255, blank=False, verbose_name="العلامة (عربي)")
     en_brand = models.CharField(max_length=255, blank=False, verbose_name="العلامة (انجليزي)")
     category = models.IntegerField(blank=True, verbose_name="الفئة")
-
+    
     pdf_file = models.FileField(upload_to=generate_random_filename, blank=True, verbose_name="ملف القرار")
     attach = models.FileField(upload_to=generate_random_filename, blank=True, verbose_name="المرفقات")
     notes = models.TextField(max_length=999, blank=True, verbose_name="ملاحظات")
@@ -318,31 +393,30 @@ class Decree(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     deleted_at = models.DateTimeField(null=True, blank=True)
-
+    
     def __str__(self):
         return self.number
-
+    
     @property
     def get_model_name(self):
         return "قرارات"
-
 
 class Publication(models.Model):
     """Model representing a minister decree."""
     year = models.IntegerField(null=True, blank=True)  # Add this field
     number = models.IntegerField(blank=False, null=False, verbose_name="رقم التسجيل")
     decree = models.IntegerField(blank=False, null=False, verbose_name="رقم القرار")
-
+    
     applicant = models.CharField(max_length=255, blank=False, verbose_name="طالب التسجيل")
     owner = models.CharField(max_length=255, blank=False, verbose_name="مالك العلامة")
     country = models.CharField(max_length=50, choices=Countries, verbose_name="الدولة")
     address = models.CharField(max_length=255, blank=False, verbose_name="العنوان")
     date_applied = models.DateField(blank=False, verbose_name="تاريخ التقديم")
-
+    
     ar_brand = models.CharField(max_length=255, blank=False, verbose_name="العلامة (عربي)")
     en_brand = models.CharField(max_length=255, blank=False, verbose_name="العلامة (انجليزي)")
     category = models.IntegerField(blank=True, verbose_name="الفئة")
-
+    
     img_file = models.ImageField(upload_to=generate_random_filename, blank=True, verbose_name="الصورة")
     attach = models.FileField(upload_to=generate_random_filename, blank=True, verbose_name="المرفقات")
     e_number = models.IntegerField(blank=False, null=False, verbose_name="رقم النشرية")
@@ -357,18 +431,17 @@ class Publication(models.Model):
     
     objection_date = models.DateField(blank=True, null=True, verbose_name="تاريخ الاعتراض")
     is_objected = models.BooleanField(default=False, verbose_name="تم الاعتراض عليه")
-
+    
     created_at = models.DateTimeField(default=default_created_at, verbose_name="تاريخ النشر")
     updated_at = models.DateTimeField(auto_now=True)
     deleted_at = models.DateTimeField(null=True, blank=True)
-
+    
     def __str__(self):
         return self.number
     
     @property
     def get_model_name(self):
         return "اشهارات"
-
 
 class Objection(models.Model):
     """Model representing a minister decree."""
@@ -377,13 +450,13 @@ class Objection(models.Model):
     nationality = models.CharField(max_length=50, choices=Countries, verbose_name="الجنسية")
     address = models.CharField(max_length=255, blank=False, verbose_name="محل الاقامة")
     phone = models.CharField(max_length=10, blank=False, verbose_name="رقم الهاتف")
-
+    
     com_name = models.CharField(max_length=255, blank=False, verbose_name="اسم الشركة المقدمة للشكوى")
-    com_job = models.CharField(max_length=24, choices=ComType, verbose_name="غرض الشركة")
+    com_job = models.CharField(max_length=24, choices=ComTypes, verbose_name="غرض الشركة")
     com_address = models.CharField(max_length=255, blank=False, verbose_name="عنوان الشركة")
     com_og_address = models.CharField(max_length=255, blank=False, verbose_name="عنوان المقر الرئيسي للشركة")
     com_mail_address = models.CharField(max_length=255, blank=False, verbose_name="عنوان البريد الرئيسي لاستلام المكاتبات المتعلقة بالمعارضة")
-
+    
     status = models.CharField(max_length=50, choices=[
         ('pending', 'معلق'),
         ('accepted', 'موافقة'),
@@ -393,13 +466,13 @@ class Objection(models.Model):
     complain_number = models.CharField(max_length=10, blank=False, null=False, verbose_name="رقم طلب التسجيل المعارض عليه")
     pdf_file = models.FileField(upload_to=generate_random_filename, blank=True, verbose_name="ملف الاعتراض")
     notes = models.TextField(max_length=999, blank=True, verbose_name="تفاصيل")
-
+    
     is_paid = models.BooleanField(default=False, verbose_name="تم دفع الرسوم")
-
+    
     created_at = models.DateTimeField(auto_now_add=True, verbose_name="تاريخ الاعتراض")
     updated_at = models.DateTimeField(auto_now=True)
     deleted_at = models.DateTimeField(null=True, blank=True)
-
+    
     def __str__(self):
         return self.id
     
@@ -407,18 +480,12 @@ class Objection(models.Model):
     def get_model_name(self):
         return "اعتراضات"
 
-
-
 class FormPlus(models.Model):
     """Ambiguous Model representing a report of some sort."""
     number = models.CharField(max_length=20, blank=True, null=True, verbose_name="الرقم")
     date = models.DateField(blank=True, verbose_name="التاريخ")
     government = models.ForeignKey(Government, on_delete=models.PROTECT, verbose_name="الحكومة")
-    type = models.CharField(max_length=50, choices=[
-        ('decree', 'قرار'),
-        ('form', 'نموذج'),
-        ('list', 'لائحة')
-    ], verbose_name="النوع")
+    type = models.CharField(max_length=50, choices=DocTypes, verbose_name="النوع")
     title = models.CharField(max_length=255, blank=False, verbose_name="العنوان")
     keywords = models.TextField(max_length=999, blank=True, verbose_name="التفاصيل")
     pdf_file = models.FileField(upload_to=generate_random_filename, blank=True)
@@ -426,12 +493,11 @@ class FormPlus(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     deleted_at = models.DateTimeField(null=True, blank=True)
-
+    
     def __str__(self):
         return self.title
     
     @property
     def get_model_name(self):
         return "تقارير"
-
 

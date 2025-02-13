@@ -296,3 +296,11 @@ th.asc a::after {
 th.desc a::after {
     content: "\f282"; /* bi-chevron-down */
 }
+
+#publicationTabsContent {
+    visibility: hidden;
+}
+
+#modelTabsContent {
+    visibility: hidden;
+}
