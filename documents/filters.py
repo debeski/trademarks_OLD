@@ -1,17 +1,124 @@
 from django import forms
 import django_filters
+from django_filters.widgets import BooleanWidget
+from django.forms.widgets import TextInput
 from django.db.models import Q
 from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Layout, Row, Column, Submit, Field, HTML, Div
-from .models import Decree, Publication, FormPlus
-
+from .models import Decree, Publication, FormPlus, Objection, Country, Government, ComType, DocType
 
 
 # Function to rename first choice in selection menu
 def set_first_choice(field, placeholder):
     """Set the first choice of a specified select field."""
-    if hasattr(field, 'choices'):  # Ensure field has choices
-        field.empty_label = placeholder  # Override default "------" label
+    if hasattr(field, 'choices'):
+        field.empty_label = placeholder
+
+
+class CountryFilter(django_filters.FilterSet):
+
+    keyword = django_filters.CharFilter(
+        method='filter_keyword',
+        label='',
+    )
+
+    class Meta:
+        model = Country
+        fields = ['en_name', 'ar_name']
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.form.helper = FormHelper()
+        self.form.helper.form_method = 'GET'
+        self.form.helper.form_class = 'form-inline'
+        self.form.helper.form_show_labels = False
+        self.form.helper.layout = Layout(
+            Row(
+                Column(Field('keyword', placeholder="البحث"), css_class='form-group col-md-6'),
+                Column(Submit('submit', 'بحث', css_class='btn btn-secondary w-100'), css_class='form-group col-md-auto text-center'),
+                Column(HTML('{% if request.GET and request.GET.keys|length > 2 %} <a href="{% url "manage_sections" %}" class="btn btn-warning">clear</a> {% endif %}'), css_class='form-group col-md-auto text-center'),
+                css_class='form-row'
+            ),
+        )
+
+    def filter_keyword(self, queryset, name, value):
+        """
+        Filter the queryset by matching the keyword in number, applicant, company,
+        and, if applicable, the year extracted from the date field.
+        """
+        q = Q(en_name__icontains=value) | Q(ar_name__icontains=value)
+        return queryset.filter(q)
+
+
+class GovernmentFilter(django_filters.FilterSet):
+    
+    class Meta:
+        model = Government
+        fields = {
+            'name': ['icontains'],
+        }
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.form.helper = FormHelper()
+        self.form.helper.form_method = 'GET'
+        self.form.helper.form_class = 'form-inline'
+        self.form.helper.form_show_labels = False
+        self.form.helper.layout = Layout(
+            Row(
+                Column(Field('name__icontains', placeholder="البحث"), css_class='form-group col-md-6'),
+                Column(Submit('submit', 'بحث', css_class='btn btn-secondary w-100'), css_class='form-group col-md-auto text-center'),
+                Column(HTML('{% if request.GET and request.GET.keys|length > 2 %} <a href="{% url "manage_sections" %}" class="btn btn-warning">clear</a> {% endif %}'), css_class='form-group col-md-auto text-center'),
+                css_class='form-row'
+            ),
+        )
+
+class ComTypeFilter(django_filters.FilterSet):
+    
+    class Meta:
+        model = ComType
+        fields = {
+            'name': ['icontains'],
+        }
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.form.helper = FormHelper()
+        self.form.helper.form_method = 'GET'
+        self.form.helper.form_class = 'form-inline'
+        self.form.helper.form_show_labels = False
+        self.form.helper.layout = Layout(
+            Row(
+                Column(Field('name__icontains', placeholder="البحث"), css_class='form-group col-md-6'),
+                Column(Submit('submit', 'بحث', css_class='btn btn-secondary w-100'), css_class='form-group col-md-auto text-center'),
+                Column(HTML('{% if request.GET and request.GET.keys|length > 2 %} <a href="{% url "manage_sections" %}" class="btn btn-warning">clear</a> {% endif %}'), css_class='form-group col-md-auto text-center'),
+                css_class='form-row'
+            ),
+        )
+
+class DocTypeFilter(django_filters.FilterSet):
+    
+    class Meta:
+        model = DocType
+        fields = {
+            'name': ['icontains'],
+        }
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.form.helper = FormHelper()
+        self.form.helper.form_method = 'GET'
+        self.form.helper.form_class = 'form-inline'
+        self.form.helper.form_show_labels = False
+        self.form.helper.layout = Layout(
+            Row(
+                Column(Field('name__icontains', placeholder="البحث"), css_class='form-group col-md-6'),
+                Column(Submit('submit', 'بحث', css_class='btn btn-secondary w-100'), css_class='form-group col-md-auto text-center'),
+                Column(HTML('{% if request.GET and request.GET.keys|length > 2 %} <a href="{% url "manage_sections" %}" class="btn btn-warning">clear</a> {% endif %}'), css_class='form-group col-md-auto text-center'),
+                css_class='form-row'
+            ),
+        )
+
 
 class DecreeFilter(django_filters.FilterSet):
 
@@ -37,15 +144,12 @@ class DecreeFilter(django_filters.FilterSet):
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        # Ensure the correct replacement of "------"
         set_first_choice(self.filters['status'].field, 'حالة الطلب')
         set_first_choice(self.filters['country'].field, 'الدولة')
-        # Initialize a Crispy Forms helper for the filter form.
         self.form.helper = FormHelper()
         self.form.helper.form_method = 'GET'
         self.form.helper.form_class = 'form-inline'
-        self.form.helper.form_show_labels = False  # Disable default labels
-
+        self.form.helper.form_show_labels = False
         self.form.helper.layout = Layout(
             # Keyword search (Always visible)
             Row(

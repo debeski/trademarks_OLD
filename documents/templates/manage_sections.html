@@ -1,85 +1,135 @@
-{% extends 'base.html' %}
+{% extends "base.html" %}
+{% load django_tables2 %}
+{% load crispy_forms_tags %}
 
-{% block title %}ادارة الاقسام{% endblock %}
+{% block extra_head %}
 
-{% load static %}
-{% load custom_filters %}
+	<script>
+        document.addEventListener("DOMContentLoaded", function () {
+            var tabs = document.querySelectorAll("#modelTabs a");
+        
+            // Retrieve the last active status from localStorage
+            var lastStatus = localStorage.getItem("last_active_model");
+        
+            // Get current status from URL
+            var urlParams = new URLSearchParams(window.location.search);
+            var currentStatus = urlParams.get("model");
+        
+            // If there's a stored status and no status in URL, update the URL while keeping existing parameters
+            if (lastStatus && !currentStatus) {
+                urlParams.set("model", lastStatus); // Add last active model to the URL parameters
+                window.location.replace(window.location.pathname + "?" + urlParams.toString());
+            } else {
+                // Show the content only after JS updates the tab
+                document.getElementById("modelTabsContent").style.visibility = "visible";
+            }
+        
+            // Add event listener to store the selected tab in localStorage while keeping other parameters
+            tabs.forEach(function (tab) {
+                tab.addEventListener("click", function (event) {
+                    event.preventDefault(); // Prevent default navigation
+                    
+                    var selectedModel = new URL(tab.href).searchParams.get("model");
+                    localStorage.setItem("last_active_model", selectedModel);
+                    
+                    // Preserve all existing query parameters while updating the model
+                    var newUrlParams = new URLSearchParams(window.location.search);
+                    newUrlParams.set("model", selectedModel);
+                    
+                    // Redirect with updated parameters
+                    window.location.href = window.location.pathname + "?" + newUrlParams.toString();
+                });
+            });
+        });
+        
+	</script>
+	
+{% endblock %}
 
-{% block header %} - ادارة الاقسام{% endblock %}
+{% block title %} الاعدادت - ادارة الاقسام{% endblock %}
 
 {% block content %}
-<div class="container">
-    <ul class="nav nav-tabs" id="myTab" role="tablist">
-        {% for model in models %}
-        <li class="nav-item">
-            <a class="nav-link {% if current_tab == model.name %}active{% endif %}" 
-               id="{{ model.name }}-tab" 
-               href="?tab={{ model.name }}&{{ model.name }}_page={{ model.name }}_page" 
-               role="tab">{{ arabic_names|get_item:model.name }}</a>  <!-- Use get_item filter -->
-        </li>
-        {% endfor %}
-    </ul>
-    
-    <div class="tab-content" id="myTabContent">
-        {% for model in models %}
-        <div class="tab-pane fade {% if current_tab == model.name %}show active{% endif %}" id="{{ model.name }}" role="tabpanel">
-            <form method="post" class="mb-3">
-                {% csrf_token %}
-                {{ form.as_p }}  <!-- Use the combined form for adding/editing -->
-                <button type="submit" class="btn btn-primary">إضافة جديد</button>
-            </form>
-            <table class="table-container">
-                <thead>
-                    <tr>
-                        <th>ر.ت</th>
-                        <th>اسم {{ arabic_names|get_item:model.name }}</th>  <!-- Use get_item filter -->
-                        {% if page_obj.0.government %}  <!-- Check if the first item has a government field -->
-                            <th>الحكومة</th>
-                        {% endif %}
-                        <th>الاجراءات</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {% for item in page_obj %}
-                    <tr>
-                        <td>{{ item.id }}</td>
-                        <td>{{ item.name }}</td>
-                        <td>
-                            {% if item.government.all %}
-                                {% for gov in item.government.all %}
-                                    {{ gov.name }}{% if not forloop.last %}, {% endif %}
-                                {% endfor %}
-                            {% else %}
-                                -
-                            {% endif %}
-                        </td>
-                        <td>
-                            <a href="?tab={{ model.name }}&id={{ item.id }}" class="btn btn-outline-primary">تعديل</a>
-                        </td>
-                    </tr>
-                    {% endfor %}
-                </tbody>
-            </table>
 
-            <!-- Pagination Controls -->
-            <nav aria-label="Page navigation">
-                <ul class="pagination pagination-sm">
-                    {% for num in page_obj.paginator.page_range %}
-                        {% if page_obj.number == num %}
-                            <li class="page-item active" aria-current="page">
-                                <span class="page-link">{{ num }}</span>
-                            </li>
-                        {% else %}
-                            <li class="page-item">
-                                <a href="?{{ current_tab }}_page={{ num }}&tab={{ current_tab }}" class="page-link">{{ num }}</a>
-                            </li>
-                        {% endif %}
-                    {% endfor %}
-                </ul>
-            </nav>
-        </div>  <!-- Close the tab-pane div -->
-        {% endfor %}
-    </div>  <!-- Close the tab-content div -->
-</div>  <!-- Close the container div -->
+    <!-- Bootstrap Tabs Navigation -->
+    <ul class="nav nav-tabs" id="modelTabs" role="tablist">
+      {% for model in models %}
+      <li class="nav-item" role="presentation">
+        <a class="nav-link {% if model.name == active_model %}active{% endif %}" 
+           href="?model={{ model.name }}" role="tab">
+          {{ model.ar_names }}
+        </a>
+      </li>
+      {% endfor %}
+    </ul>
+
+    <!-- Content Area for the Selected Model -->
+    <div id= "modelTabsContent" class="mt-4">
+        <!-- Card 1: Form -->
+        <div class="card border-light shadow mb-5">
+            <div class="card-header text-center pe-5 bg-transparent">
+                <h3 class="card-title">{% if id %} تعديل {% else %} اضافة {% endif %}{{ ar_name }}</h3>
+            </div>
+            <div class="card-body">
+                {% csrf_token %}
+                {% crispy form %}
+            </div>
+      </div>
+
+      <!-- Card 2: Filter & Table -->
+      <div class="card border-light shadow">
+            <div class="card-header text-center pe-5 bg-transparent">
+                <h3 class="card-title">قائمة {{ ar_names }}</h3>
+            </div>
+            <div class="card-body">
+                {% csrf_token %}
+                <!-- Filter Form -->
+                {% crispy filter.form %}
+                <!-- Table -->
+                {% render_table table %}
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
+
+{% block scripts%}
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        let enInputField = document.getElementById('id_en_name');
+        let arInputField = document.getElementById('id_ar_name');
+
+        // Function to allow only English letters, numbers, and spaces
+        function enforceEnglish(input) {
+            input.addEventListener('input', function() {
+                this.value = this.value.replace(/[^a-zA-Z\s]/g, ''); // No numbers
+            });
+
+            input.addEventListener('focus', function() {
+                this.setAttribute('lang', 'en');
+            });
+        }
+
+        // Function to allow only Arabic letters and spaces
+        function enforceArabic(input) {
+            input.addEventListener('input', function() {
+                this.value = this.value.replace(/[^\u0600-\u06FF\s]/g, '');
+            });
+
+            input.addEventListener('focus', function() {
+                this.setAttribute('lang', 'ar');
+            });
+        }
+
+        // Apply the function if the input fields exist
+        if (enInputField) {
+            enforceEnglish(enInputField);
+        }
+
+        if (arInputField) {
+            enforceArabic(arInputField);
+        }
+    });
+</script>
 
 {% endblock %}

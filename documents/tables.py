@@ -1,27 +1,92 @@
 import os
 from django.utils.html import mark_safe
 import django_tables2 as tables
-from .models import Decree, Publication, FormPlus
-# from django.urls import reverse
+from .models import Decree, Publication, Objection, FormPlus, Country, Government, ComType, DocType
+from django.urls import reverse
 # from django.utils.safestring import mark_safe
 # from babel.dates import format_date
 
 
-# class DepartmentTable(tables.Table):
-#     edit = tables.Column(accessor='id', verbose_name='', empty_values=())
+class GovernmentTable(tables.Table):
+    edit = tables.Column(accessor='id', verbose_name='', empty_values=())
 
-#     def __init__(self, *args, model_name=None, **kwargs):
-#         super().__init__(*args, **kwargs)
-#         self.model_name = model_name
+    def __init__(self, *args, model_name=None, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.model_name = model_name
 
-#     class Meta:
-#         model = Department
-#         template_name = "django_tables2/bootstrap5.html"
-#         fields = ('name', 'type', 'edit')
-#         attrs = {'class': 'table table-striped table-sm table align-middle'}
+    class Meta:
+        model = Government
+        template_name = "django_tables2/bootstrap5.html"
+        fields = ('name', 'edit')
+        attrs = {'class': 'table table-hover table-responsive align-middle table-sm'}
 
-#     def render_edit(self, value):
-#         return mark_safe(f'<a href="{reverse("manage_sections", args=[self.model_name])}?id={value}" class="btn btn-secondary">تعديل</a>')
+    def render_edit(self, value):
+        base_url = reverse("manage_sections")
+        # Derive model name from the Meta.model class name
+        model_name = self.Meta.model.__name__
+        url = f"{base_url}?model={model_name}&id={value}"
+        return mark_safe(f'<a href="{url}" class="btn btn-secondary">تعديل</a>')
+
+class CountryTable(tables.Table):
+    edit = tables.Column(accessor='id', verbose_name='', empty_values=())
+
+    def __init__(self, *args, model_name=None, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.model_name = model_name
+
+    class Meta:
+        model = Country
+        template_name = "django_tables2/bootstrap5.html"
+        fields = ('en_name', 'ar_name', 'edit')
+        attrs = {'class': 'table table-hover table-responsive align-middle table-sm'}
+
+    def render_edit(self, value):
+        base_url = reverse("manage_sections")
+        # Derive model name from the Meta.model class name
+        model_name = self.Meta.model.__name__
+        url = f"{base_url}?model={model_name}&id={value}"
+        return mark_safe(f'<a href="{url}" class="btn btn-secondary">تعديل</a>')
+
+class ComTypeTable(tables.Table):
+    edit = tables.Column(accessor='id', verbose_name='', empty_values=())
+
+    def __init__(self, *args, model_name=None, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.model_name = model_name
+
+    class Meta:
+        model = ComType
+        template_name = "django_tables2/bootstrap5.html"
+        fields = ('name', 'edit')
+        attrs = {'class': 'table table-hover table-responsive align-middle table-sm'}
+
+    def render_edit(self, value):
+        base_url = reverse("manage_sections")
+        # Derive model name from the Meta.model class name
+        model_name = self.Meta.model.__name__
+        url = f"{base_url}?model={model_name}&id={value}"
+        return mark_safe(f'<a href="{url}" class="btn btn-secondary">تعديل</a>')
+
+class DocTypeTable(tables.Table):
+    edit = tables.Column(accessor='id', verbose_name='', empty_values=())
+
+    def __init__(self, *args, model_name=None, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.model_name = model_name
+
+    class Meta:
+        model = DocType
+        template_name = "django_tables2/bootstrap5.html"
+        fields = ('name', 'edit')
+        attrs = {'class': 'table table-hover table-responsive align-middle table-sm'}
+
+    def render_edit(self, value):
+        base_url = reverse("manage_sections")
+        # Derive model name from the Meta.model class name
+        model_name = self.Meta.model.__name__
+        url = f"{base_url}?model={model_name}&id={value}"
+        return mark_safe(f'<a href="{url}" class="btn btn-secondary">تعديل</a>')
+
 
 # class AffiliateTable(tables.Table):
 #     subs = tables.Column(accessor='id', verbose_name='التقسيمات الفرعية', empty_values=())

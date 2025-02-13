@@ -3,8 +3,8 @@ from . import views
 
 urlpatterns = [
     path('', views.index, name='index'),  # Main index page
-    # path('manage-sections/<str:model_name>/', views.manage_sections, name='manage_sections'),
-
+    path('manage/sections/', views.core_models_view, name='manage_sections'),
+    
     path('decrees/', views.decree_list, name='decree_list'),
 
     path('decrees/add/', views.add_edit_decree, name='add_decree'),

@@ -3,6 +3,8 @@ import logging
 import os
 from django.utils import timezone
 from django.views import View
+from django.apps import apps
+import importlib
 
 from django.core.cache import cache
 from django.shortcuts import get_object_or_404
@@ -18,10 +20,10 @@ import mimetypes
 import zipfile
 from io import BytesIO
 
-from .models import Decree, Publication, FormPlus
-from .tables import DecreeTable, PublicationTable, FormPlusTable
-from .filters import DecreeFilter, PublicationFilter, FormPlusFilter
-from .forms import DecreeForm, PublicationForm, FormPlusForm
+from .models import Decree, Publication, FormPlus, Objection, Country, Government, ComType, DocType
+from .tables import DecreeTable, PublicationTable, FormPlusTable, CountryTable, GovernmentTable, ComTypeTable, DocTypeTable
+from .filters import DecreeFilter, PublicationFilter, FormPlusFilter, CountryFilter, GovernmentFilter, ComTypeFilter, DocTypeFilter
+from .forms import DecreeForm, PublicationForm, FormPlusForm, CountryForm, GovernmentForm, ComTypeForm, DocTypeForm
 from .genpdf import pub_pdf
 
 from django_tables2 import RequestConfig
@@ -111,7 +113,9 @@ def index(request):
     chart_html = create_chart([Publication])
 
     # Get the total number of publications with status 'final'
-    total_publications_final = Publication.objects.filter(status='final').count()
+    publications = Publication.objects.filter(deleted_at__isnull=True)
+    total_pub_final = publications.all().count()
+    total_pub_initial = publications.filter(status='initial').count()
 
     # Get the total number of objections with status 'pending'
     # total_objections_pending = Objection.objects.filter(status='pending').count()
@@ -119,56 +123,96 @@ def index(request):
     # Pass the values to the template context
     context = {
         'chart_html': chart_html,
-        'total_pub': total_publications_final,
+        'total_pub_f': total_pub_final,
+        'total_pub_i': total_pub_initial
         # 'total_objections_pending': total_objections_pending,
     }
 
     return render(request, 'index.html', context)
 
 
-# # Function for Sections Management:
-# def manage_sections(request, model_name):
-#     current_tab = request.GET.get('tab', model_name)
+def get_class_from_string(class_path):
+    """
+    Given a string like 'tables.CountryTable', import and return the class.
+    """
+    module_path, class_name = class_path.rsplit('.', 1)
+    module = importlib.import_module(module_path)
+    return getattr(module, class_name)
 
-#     # Fetch model, form class, arabic name, and arabic names
-#     model, form_class, arabic_name, arabic_names, _ = get_model_data(current_tab)
+def core_models_view(request):
+    # Read the GET parameter, defaulting to 'Country'
+    model_param = request.GET.get('model', 'Country')
+    
+    # Mapping of model name (as string) to the actual model class
+    models_map = {
+        'Country': Country,
+        'Government': Government,
+        'ComType': ComType,
+        'DocType': DocType,
+    }
+    
+    # Fallback to default if an invalid model is provided
+    if model_param not in models_map:
+        model_param = 'Country'
+    
+    selected_model = models_map[model_param]
+    
+    # Prepare models list with verbose names
+    models_list = [
+        {'name': key, 'ar_names': model._meta.verbose_name_plural}
+        for key, model in models_map.items()
+    ]
+    
+    # Get the class paths from the model
+    form_class_path   = selected_model.get_form_class()
+    filter_class_path = selected_model.get_filter_class()
+    table_class_path  = selected_model.get_table_class()
+    
+    # Import the actual classes using the helper function
+    FormClass   = get_class_from_string(form_class_path)
+    FilterClass = get_class_from_string(filter_class_path)
+    TableClass  = get_class_from_string(table_class_path)
+    
+    # Instantiate the objects.
+    # Check if an 'id' is provided in GET parameters to edit an instance
+    instance_id = request.GET.get('id')
+    if instance_id:
+        try:
+            instance = selected_model.objects.get(pk=instance_id)
+            form = FormClass(request.POST or None, instance=instance)
+        except selected_model.DoesNotExist:
+            form = FormClass(request.POST or None)  # Fall back to a blank form if no instance is found
+    else:
+        form = FormClass(request.POST or None)
+    
+    # For the filter, pass in the GET data and a queryset for the model.
+    filter_obj = FilterClass(request.GET or None, queryset=selected_model.objects.all())
+    
+    # Instantiate the table from the filtered queryset.
+    table = TableClass(filter_obj.qs)
 
-#     # Wrap arabic_name in a dictionary if it’s a string
-#     if isinstance(arabic_name, str):
-#         arabic_name = {current_tab: arabic_name}
+    if request.method == 'POST':
+        if form.is_valid():
+            form.save()
+            print("Form is valid and saved.")
+            return redirect('manage_sections')  # Change this to your desired redirect
+        else:
+            print("Form is not valid. Errors:", form.errors)
 
-#     # Handle document editing
-#     document_id = request.GET.get('id')
-#     form = form_class(request.POST or None, instance=get_object_or_404(model, id=document_id) if document_id else None)
-
-#     # Handle form submission
-#     if request.method == 'POST' and form.is_valid():
-#         form.save()  # This will handle saving the many-to-many relationships
-#         return redirect('manage_sections', model_name=current_tab)
-
-#     # Fetch items for the current tab's model with pagination
-#     items = model.objects.all()
-#     paginator = Paginator(items, 10)
-#     page_number = request.GET.get(f'{current_tab}_page', 1)  # Use current_tab for pagination
-#     page_obj = paginator.get_page(page_number)
-
-#     return render(request, 'manage_sections.html', {
-#         'models': [
-#             {'name': 'departments', 'form': DepartmentForm(), 'items': Department.objects.all()},
-#             {'name': 'affiliates', 'form': AffiliateForm(), 'items': Affiliate.objects.all()},
-#             {'name': 'ministers', 'form': MinisterForm(), 'items': Minister.objects.all()},
-#             {'name': 'governments', 'form': GovernmentForm(), 'items': Government.objects.all()},
-#         ],
-#         'current_tab': current_tab,
-#         'form': form,
-#         'page_obj': page_obj,
-#         'request': request,
-#         'arabic_name': arabic_name,
-#         'arabic_names': arabic_names,  # Ensure this is a dictionary
-#         f'{current_tab}_page': page_number,  # Use current_tab for pagination
-#         'arabic_name_value': arabic_name.get(current_tab, 'اسم غير معروف')
-#     })
-
+    RequestConfig(request, paginate={'per_page': 10}).configure(table)
+    
+    context = {
+        'active_model': model_param,         # e.g., 'Country'
+        'models': models_list,     # All four model names for the tabs
+        'form': form,
+        'filter': filter_obj,
+        'table': table,
+        'id': instance_id,  # Pass 'id' to the template context
+        'ar_name': selected_model._meta.verbose_name,  # Add verbose_name to the context
+        'ar_names': selected_model._meta.verbose_name_plural  # Add verbose_name to the context
+    }
+    
+    return render(request, 'manage_sections.html', context)
 
 # Function for fetching related decrees based on a year:
 class DecreeAutocompleteView(View):

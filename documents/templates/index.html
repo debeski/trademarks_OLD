@@ -46,28 +46,28 @@
     <div class="col-md-3 g-3">
         <div class="card shadow-sm p-3 mb-2">
             <div class="d-flex align-items-center">
-                <i class="bi bi-graph-up display-3 text-primary me-3"></i> <!-- Bootstrap Icon -->
+                <i class="bi bi-graph-up display-3 text-success me-3"></i> <!-- Bootstrap Icon -->
                 <div>
                     <h5>اجمالي الاشهارات</h5>
-                    <p class="display-6 text-primary">{{ total_pub }}</p>
+                    <p class="display-6 text-success">{{ total_pub_f }}</p>
                 </div>
             </div>
         </div>
         <div class="card shadow-sm p-3 mb-2">
             <div class="d-flex align-items-center">
-                <i class="bi bi-diagram-3 display-3 text-danger me-3"></i>
+                <i class="bi bi-diagram-3 display-3 text-primary me-3"></i>
                 <div>
-                    <h5>اعتراضات تتطلب اجراء</h5>
-                    <p class="display-6 text-danger">456</p>
+                    <h5>اشهارات ذات نشر مبدئي</h5>
+                    <p class="display-6 text-primary">{{ total_pub_i }}</p>
                 </div>
             </div>
         </div>
         <div class="card shadow-sm p-3">
             <div class="d-flex align-items-center">
-                <i class="bi bi-bar-chart-line display-3 text-success me-3"></i>
+                <i class="bi bi-bar-chart-line display-3 text-danger me-3"></i>
                 <div>
-                    <h5>معاملات منتهية</h5>
-                    <p class="display-6 text-success">789</p>
+                    <h5>اعتراضات تتطلب اجراء</h5>
+                    <p class="display-6 text-danger">0</p>
                 </div>
             </div>
         </div>

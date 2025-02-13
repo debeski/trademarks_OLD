@@ -16,7 +16,8 @@
         "batisteo.vscode-django",
         "ecmel.vscode-html-css",
         "GitHub.remotehub",
-        "VisualStudioExptTeam.vscodeintellicode"
+        "VisualStudioExptTeam.vscodeintellicode",
+        "oderwat.indent-rainbow"
       ]
     }
   }
