@@ -49,7 +49,7 @@ class DecreeFilter(django_filters.FilterSet):
         self.form.helper.layout = Layout(
             # Keyword search (Always visible)
             Row(
-                Column(HTML('{% if request.user.is_authenticated %} <a href="{% url "add_decree" %}" class="btn btn-primary active w-100"><i class="bi bi-plus"></i> إضافة جديد</a> {% endif %}'), css_class='col-md-auto text-center'),
+                Column(HTML('{% if request.user.is_authenticated %} <a href="{% url "add_decree" %}" class="btn btn-primary active w-100"><i class="bi bi-plus-lg"></i> إضافة جديد</a> {% endif %}'), css_class='col-md-auto text-center'),
                 Column(Field('keyword', placeholder="البحث (رقم، مقدم الطلب، صاحب العلامة)"), css_class='form-group col-md-6'),
                 Column(Submit('submit', 'بحث', css_class='btn btn-secondary w-100'), css_class='form-group col-md-auto text-center'),
                 Column(HTML('<button class="btn btn-outline-secondary w-100" type="button" data-bs-toggle="collapse" data-bs-target="#advanced-search">بحث متقدم</button>'), css_class='form-group col-md-auto text-center'),
@@ -131,7 +131,7 @@ class PublicationFilter(django_filters.FilterSet):
         self.form.helper.layout = Layout(
             # Row 1: Keyword search (always visible) plus Add button and basic controls.
             Row(
-                Column(HTML('{% if request.user.is_authenticated %} <a href="{% url "add_publication" %}" class="btn btn-primary active w-100"><i class="bi bi-plus"></i> إضافة جديد</a> {% endif %}'), css_class='col-md-auto text-center'),
+                Column(HTML('{% if request.user.is_authenticated %} <a href="{% url "add_publication" %}" class="btn btn-primary active w-100"><i class="bi bi-plus-lg"></i> إضافة جديد</a> {% endif %}'), css_class='col-md-auto text-center'),
                 Column(Field('keyword', placeholder="البحث ( رقم، سنة، مقدم طلب، صاحب علامة.. )"), css_class='form-group col-md-6'),
                 Column(Submit('submit', 'بحث', css_class='btn btn-secondary w-100'), css_class='form-group col-md-auto text-center'),
                 Column(HTML('<button class="btn btn-outline-secondary w-100" type="button" data-bs-toggle="collapse" data-bs-target="#advanced-search">بحث متقدم</button>'), css_class='form-group col-md-auto text-center'),
@@ -186,11 +186,13 @@ class FormPlusFilter(django_filters.FilterSet):
     class Meta:
         model = FormPlus
         fields = {
+            'type': ['exact'],
             'date': ['gte', 'lte'],
         }
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
+        set_first_choice(self.filters['type'].field, 'نوع المستند')
 
         # Initialize a Crispy Forms helper for the filter form.
         self.form.helper = FormHelper()
@@ -201,7 +203,7 @@ class FormPlusFilter(django_filters.FilterSet):
         self.form.helper.layout = Layout(
             # Keyword search (Always visible)
             Row(
-                Column(HTML('{% if request.user.is_authenticated %} <a href="{% url "add_formplus" %}" class="btn btn-primary active w-100"><i class="bi bi-plus"></i> إضافة جديد</a> {% endif %}'), css_class='col-md-auto text-center'),
+                Column(HTML('{% if request.user.is_authenticated %} <a href="{% url "add_formplus" %}" class="btn btn-primary active w-100"><i class="bi bi-plus-lg"></i> إضافة جديد</a> {% endif %}'), css_class='col-md-auto text-center'),
                 Column(Field('keyword', placeholder="البحث (رقم، عنوان)"), css_class='form-group col-md-6'),
                 Column(Submit('submit', 'بحث', css_class='btn btn-secondary w-100'), css_class='form-group col-md-auto text-center'),
                 Column(HTML('<button class="btn btn-outline-secondary w-100" type="button" data-bs-toggle="collapse" data-bs-target="#advanced-search">بحث متقدم</button>'), css_class='form-group col-md-auto text-center'),
@@ -212,8 +214,8 @@ class FormPlusFilter(django_filters.FilterSet):
             # Advanced filters (Initially hidden, expands on button click)
             Div(
                 Row(
+                    Column(Field('type', placeholder="السنة", dir="rtl"), css_class='form-group col-md-2'),
                     Column(Field('date__year', placeholder="السنة", dir="rtl"), css_class='form-group col-md-2'),
-                    
                     Column(HTML("<strong>تاريخ التقرير</strong>"), css_class='col-md-1 text-center align-self-center mb-3'),
                     Column(Field('date__gte', css_class='flatpickr', placeholder="من "), css_class='form-group col-md-1'),
                     Column(Field('date__lte', css_class='flatpickr', placeholder="إلى "), css_class='form-group col-md-1'),

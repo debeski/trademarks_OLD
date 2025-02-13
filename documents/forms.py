@@ -269,7 +269,7 @@ class PublicationForm(forms.ModelForm):
 class FormPlusForm(forms.ModelForm):
     class Meta:
         model = FormPlus
-        fields = ['number', 'date', 'title', 'keywords', 'pdf_file']
+        fields = ['type', 'number', 'date', 'title', 'keywords', 'pdf_file']
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -281,6 +281,7 @@ class FormPlusForm(forms.ModelForm):
 
         self.helper.layout = Layout(
             Div(
+                Div(Field('type', css_class='form-control'), css_class='col'),
                 Div(Field('number', css_class='form-control'), css_class='col'),
                 Div(Field('date', css_class='form-control flatpickr'), css_class='col'),
                 Div(Field('title', css_class='form-control'), css_class='col'),

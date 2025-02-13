@@ -1,5 +1,6 @@
 from django.db import models
 import uuid
+import os
 import json
 from django.http import JsonResponse
 from django.views import View
@@ -209,30 +210,45 @@ ComType = [
     ('both', 'صناعية - تجارية')
 ]
 
-# PDF Files Naming Functions:
 def generate_random_filename(instance, filename):
-    """Generate a random filename for uploaded files."""
-    random_filename = f"{uuid.uuid4().hex}.pdf"
+    """Generate a random filename with the same extension as the uploaded file."""
+    # Get the file extension
+    file_name, file_extension = os.path.splitext(filename)
+    
+    # Generate a random filename with the same extension
+    random_filename = f"{uuid.uuid4().hex}{file_extension}"
+    
+    # Get the model name and format the upload path
     model_name = instance.__class__.__name__.lower()
+    
+    # Return the full path where the file will be uploaded
     return f'{model_name}/{random_filename}'
 
-def generate_random_filename_img(instance, filename):
-    """Generate a random filename for uploaded files."""
-    random_filename = f"{uuid.uuid4().hex}.jpg"
-    model_name = instance.__class__.__name__.lower()
-    return f'{model_name}/{random_filename}'
 
-def get_pdf_upload_path(instance, filename):
-    """Get the upload path for PDF files."""
-    return f'pdfs/{generate_random_filename(instance, filename)}'
+# # PDF Files Naming Functions:
+# def generate_random_filename(instance, filename):
+#     """Generate a random filename for uploaded files."""
+#     random_filename = f"{uuid.uuid4().hex}.pdf"
+#     model_name = instance.__class__.__name__.lower()
+#     return f'{model_name}/{random_filename}'
 
-def get_attach_upload_path(instance, filename):
-    """Get the upload path for attachment files."""
-    return f'attach/{generate_random_filename(instance, filename)}'
+# def generate_random_filename_img(instance, filename):
+#     """Generate a random filename for uploaded files."""
+#     random_filename = f"{uuid.uuid4().hex}.jpg"
+#     model_name = instance.__class__.__name__.lower()
+#     return f'{model_name}/{random_filename}'
 
-def get_img_upload_path(instance, filename):
-    """Get the upload path for IMG files."""
-    return f'item_img/{generate_random_filename_img(instance, filename)}'
+# def get_pdf_upload_path(instance, filename):
+#     """Get the upload path for PDF files."""
+#     return f'pdfs/{generate_random_filename(instance, filename)}'
+
+# def get_attach_upload_path(instance, filename):
+#     """Get the upload path for attachment files."""
+#     return f'attach/{generate_random_filename(instance, filename)}'
+
+# def get_img_upload_path(instance, filename):
+#     """Get the upload path for IMG files."""
+#     return f'item_img/{generate_random_filename_img(instance, filename)}'
 
 def default_created_at():
     today = datetime.today().date()
@@ -293,8 +309,8 @@ class Decree(models.Model):
     en_brand = models.CharField(max_length=255, blank=False, verbose_name="العلامة (انجليزي)")
     category = models.IntegerField(blank=True, verbose_name="الفئة")
 
-    pdf_file = models.FileField(upload_to=get_pdf_upload_path, blank=True, verbose_name="ملف القرار")
-    attach = models.FileField(upload_to=get_attach_upload_path, blank=True, verbose_name="المرفقات")
+    pdf_file = models.FileField(upload_to=generate_random_filename, blank=True, verbose_name="ملف القرار")
+    attach = models.FileField(upload_to=generate_random_filename, blank=True, verbose_name="المرفقات")
     notes = models.TextField(max_length=999, blank=True, verbose_name="ملاحظات")
     
     is_published = models.BooleanField(default=False, verbose_name="تم اشهاره مبدئيا")
@@ -327,8 +343,8 @@ class Publication(models.Model):
     en_brand = models.CharField(max_length=255, blank=False, verbose_name="العلامة (انجليزي)")
     category = models.IntegerField(blank=True, verbose_name="الفئة")
 
-    img_file = models.ImageField(upload_to=get_img_upload_path, blank=True, verbose_name="الصورة")
-    attach = models.FileField(upload_to=get_attach_upload_path, blank=True, verbose_name="المرفقات")
+    img_file = models.ImageField(upload_to=generate_random_filename, blank=True, verbose_name="الصورة")
+    attach = models.FileField(upload_to=generate_random_filename, blank=True, verbose_name="المرفقات")
     e_number = models.IntegerField(blank=False, null=False, verbose_name="رقم النشرية")
     status = models.CharField(max_length=50, choices=[
         ('initial', 'نشر مبدئي'),
@@ -375,7 +391,7 @@ class Objection(models.Model):
     ], verbose_name="حالة الاعتراض")
     reason = models.CharField(max_length=100, verbose_name="اسباب الرفض", blank=True)
     complain_number = models.CharField(max_length=10, blank=False, null=False, verbose_name="رقم طلب التسجيل المعارض عليه")
-    pdf_file = models.FileField(upload_to=get_pdf_upload_path, blank=True, verbose_name="ملف الاعتراض")
+    pdf_file = models.FileField(upload_to=generate_random_filename, blank=True, verbose_name="ملف الاعتراض")
     notes = models.TextField(max_length=999, blank=True, verbose_name="تفاصيل")
 
     is_paid = models.BooleanField(default=False, verbose_name="تم دفع الرسوم")
@@ -395,12 +411,18 @@ class Objection(models.Model):
 
 class FormPlus(models.Model):
     """Ambiguous Model representing a report of some sort."""
-    number = models.CharField(max_length=20, blank=True, null=True)
-    date = models.DateField(blank=True)
-    government = models.ForeignKey(Government, on_delete=models.PROTECT)
-    title = models.CharField(max_length=255, blank=False)
-    keywords = models.TextField(max_length=999, blank=True)
-    pdf_file = models.FileField(upload_to=get_pdf_upload_path, blank=True)
+    number = models.CharField(max_length=20, blank=True, null=True, verbose_name="الرقم")
+    date = models.DateField(blank=True, verbose_name="التاريخ")
+    government = models.ForeignKey(Government, on_delete=models.PROTECT, verbose_name="الحكومة")
+    type = models.CharField(max_length=50, choices=[
+        ('decree', 'قرار'),
+        ('form', 'نموذج'),
+        ('list', 'لائحة')
+    ], verbose_name="النوع")
+    title = models.CharField(max_length=255, blank=False, verbose_name="العنوان")
+    keywords = models.TextField(max_length=999, blank=True, verbose_name="التفاصيل")
+    pdf_file = models.FileField(upload_to=generate_random_filename, blank=True)
+    word_file = models.FileField(upload_to=generate_random_filename, blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     deleted_at = models.DateTimeField(null=True, blank=True)
