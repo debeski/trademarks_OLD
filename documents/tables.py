@@ -1,7 +1,7 @@
 import os
 from django.utils.html import mark_safe
 import django_tables2 as tables
-from .models import Decree, Publication, Objection, FormPlus, Country, Government, ComType, DocType
+from .models import Decree, Publication, Objection, FormPlus, Country, Government, ComType, DocType, DecreeCategory
 from django.urls import reverse
 # from django.utils.safestring import mark_safe
 # from babel.dates import format_date
@@ -77,7 +77,27 @@ class DocTypeTable(tables.Table):
     class Meta:
         model = DocType
         template_name = "django_tables2/bootstrap5.html"
-        fields = ('name', 'edit')
+        fields = ('name',)
+        attrs = {'class': 'table table-hover table-responsive align-middle table-sm'}
+
+    def render_edit(self, value):
+        base_url = reverse("manage_sections")
+        # Derive model name from the Meta.model class name
+        model_name = self.Meta.model.__name__
+        url = f"{base_url}?model={model_name}&id={value}"
+        return mark_safe(f'<a href="{url}" class="btn btn-secondary">تعديل</a>')
+
+class DecreeCategoryTable(tables.Table):
+    edit = tables.Column(accessor='id', verbose_name='', empty_values=())
+
+    def __init__(self, *args, model_name=None, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.model_name = model_name
+
+    class Meta:
+        model = DecreeCategory
+        template_name = "django_tables2/bootstrap5.html"
+        fields = ('number', 'name')
         attrs = {'class': 'table table-hover table-responsive align-middle table-sm'}
 
     def render_edit(self, value):
@@ -148,6 +168,26 @@ class PublicationTable(tables.Table):
         # List the fields you want to show in the table
         fields = ('number', 'decree', 'applicant', 'country', 'address', 'date_applied', 'category', 'img_file', 'e_number', 'created_at', 'actions')
         attrs = {'class': 'table table-hover align-middle'}
+
+
+class ObjectionTable(tables.Table):
+    actions = tables.TemplateColumn(
+        template_name='partials/objection_actions.html',  # You will need to create this template for actions like view, edit, delete
+        orderable=False,
+        verbose_name=''
+    )
+
+    class Meta:
+        model = Objection
+        template_name = "django_tables2/bootstrap5.html"
+        # List the fields you want to show in the table
+        fields = ('pub', 'name', 'job', 'nationality', 'status', 'created_at', 'actions')
+        attrs = {'class': 'table table-hover table-responsive align-middle'}
+
+    # You can add custom table formatting or method fields if needed
+    def render_created_at(self, value):
+        # Format the date as desired (for example: dd-mm-yyyy)
+        return value.strftime('%d-%m-%Y') if value else ''
 
 
 class FormPlusTable(tables.Table):

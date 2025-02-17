@@ -10,8 +10,10 @@
     <div class="row">
         <!-- Left Column: publication Details -->
         <div class="col-md-6">
-            <h5 class="mb-3">تفاصيل الاشهار لعلامة التجارية</h5>
-            <div class="card">
+            <div class="card border-light shadow-sm">
+                <div class="card-header text-center pe-5">
+                    <h5 class="card-title mb-0">تفاصيل الاشهار</h5>
+                </div>
                 <div class="card-body">
                     <p><strong>سنة الاشهار: </strong> {{ publication.year|default:"-" }}</p>
 
@@ -62,7 +64,7 @@
             </div>
 
             <div class="mt-4">
-                <a href="{% url 'gen_pub_pdf' publication.id %}" class="btn btn-outline-primary">تحميل الاشهار <i class="bi bi-file-earmark-pdf"></i></a>
+                <a href="{% url 'gen-pub-pdf' publication.id %}" class="btn btn-outline-primary">تحميل الاشهار <i class="bi bi-file-earmark-pdf"></i></a>
 
                 <a href="{% url 'edit_publication' publication.id %}" class="btn btn-primary">تعديل</a>
                 <a href="javascript:history.back()" class="btn btn-secondary">إلغاء</a>
@@ -71,14 +73,20 @@
 
         <!-- Right Column: PDF Preview -->
         <div class="col">
-            <h5 class="mb-3">معاينة العلامة</h5>
-            {% if publication.img_file %}
-                <div id="image-viewer-container" class="border rounded p-2 text-center">
-                    <img src="{{ publication.img_file.url }}" alt="معاينة الوثيقة" class="img-fluid rounded">
+            <div class="card border-light shadow-sm">
+                <div class="card-header text-center pe-5">
+                    <h5 class="card-title mb-0">معاينة صورة العلامة</h5>
                 </div>
-            {% else %}
-                <p class="text-muted">لا يوجد صورة لهذه الوثيقة</p>
-            {% endif %}
+                <div class="card-body">
+                    {% if publication.img_file %}
+                        <div id="image-viewer-container" class="border rounded p-2 text-center">
+                            <img src="{{ publication.img_file.url }}" alt="معاينة الوثيقة" class="img-fluid rounded">
+                        </div>
+                    {% else %}
+                        <p class="text-muted">لا يوجد صورة لهذه الوثيقة</p>
+                    {% endif %}
+                </div>
+            </div>
         </div>
     </div>
 </div>

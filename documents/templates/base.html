@@ -96,7 +96,7 @@
             </a>
         
             <!-- Option 3: Objections List -->
-            <a href="#" class="list-group-item list-group-item-action">
+            <a href="{% url 'objection_list' %}" class="list-group-item list-group-item-action {% if request.path == '/objections/' %}disabled pressed{% elif '/objections/' in request.path %}pressed{% endif %}">
                 <i class="bi bi-file-earmark-diff me-2" style="font-size: 24px;"></i>
                 الاعتراضات
             </a>
@@ -155,8 +155,8 @@
                 dateFormat: "Y-m-d", // Set the desired date format
                 position: "auto",
                 locale: "ar",
-                altInput: true, // Show the input field
                 altFormat: "d F Y", // Display format
+                allowInput: true, // Allow typing directly into the input field
             });
         });
     </script>

@@ -1,5 +1,6 @@
 
 import logging
+from django.contrib import messages
 import os
 from django.utils import timezone
 from django.views import View
@@ -8,19 +9,21 @@ import importlib
 
 from django.core.cache import cache
 from django.shortcuts import get_object_or_404
-from django.http import FileResponse, JsonResponse, HttpResponse, HttpResponseNotFound
+from django.http import FileResponse, JsonResponse, HttpResponse, HttpResponseNotFound, HttpResponseBadRequest
 from django.views.decorators.http import require_http_methods
 from django.views.decorators.csrf import csrf_exempt
 from django.shortcuts import render, redirect, get_object_or_404
 from django.urls import reverse
 from django.contrib.auth.decorators import login_required
+from django.utils.module_loading import import_string
+
 import json
 
 import mimetypes
 import zipfile
 from io import BytesIO
 
-from .models import Decree, Publication, FormPlus, Objection, Country, Government, ComType, DocType
+from .models import Decree, Publication, FormPlus, Objection, Country, Government, ComType, DocType, DecreeCategory
 from .tables import DecreeTable, PublicationTable, FormPlusTable, CountryTable, GovernmentTable, ComTypeTable, DocTypeTable
 from .filters import DecreeFilter, PublicationFilter, FormPlusFilter, CountryFilter, GovernmentFilter, ComTypeFilter, DocTypeFilter
 from .forms import DecreeForm, PublicationForm, FormPlusForm, CountryForm, GovernmentForm, ComTypeForm, DocTypeForm
@@ -33,15 +36,82 @@ import plotly.express as px
 
 logger = logging.getLogger('documents')
 ##################################################################
+# Function for fetching related decrees based on a year
+class DecreeAutocompleteView(View):
+    def get(self, request, *args, **kwargs):
+        query = request.GET.get('q', '')
+        year = request.GET.get('year', '')
+        qs = Decree.objects.filter(status='accepted').exclude(deleted_at__isnull=False)
+        if year:
+            qs = qs.filter(date__year=year)
+        if query:
+            qs = qs.filter(number__icontains=query)
+        # Build a list of dictionaries for each decree
+        results = []
+        for decree in qs:
+            results.append({
+                'id': decree.id,
+                'number': decree.number,
+                'date': decree.date.strftime("%Y-%m-%d") if decree.date else "",
+                'owner': decree.applicant,
+                'country': decree.country,
+                'date_applied': decree.date_applied.strftime("%Y-%m-%d") if decree.date_applied else "",
+                'ar_brand': decree.ar_brand,
+                'en_brand': decree.en_brand,
+                'category': decree.category,
+            })
+        return JsonResponse(results, safe=False)
 
 
-# Logger initiation Function:
+# Class Function for fetching related Publications based on a year
+class PublicationAutocompleteView(View):
+    def get(self, request, *args, **kwargs):
+        query = request.GET.get('q', '')
+        year = request.GET.get('year', '')
+        qs = Publication.objects.filter(status='initial', deleted_at__isnull=True)
+        if year:
+            qs = qs.filter(created_at__year=year)
+        if query:
+            qs = qs.filter(number__icontains=query)
+
+        # Build a list of dictionaries for each publication
+        results = [
+            {
+                'year': pub.year if pub.year else "",
+                'number': pub.number,
+                'id': pub.id,
+                'decree': pub.decree if pub.decree else "",
+                'created_at': pub.created_at.strftime("%Y-%m-%d") if pub.created_at else "",
+                'applicant': pub.applicant,
+                'owner': pub.owner,
+                'country': pub.country,
+                'address': pub.address,
+                'date_applied': pub.date_applied.strftime("%Y-%m-%d") if pub.date_applied else "",
+                'ar_brand': pub.ar_brand,
+                'en_brand': pub.en_brand,
+                'category': pub.category,
+                'img_file': pub.img_file.url if pub.img_file else "",
+            }
+            for pub in qs
+        ]
+
+        return JsonResponse(results, safe=False)
+
+
+# Logger initiation Function
 def log_action(action, model, object_id=None):
     timestamp = timezone.now()
     message = f"{timestamp} - Performed {action} on {model.__name__} (ID: {object_id})"
     logger.info(message)
 
 
+# Function that extracts model name from a string
+def get_class_from_string(class_path):
+    """Dynamically imports and returns a class from a string path."""
+    return import_string(class_path)
+
+
+# Function for Chart generation 
 def create_chart(models, start_year=2012, end_year=2025):
     """
     Generates a Plotly bar chart for document counts per year across multiple models.
@@ -107,7 +177,8 @@ def create_chart(models, start_year=2012, end_year=2025):
     cache.set(cache_key, chart_html, timeout=3600)
     return chart_html
 
-# Html & Chart Rendering Functions on main page only:
+
+# Html & Chart Rendering Functions on main page only
 def index(request):
     # Generate the chart HTML
     chart_html = create_chart([Publication])
@@ -131,14 +202,7 @@ def index(request):
     return render(request, 'index.html', context)
 
 
-def get_class_from_string(class_path):
-    """
-    Given a string like 'tables.CountryTable', import and return the class.
-    """
-    module_path, class_name = class_path.rsplit('.', 1)
-    module = importlib.import_module(module_path)
-    return getattr(module, class_name)
-
+# Main view, and CRUD function for choice models
 def core_models_view(request):
     # Read the GET parameter, defaulting to 'Country'
     model_param = request.GET.get('model', 'Country')
@@ -149,6 +213,7 @@ def core_models_view(request):
         'Government': Government,
         'ComType': ComType,
         'DocType': DocType,
+        'DecreeCategory': DecreeCategory,
     }
     
     # Fallback to default if an invalid model is provided
@@ -214,33 +279,9 @@ def core_models_view(request):
     
     return render(request, 'manage_sections.html', context)
 
-# Function for fetching related decrees based on a year:
-class DecreeAutocompleteView(View):
-    def get(self, request, *args, **kwargs):
-        query = request.GET.get('q', '')
-        year = request.GET.get('year', '')
-        qs = Decree.objects.filter(status='accepted').exclude(deleted_at__isnull=False)
-        if year:
-            qs = qs.filter(date__year=year)
-        if query:
-            qs = qs.filter(number__icontains=query)
-        # Build a list of dictionaries for each decree
-        results = []
-        for decree in qs:
-            results.append({
-                'id': decree.id,
-                'number': decree.number,
-                'date': decree.date.strftime("%Y-%m-%d") if decree.date else "",
-                'owner': decree.applicant,
-                'country': decree.country,
-                'date_applied': decree.date_applied.strftime("%Y-%m-%d") if decree.date_applied else "",
-                'ar_brand': decree.ar_brand,
-                'en_brand': decree.en_brand,
-                'category': decree.category,
-            })
-        return JsonResponse(results, safe=False)
 
-
+# Views for Publication
+#######################
 # Main table view for decrees
 @login_required
 def decree_list(request):
@@ -256,7 +297,7 @@ def decree_list(request):
     # Configure pagination (10 decrees per page)
     RequestConfig(request, paginate={'per_page': 10}).configure(table)
     
-    return render(request, 'decree_list.html', {
+    return render(request, 'decrees/decree_list.html', {
         'table': table,
         'filter': decree_filter,
     })
@@ -276,7 +317,7 @@ def add_edit_decree(request, document_id=None):
         form.save()
         return redirect(reverse('decree_list'))  # Adjust URL name as needed
 
-    return render(request, 'decree_form.html', {
+    return render(request, 'decrees/decree_form.html', {
         'form': form,
     })
 
@@ -369,9 +410,11 @@ def decree_detail(request, document_id):
     Displays details of a decree with a PDF preview.
     """
     decree = get_object_or_404(Decree, pk=document_id)
-    return render(request, 'decree_detail.html', {'decree': decree})
+    return render(request, 'decrees/decree_detail.html', {'decree': decree})
 
 
+# Views for Publication
+#######################
 # Main table view for publications
 def publication_list(request):
     qs = Publication.objects.filter(deleted_at__isnull=True)
@@ -387,7 +430,7 @@ def publication_list(request):
 
     RequestConfig(request).configure(table)
 
-    return render(request, "pub_list.html", {
+    return render(request, "publications/pub_list.html", {
         "table": table,
         "filter": publication_filter,
         "current_status": status,  # Pass the current status to the template
@@ -410,20 +453,15 @@ def add_edit_publication(request, document_id=None):
 
         # After saving, you might want to populate shared fields with the selected decree number.
         if publication.decree:
-            decree = Decree.objects.filter(number=publication.decree).first()
+            decree = Decree.objects.filter(id=publication.decree).first()
             if decree:
                 # Populate shared fields (adjust this based on actual fields)
-                publication.owner = decree.company
-                publication.country = decree.country
-                publication.date_applied = decree.date_applied
-                publication.ar_brand = decree.ar_brand
-                publication.en_brand = decree.en_brand
-                publication.category = decree.category
+                publication.decree = decree.id
                 publication.save()
 
-        return redirect(reverse('publication_list'))  # Adjust URL name as needed
+        return redirect(reverse('publication_list'))
 
-    return render(request, 'pub_form.html', {
+    return render(request, 'publications/pub_form.html', {
         'form': form,
     })
 
@@ -520,12 +558,14 @@ def publication_detail(request, document_id):
     # Find a decree that matches the publication's decree number (if it exists)
     decree = Decree.objects.filter(number=publication.decree).first()  # Fetch the decree if it exists
 
-    return render(request, 'pub_detail.html', {
+    return render(request, 'publications/pub_detail.html', {
         'publication': publication,
         'decree': decree  # Pass the decree object
     })
 
 
+# Function for changing status of an intial publication to final
+@login_required
 def update_status(request, publication_id):
     """Change publication status from 'initial' to 'final'."""
     if request.method == "POST":
@@ -585,7 +625,122 @@ def gen_pub_pdf(request, pub_id):
     return response
 
 
-# Main table view for decrees
+# Views for Objection
+#####################
+# Main table view for Objection
+@login_required
+def objection_list(request):
+    # Get the base queryset (only non-deleted items)
+    qs = Objection.objects.filter(deleted_at__isnull=True)
+    
+    # Get the filter class and apply it
+    filter_class_path = Objection.get_filter_class()
+    filter_class = get_class_from_string(filter_class_path)
+    objection_filter = filter_class(request.GET, queryset=qs)
+    
+    # Get the table class and create the table based on the filtered queryset
+    table_class_path = Objection.get_table_class()
+    table_class = get_class_from_string(table_class_path)
+    table = table_class(objection_filter.qs)
+    
+    # Configure pagination (10 objections per page)
+    RequestConfig(request, paginate={'per_page': 10}).configure(table)
+    
+    return render(request, 'objections/objection_list.html', {
+        'table': table,
+        'filter': objection_filter,
+    })
+
+
+# Main Adding and Editing view for Objection
+def add_edit_objection(request):
+    form_class = get_class_from_string(Objection.get_form_class())  # Resolving the form class
+    
+    if request.method == "POST":
+        form = form_class(request.POST, request.FILES)
+        if form.is_valid():
+            pub_id = form.cleaned_data.get("pub_id")  # Get the pub_id
+            publication = get_object_or_404(Publication, id=pub_id, deleted_at__isnull=True)
+            
+            print(f"Found Publication: {publication}")  # Debugging output
+
+            # Update publication status to 'conflict'
+            publication.status = 'conflict'
+            publication.save()
+
+            objection = form.save(commit=False)
+            objection.pub = publication  # Assign the publication object, not just the ID
+            objection.save()
+
+            messages.success(request, "Objection added successfully!")
+            return redirect("objection_list")
+
+        else:
+            print(form.errors)  # Debugging: Print form errors if invalid
+
+    else:
+        form = form_class(request.POST or None, request.FILES or None)
+
+    return render(request, 'objections/objection_form.html', {'form': form})
+
+
+# Main PDF download view for Objection
+@login_required
+def download_objection(request, document_id):
+    """
+    Downloads an objection's PDF file.
+    """
+    objection = get_object_or_404(Objection, pk=document_id)
+
+    # Check if PDF exists
+    pdf_exists = objection.pdf_file and objection.pdf_file.name
+
+    if not pdf_exists:
+        return JsonResponse({'error': 'No PDF document available for download.'}, status=404)
+
+    # Prepare file naming
+    date_str = objection.date.strftime('%Y-%m-%d') if objection.date else 'unknown_date'
+    identifier = objection.number if objection.number else 'unknown'
+
+    # Download only PDF
+    content_type, _ = mimetypes.guess_type(objection.pdf_file.name) or ('application/pdf',)
+    response = HttpResponse(content_type=content_type)
+    response['Content-Disposition'] = f'attachment; filename="objection_{identifier}_{date_str}.pdf"'
+
+    with objection.pdf_file.open('rb') as pdf_file:
+        response.write(pdf_file.read())
+
+    return response
+
+
+# Main soft delete view for Objection
+@login_required
+def soft_delete_objection(request, document_id):
+    """
+    Soft-delete an objection by setting its deleted_at timestamp.
+    """
+    if request.method == 'POST':  # Change from DELETE to POST
+        document = get_object_or_404(Objection, id=document_id)
+        document.deleted_at = timezone.now()  # Set the deletion timestamp
+        document.save()
+        return JsonResponse({'success': True})
+
+    return JsonResponse({'success': False, 'error': 'Invalid request method'}, status=400)
+
+
+# Main detail view for Objection
+@login_required
+def objection_detail(request, document_id):
+    """
+    Displays details of an objection with a PDF preview.
+    """
+    objection = get_object_or_404(Objection, pk=document_id)
+    return render(request, 'objections/objection_detail.html', {'objection': objection})
+
+
+# Views for FormPlus
+####################
+# Main table view for FormPlus
 @login_required
 def formplus_list(request):
     # Get the base queryset (only non-deleted items)
@@ -600,7 +755,7 @@ def formplus_list(request):
     # Configure pagination (10 decrees per page)
     RequestConfig(request, paginate={'per_page': 10}).configure(table)
     
-    return render(request, 'formplus_list.html', {
+    return render(request, 'formplus/formplus_list.html', {
         'table': table,
         'filter': FormPlus_filter,
     })
@@ -616,34 +771,10 @@ def add_edit_formplus(request, document_id=None):
         form.save()
         return redirect(reverse('formplus_list'))  # Adjust URL name as needed
 
-    return render(request, 'formplus_form.html', {'form': form})
+    return render(request, 'formplus/formplus_form.html', {'form': form})
 
 
-# Main soft delete view for FormPlus
-@login_required
-def soft_delete_formplus(request, document_id):
-    """
-    Soft-delete a FormPlus document by setting its deleted_at timestamp.
-    """
-    if request.method == 'POST':  # Change from DELETE to POST
-        document = get_object_or_404(FormPlus, id=document_id)
-        document.deleted_at = timezone.now()  # Set the deletion timestamp
-        document.save()
-        return JsonResponse({'success': True})
-
-    return JsonResponse({'success': False, 'error': 'Invalid request method'}, status=400)
-
-
-# Main detail view for FormPlus
-@login_required
-def formplus_detail(request, document_id):
-    """
-    Displays details of a FormPlus document with a PDF preview.
-    """
-    formplus = get_object_or_404(FormPlus, pk=document_id)
-    return render(request, 'formplus_detail.html', {'formplus': formplus})
-
-
+# Main PDF download view for FormPlus
 @login_required
 def download_formplus(request, document_id):
     """
@@ -670,5 +801,30 @@ def download_formplus(request, document_id):
         response.write(pdf_file.read())
 
     return response
+
+
+# Main soft delete view for FormPlus
+@login_required
+def soft_delete_formplus(request, document_id):
+    """
+    Soft-delete a FormPlus document by setting its deleted_at timestamp.
+    """
+    if request.method == 'POST':  # Change from DELETE to POST
+        document = get_object_or_404(FormPlus, id=document_id)
+        document.deleted_at = timezone.now()  # Set the deletion timestamp
+        document.save()
+        return JsonResponse({'success': True})
+
+    return JsonResponse({'success': False, 'error': 'Invalid request method'}, status=400)
+
+
+# Main detail view for FormPlus
+@login_required
+def formplus_detail(request, document_id):
+    """
+    Displays details of a FormPlus document with a PDF preview.
+    """
+    formplus = get_object_or_404(FormPlus, pk=document_id)
+    return render(request, 'formplus/formplus_detail.html', {'formplus': formplus})
 
 

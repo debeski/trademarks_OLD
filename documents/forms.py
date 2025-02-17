@@ -2,7 +2,7 @@ from django import forms
 from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Layout, Row, Column, Submit, Field, Div, HTML
 from crispy_forms.bootstrap import FormActions
-from .models import Decree, Publication, FormPlus, Objection, Country, Government, ComType, DocType
+from .models import Decree, Publication, FormPlus, Objection, Country, Government, ComType, DocType, DecreeCategory
 
 class CountryForm(forms.ModelForm):
     class Meta:
@@ -104,6 +104,32 @@ class DocTypeForm(forms.ModelForm):
             ),
         )
 
+class DecreeCategoryForm(forms.ModelForm):
+    class Meta:
+        model = DecreeCategory
+        fields = ['number', 'name']
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.helper = FormHelper()
+        self.helper.form_method = 'POST'
+        self.helper.form_show_labels = False
+
+        self.helper.layout = Layout(
+            Row(
+                Div(Field('number', css_class='form-control', placeholder="رقم الفئة"), css_class='col-md-5'),
+                Div(Field('name', css_class='form-control', placeholder="اسم الفئة"), css_class='col-md-5'),
+                FormActions(
+                    Submit('submit', '{% if id %} حفظ {% else %} اضافة جديد {% endif %}', css_class='btn btn-primary'),
+                    HTML(
+                        '{% if id %}'
+                        ' <a class="btn btn-secondary" href="{% url "manage_sections" %}">الغاء</a>'
+                        '{% endif %}'
+                    ), css_class='col-md-auto'
+                )
+            ),
+        )
+
 
 class DecreeForm(forms.ModelForm):
     class Meta:
@@ -130,6 +156,7 @@ class DecreeForm(forms.ModelForm):
                 Div(Field('number', css_class='form-control'), css_class='col'),
                 Div(Field('date', css_class='form-control flatpickr'), css_class='col'),
                 Div(Field('status', css_class='form-control'), css_class='col'),
+                HTML("<hr>"),
                 Div(Field('applicant', css_class='form-control'), css_class='col'),
                 Div(Field('company', css_class='form-control'), css_class='col'),
                 Div(Field('country', css_class='form-control'), css_class='col'),
@@ -140,6 +167,7 @@ class DecreeForm(forms.ModelForm):
                 Div(Field('category', css_class='form-control'), css_class='col'),
                 css_class='col'
             ),
+            HTML("<hr>"),
             Field('pdf_file'),
             Field('attach'),
             Field('notes', rows="2"),
@@ -195,10 +223,9 @@ class PublicationForm(forms.ModelForm):
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        # Mark fields that will be auto-filled as read-only.
+        # # Mark fields that will be auto-filled as read-only.
         # for field_name in ['owner', 'country', 'ar_brand', 'en_brand', 'category']:
         #     self.fields[field_name].widget.attrs.update({'readonly': 'readonly', 'class': 'auto-fill'})
-        # Setup crispy helper.
         self.helper = FormHelper()
         self.helper.form_method = 'POST'
         self.helper.layout = Layout(
@@ -214,14 +241,16 @@ class PublicationForm(forms.ModelForm):
                 Div(Field('owner', css_class='form-control'), css_class='col'),
                 Div(Field('country', css_class='form-control'), css_class='col'),
                 Div(Field('address', css_class='form-control'), css_class='col'),
-                Div(Field('date_applied', css_class='form-control'), css_class='col'),
+                Div(Field('date_applied', css_class='form-control flatpickr'), css_class='col'),
                 Div(Field('ar_brand', css_class='form-control'), css_class='col'),
                 Div(Field('en_brand', css_class='form-control'), css_class='col'),
                 Div(Field('category', css_class='form-control'), css_class='col'),
                 css_class='col'
             ),
+            HTML("<hr>"),
             Field('img_file'),
             Field('attach'),
+            HTML("<hr>"),
             Div(
                 Div(Field('e_number', css_class='form-control'), css_class='col'),
                 Div(Field('status', css_class='form-control'), css_class='col'),
@@ -234,6 +263,71 @@ class PublicationForm(forms.ModelForm):
                 HTML('<a class="btn btn-secondary" href="{% url \'publication_list\' %}">إلغاء</a>')
             )
         )
+
+
+class ObjectionForm(forms.ModelForm):
+    year = forms.CharField(required=False, label="سنة الإشهار")
+    pub_number = forms.CharField(
+        required=True,
+        label="رقم الإشهار",
+        widget=forms.TextInput(attrs={
+            'autocomplete': 'off',
+            'id': 'id_pub_autocomplete',
+            'pattern': '^[0-9]+$',  # only numbers
+            'title': 'Please enter only numbers.'
+        })
+    )
+    notes = forms.CharField(
+        widget=forms.Textarea(attrs={'rows': 2}),
+        required=False,  # Optional: if the field is not required
+        label="تفاصيل"
+    )
+    pub_id = forms.IntegerField(widget=forms.HiddenInput(), required=True)  # Make sure it's an IntegerField
+
+    class Meta:
+        model = Objection
+        fields = [
+            'year', 'pub_number', 'pub_id', 'name', 'job', 'nationality', 'address', 'phone',
+            'com_name', 'com_job', 'com_address', 'com_og_address', 'com_mail_address',
+            'pdf_file', 'notes'
+        ]
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.helper = FormHelper()
+        self.helper.form_method = 'POST'
+        # self.helper.layout = Layout(
+        #     Row(
+        #         Div(Field('year', css_class='form-control'), css_class='col-md-3'),
+        #         Div(Field('pub_number', css_class='form-control', placeholder="اكتب رقم الإشهار للبحث"), css_class='col-md-9'),
+        #     ),
+        #     HTML("<hr>"),
+        #     Row(
+        #         Div(Field('name', css_class='form-control'), css_class='col-md-4'),
+        #         Div(Field('job', css_class='form-control'), css_class='col-md-4'),
+        #         Div(Field('nationality', css_class='form-control'), css_class='col-md-4'),
+        #     ),
+        #     Row(
+        #         Div(Field('address', css_class='form-control'), css_class='col-md-6'),
+        #         Div(Field('phone', css_class='form-control'), css_class='col-md-6'),
+        #     ),
+        #     HTML("<hr>"),
+        #     Row(
+        #         Div(Field('com_name', css_class='form-control'), css_class='col-md-4'),
+        #         Div(Field('com_job', css_class='form-control'), css_class='col-md-4'),
+        #         Div(Field('com_address', css_class='form-control'), css_class='col-md-4'),
+        #     ),
+        #     Row(
+        #         Div(Field('com_og_address', css_class='form-control'), css_class='col-md-6'),
+        #         Div(Field('com_mail_address', css_class='form-control'), css_class='col-md-6'),
+        #     ),
+        #     HTML("<hr>"),
+        #     Row(
+        #         Div(Field('pdf_file', css_class='form-control'), css_class='col-md-6'),
+        #     ),
+        #     Field('notes', css_class='form-control', rows="3"),
+        #     Submit('submit', 'حفظ', css_class='btn btn-primary'),
+        # )
 
 
 class FormPlusForm(forms.ModelForm):

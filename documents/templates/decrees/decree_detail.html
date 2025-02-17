@@ -9,34 +9,40 @@
         pdfjsLib.GlobalWorkerOptions.workerSrc = "{% static 'pdfjs/build/pdf.worker.mjs' %}";
 
         document.addEventListener("DOMContentLoaded", async function () {
-            const url = "{{ decree.pdf_file.url }}";
-            const canvas = document.getElementById("pdf-canvas");
-            const ctx = canvas.getContext("2d");
+            {% if decree.pdf_file %}
+                const url = "{{ decree.pdf_file.url }}";
+                const canvas = document.getElementById("pdf-canvas");
+                const ctx = canvas.getContext("2d");
 
-            try {
-                const pdf = await pdfjsLib.getDocument(url).promise;
-                const page = await pdf.getPage(1);
-                const viewport = page.getViewport({ scale: 0.8 });
+                try {
+                    const pdf = await pdfjsLib.getDocument(url).promise;
+                    const page = await pdf.getPage(1);
+                    const viewport = page.getViewport({ scale: 0.8 });
 
-                canvas.width = viewport.width;
-                canvas.height = viewport.height;
+                    canvas.width = viewport.width;
+                    canvas.height = viewport.height;
 
-                const renderContext = { canvasContext: ctx, viewport: viewport };
-                await page.render(renderContext);
-            } catch (error) {
-                console.error("Error loading PDF:", error);
-            }
+                    const renderContext = { canvasContext: ctx, viewport: viewport };
+                    await page.render(renderContext);
+                } catch (error) {
+                    console.error("Error loading PDF:", error);
+                }
+            {% endif %}
         });
     </script>
 {% endblock %}
+
 
 {% block content %}
 <div class="container mt-4">
     <div class="row">
         <!-- Left Column: Decree Details -->
         <div class="col-md-7">
-            <h5 class="mb-3">تفاصيل الوثيقة</h5>
-            <div class="card">
+            <div class="card border-light shadow-sm">
+                <div class="card-header text-center pe-5">
+                    <h5 class="card-title mb-0">تفاصيل القرار</h5>
+                </div>
+
                 <div class="card-body">
                     <p><strong>رقم الوثيقة: </strong> {{ decree.number|default:"-" }}</p>
 
@@ -84,14 +90,20 @@
 
         <!-- Right Column: PDF Preview -->
         <div class="col">
-            <h5 class="mb-3">معاينة الوثيقة</h5>
-            {% if decree.pdf_file %}
-                <div id="pdf-viewer-container" class="border rounded p-2">
-                    <canvas id="pdf-canvas" class="w-100"></canvas>
+            <div class="card border-light shadow-sm">
+                <div class="card-header text-center pe-5">
+                    <h5 class="card-title mb-0">معاينة ملف القرار</h5>
                 </div>
-            {% else %}
-                <p class="text-muted">لا يوجد ملف PDF لهذه الوثيقة</p>
-            {% endif %}
+                <div class="card-body">
+                    {% if decree.pdf_file %}
+                        <div id="pdf-viewer-container" class="border rounded p-2">
+                            <canvas id="pdf-canvas" class="w-100"></canvas>
+                        </div>
+                    {% else %}
+                        <p class="text-muted">لا يوجد ملف PDF لهذه الوثيقة</p>
+                    {% endif %}
+                </div>
+            </div>
         </div>
     </div>
 </div>

@@ -33,9 +33,21 @@
     src: url('../fonts/Shabwa-Bold.ttf') format('truetype');
 }
 
+input[dir="rtl"] {
+    text-align: right;
+    direction: rtl;
+    unicode-bidi: plaintext;
+}
+
 input[dir="rtl"]::placeholder {
     text-align: right;
     color: #484848;
+}
+
+input[type="number"] {
+    text-align: right !important;
+    direction: rtl !important; /* Force RTL for numeric input */
+    unicode-bidi: plaintext !important; /* Ensures proper bidi handling */
 }
 
 body {
@@ -284,17 +296,17 @@ th a {
 
 th a::after {
     font-family: "bootstrap-icons";
-    content: "\f282"; /* Default: bi-arrow-down-up */
+    content: "\F238"; /* Default: bi-arrow-down-up */
     font-size: 14px;
     margin-right: 3px;
 }
 
 th.asc a::after {
-    content: "\f286"; /* bi-chevron-up */
+    content: "\F235"; /* bi-chevron-up */
 }
 
 th.desc a::after {
-    content: "\f282"; /* bi-chevron-down */
+    content: "\F229"; /* bi-chevron-down */
 }
 
 #publicationTabsContent {
@@ -303,4 +315,22 @@ th.desc a::after {
 
 #modelTabsContent {
     visibility: hidden;
+}
+
+
+#publication-details {
+    opacity: 0;
+    transform: translateY(-10px);
+    transition: opacity 0.9s ease, transform 0.9s ease;
+    display: none; /* Ensures it's hidden initially */
+}
+
+#publication-details.show {
+    opacity: 1;
+    transform: translateY(0);
+    display: block; /* Overrides 'none' to allow animations */
+}
+
+form label {
+    font-weight: 600;
 }
