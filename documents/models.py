@@ -7,7 +7,8 @@ import json
 from django.http import JsonResponse
 from django.views import View
 from datetime import datetime, time
-
+import random
+import string
 
 # Temporary Lists:
 ##################
@@ -239,6 +240,10 @@ def default_created_at():
     today = datetime.today().date()
     return datetime.combine(today, time(15, 0))
 
+def generate_unique_code():
+    # Generate a 13-digit random number
+    return ''.join(random.choices(string.digits, k=13))
+
 # def generate_random_filename(instance, filename):
 #     """Generate a random filename for uploaded files."""
 #     random_filename = f"{uuid.uuid4().hex}.pdf"
@@ -359,8 +364,31 @@ class DocType(models.Model):
     def get_form_class(cls):
         return 'documents.forms.DocTypeForm'
 
+class DecreeCategory(models.Model):
+    """Model representing a government entity."""
+    number = models.IntegerField(unique=True, verbose_name="رقم الفئة")
+    name = models.CharField(max_length=255, unique=True, verbose_name="اسم الفئة")
 
+    class Meta:
+        verbose_name = "الفئة"
+        verbose_name_plural = "الفئات"
 
+    def __str__(self):
+        return self.name
+
+    @classmethod
+    def get_table_class(cls):
+        return 'documents.tables.DecreeCategoryTable'
+
+    @classmethod
+    def get_filter_class(cls):
+        return 'documents.filters.DecreeCategoryFilter'
+
+    @classmethod
+    def get_form_class(cls):
+        return 'documents.forms.DecreeCategoryForm'
+    
+    
 # Document Models:
 ##################
 class Decree(models.Model):
@@ -395,7 +423,7 @@ class Decree(models.Model):
     deleted_at = models.DateTimeField(null=True, blank=True)
     
     def __str__(self):
-        return self.number
+        return str(self.number)
     
     @property
     def get_model_name(self):
@@ -403,7 +431,7 @@ class Decree(models.Model):
 
 class Publication(models.Model):
     """Model representing a minister decree."""
-    year = models.IntegerField(null=True, blank=True)  # Add this field
+    year = models.IntegerField(null=True, blank=True)
     number = models.IntegerField(blank=False, null=False, verbose_name="رقم التسجيل")
     decree = models.IntegerField(blank=False, null=False, verbose_name="رقم القرار")
     
@@ -437,7 +465,7 @@ class Publication(models.Model):
     deleted_at = models.DateTimeField(null=True, blank=True)
     
     def __str__(self):
-        return self.number
+        return str(self.number)
     
     @property
     def get_model_name(self):
@@ -445,6 +473,8 @@ class Publication(models.Model):
 
 class Objection(models.Model):
     """Model representing a minister decree."""
+    number = models.IntegerField(unique=True, blank=False, null=False, verbose_name="رقم المعارضة")
+    pub = models.ForeignKey(Publication, on_delete=models.PROTECT, verbose_name="الاشهار")
     name = models.CharField(max_length=64, blank=False, null=False, verbose_name="اسم ولقب مقدم الشكوى")
     job = models.CharField(max_length=24, blank=False, null=False, verbose_name="المهنة")
     nationality = models.CharField(max_length=50, choices=Countries, verbose_name="الجنسية")
@@ -463,22 +493,50 @@ class Objection(models.Model):
         ('rejected', 'رفض')
     ], verbose_name="حالة الاعتراض")
     reason = models.CharField(max_length=100, verbose_name="اسباب الرفض", blank=True)
-    complain_number = models.CharField(max_length=10, blank=False, null=False, verbose_name="رقم طلب التسجيل المعارض عليه")
     pdf_file = models.FileField(upload_to=generate_random_filename, blank=True, verbose_name="ملف الاعتراض")
     notes = models.TextField(max_length=999, blank=True, verbose_name="تفاصيل")
     
     is_paid = models.BooleanField(default=False, verbose_name="تم دفع الرسوم")
-    
+    unique_code = models.CharField(max_length=13, unique=True, editable=False)
+
     created_at = models.DateTimeField(auto_now_add=True, verbose_name="تاريخ الاعتراض")
     updated_at = models.DateTimeField(auto_now=True)
     deleted_at = models.DateTimeField(null=True, blank=True)
-    
+
+    def save(self, *args, **kwargs):
+        if not self.number:  # Only assign if not already set
+            last_objection = Objection.objects.order_by('-number').first()
+            if last_objection:
+                self.number = last_objection.number + 1
+            else:
+                self.number = 1  # Start from 1 if there are no objections
+
+        # Generate a unique code only if the object is being created (not updated)
+        if not self.unique_code:
+            self.unique_code = generate_unique_code()
+            # Ensure the code is unique
+            while Objection.objects.filter(unique_code=self.unique_code).exists():
+                self.unique_code = generate_unique_code()
+        super().save(*args, **kwargs)
+
     def __str__(self):
-        return self.id
+        return str(self.number)
     
     @property
     def get_model_name(self):
         return "اعتراضات"
+    
+    @classmethod
+    def get_table_class(cls):
+        return 'documents.tables.ObjectionTable'
+
+    @classmethod
+    def get_filter_class(cls):
+        return 'documents.filters.ObjectionFilter'
+
+    @classmethod
+    def get_form_class(cls):
+        return 'documents.forms.ObjectionForm'
 
 class FormPlus(models.Model):
     """Ambiguous Model representing a report of some sort."""
@@ -499,5 +557,6 @@ class FormPlus(models.Model):
     
     @property
     def get_model_name(self):
-        return "تقارير"
+        return "نماذج وقرارات"
+
 

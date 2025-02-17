@@ -3,7 +3,8 @@
 <div class="d-flex gap-2 align-items-center justify-content-end">
     <!-- PDF Icon (Always Visible) -->
     {% if record.pdf_file %}
-        <a href="{% url 'download_decree' record.id %}" title="تحميل"><i class="bi bi-file-earmark-pdf-fill" style="font-size: 36px;"></i>
+        <a href="{% url 'download_objection' record.id %}" title="تحميل">
+            <i class="bi bi-file-earmark-pdf-fill" style="font-size: 36px;"></i>
         </a>
     {% else %}
         <span title="لا يوجد ملف pdf" class="disabled">
@@ -11,26 +12,29 @@
         </span>
     {% endif %}
 
-    <!-- Use the icon itself as the dropdown trigger -->
+    <!-- Dropdown for additional actions -->
     <div class="dropdown-center">
         <a href="#" class="action-icon" id="actionDropdown{{ record.id }}" data-bs-toggle="dropdown" aria-expanded="false">
             <i class="bi bi-three-dots-vertical text-dark"></i>
         </a>
         <ul class="dropdown-menu" aria-labelledby="actionDropdown{{ record.id }}">
+            <!-- View Action -->
             <li>
-                <a class="dropdown-item" href="{% url 'view_decree' record.id %}" title="عرض">
-                    <i class="bi bi-binoculars-fill text-dark me-1" style="font-size: 22px;"> </i> عرض
+                <a class="dropdown-item" href="{% url 'view_objection' record.id %}" title="عرض">
+                    <i class="bi bi-binoculars-fill text-dark me-1" style="font-size: 22px;"></i> عرض
                 </a>
             </li>
+            <!-- Edit Action -->
             <li>
-                <a class="dropdown-item" href="{% url 'edit_decree' record.id %}" title="تعديل">
-                    <i class="bi bi-pencil-square text-dark me-1" style="font-size: 22px;"> </i> تعديل
+                <a class="dropdown-item" href="{% url 'edit_objection' record.id %}" title="تعديل">
+                    <i class="bi bi-pencil-square text-dark me-1" style="font-size: 22px;"></i> تعديل
                 </a>
             </li>
+            <!-- Delete Action -->
             <li>
                 <a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#deleteModal"
-                   data-doc-id="{{ record.id }}" data-doc-number="{{ record.number }}">
-                   <i class="bi bi-x-octagon text-danger me-1" style="font-size: 22px;"> </i> حذف
+                   data-doc-id="{{ record.id }}" data-doc-number="{{ record.name }}">
+                   <i class="bi bi-x-octagon text-danger me-1" style="font-size: 22px;"></i> حذف
                 </a>
             </li>
         </ul>

@@ -1,0 +1,85 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+
+{% block title %}
+  {% if form.instance.id %}تعديل{% else %}إضافة{% endif %} قرار
+{% endblock %}
+
+{% block header %}
+  {% if form.instance.id %} - تعديل{% else %} - إضافة{% endif %} قرار
+{% endblock %}
+
+{% block content %}
+<form method="POST" enctype="multipart/form-data">
+  {% csrf_token %}
+  {% crispy form %}
+</form>
+{% endblock %}
+
+{% block scripts %}
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            let enInputFields = ['id_en_brand'];
+            let arInputFields = ['id_ar_brand'];
+            let numberFields = ['id_number', 'id_number_applied', 'id_category'];
+    
+            // Function to allow only English letters, numbers and spaces
+            function enforceEnglish(input) {
+                input.addEventListener('input', function() {
+                    this.value = this.value.replace(/[^a-zA-Z0-9\s]/g, '');
+                });
+    
+                input.addEventListener('focus', function() {
+                    this.setAttribute('lang', 'en');
+                });
+            }
+    
+            // Function to allow only Arabic letters, numbers and spaces
+            function enforceArabic(input) {
+                input.addEventListener('input', function() {
+                    this.value = this.value.replace(/[^\u0600-\u06FF0-9\s]/g, '');
+                });
+    
+                input.addEventListener('focus', function() {
+                    this.setAttribute('lang', 'ar');
+                });
+            }
+    
+            // Function to allow only numbers
+            function enforceNumbers(input) {
+                input.addEventListener('input', function() {
+                    this.value = this.value.replace(/[^0-9]/g, '');
+                });
+    
+                input.addEventListener('focus', function() {
+                    this.setAttribute('inputmode', 'numeric');
+                });
+            }
+    
+            // Apply functions if the input fields exist for English, Arabic, and number fields
+            enInputFields.forEach(function(fieldId) {
+                let inputField = document.getElementById(fieldId);
+                if (inputField) {
+                    enforceEnglish(inputField);
+                }
+            });
+    
+            arInputFields.forEach(function(fieldId) {
+                let inputField = document.getElementById(fieldId);
+                if (inputField) {
+                    enforceArabic(inputField);
+                }
+            });
+    
+            numberFields.forEach(function(fieldId) {
+                let inputField = document.getElementById(fieldId);
+                if (inputField) {
+                    enforceNumbers(inputField);
+                }
+            });
+        });
+    </script>
+
+
+{% endblock %}
