@@ -309,9 +309,9 @@ th.desc a::after {
     content: "\F229"; /* bi-chevron-down */
 }
 
-#publicationTabsContent {
+/* #publicationTabsContent {
     visibility: hidden;
-}
+} */
 
 #modelTabsContent {
     visibility: hidden;
@@ -333,4 +333,9 @@ th.desc a::after {
 
 form label {
     font-weight: 600;
+}
+
+.is-placeholder {
+    background-color: rgba(255, 0, 0, 0.1);  /* Light red background */
+    font-weight: bold;
 }

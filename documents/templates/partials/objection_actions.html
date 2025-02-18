@@ -25,6 +25,7 @@
                 </a>
             </li>
             <!-- Edit Action -->
+            {% if user.is_superuser %}
             <li>
                 <a class="dropdown-item" href="{% url 'edit_objection' record.id %}" title="تعديل">
                     <i class="bi bi-pencil-square text-dark me-1" style="font-size: 22px;"></i> تعديل
@@ -33,10 +34,11 @@
             <!-- Delete Action -->
             <li>
                 <a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#deleteModal"
-                   data-doc-id="{{ record.id }}" data-doc-number="{{ record.name }}">
-                   <i class="bi bi-x-octagon text-danger me-1" style="font-size: 22px;"></i> حذف
+                    data-doc-id="{{ record.id }}" data-doc-number="{{ record.name }}">
+                    <i class="bi bi-x-octagon text-danger me-1" style="font-size: 22px;"></i> حذف
                 </a>
             </li>
+            {% endif %}
         </ul>
     </div>
 </div>

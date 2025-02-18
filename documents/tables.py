@@ -8,12 +8,18 @@ from django.urls import reverse
 
 
 class GovernmentTable(tables.Table):
-    edit = tables.Column(accessor='id', verbose_name='', empty_values=())
+    edit = tables.Column(accessor='id', verbose_name='', empty_values=(), orderable=False)
 
-    def __init__(self, *args, model_name=None, **kwargs):
+    def __init__(self, *args, model_name=None, user=None, **kwargs):
         super().__init__(*args, **kwargs)
         self.model_name = model_name
-
+        self.user = user
+        # Check if the user has the permission and add the column accordingly
+        if self.user and self.user.has_perm('documents.edit_sections'):
+            self.base_columns['edit'].visible = True
+        else:
+            self.base_columns['edit'].visible = False
+            
     class Meta:
         model = Government
         template_name = "django_tables2/bootstrap5.html"
@@ -28,16 +34,22 @@ class GovernmentTable(tables.Table):
         return mark_safe(f'<a href="{url}" class="btn btn-secondary">تعديل</a>')
 
 class CountryTable(tables.Table):
-    edit = tables.Column(accessor='id', verbose_name='', empty_values=())
+    edit = tables.Column(accessor='id', verbose_name='', empty_values=(), orderable=False)
 
-    def __init__(self, *args, model_name=None, **kwargs):
+    def __init__(self, *args, model_name=None, user=None, **kwargs):
         super().__init__(*args, **kwargs)
         self.model_name = model_name
-
+        self.user = user
+        # Check if the user has the permission and add the column accordingly
+        if self.user and self.user.has_perm('documents.edit_sections'):
+            self.base_columns['edit'].visible = True
+        else:
+            self.base_columns['edit'].visible = False
+            
     class Meta:
         model = Country
         template_name = "django_tables2/bootstrap5.html"
-        fields = ('en_name', 'ar_name', 'edit')
+        fields = ('ar_name', 'en_name', 'edit')
         attrs = {'class': 'table table-hover table-responsive align-middle table-sm'}
 
     def render_edit(self, value):
@@ -48,12 +60,18 @@ class CountryTable(tables.Table):
         return mark_safe(f'<a href="{url}" class="btn btn-secondary">تعديل</a>')
 
 class ComTypeTable(tables.Table):
-    edit = tables.Column(accessor='id', verbose_name='', empty_values=())
+    edit = tables.Column(accessor='id', verbose_name='', empty_values=(), orderable=False)
 
-    def __init__(self, *args, model_name=None, **kwargs):
+    def __init__(self, *args, model_name=None, user=None, **kwargs):
         super().__init__(*args, **kwargs)
         self.model_name = model_name
-
+        self.user = user
+        # Check if the user has the permission and add the column accordingly
+        if self.user and self.user.has_perm('documents.edit_sections'):
+            self.base_columns['edit'].visible = True
+        else:
+            self.base_columns['edit'].visible = False
+            
     class Meta:
         model = ComType
         template_name = "django_tables2/bootstrap5.html"
@@ -68,12 +86,18 @@ class ComTypeTable(tables.Table):
         return mark_safe(f'<a href="{url}" class="btn btn-secondary">تعديل</a>')
 
 class DocTypeTable(tables.Table):
-    edit = tables.Column(accessor='id', verbose_name='', empty_values=())
+    edit = tables.Column(accessor='id', verbose_name='', empty_values=(), orderable=False)
 
-    def __init__(self, *args, model_name=None, **kwargs):
+    def __init__(self, *args, model_name=None, user=None, **kwargs):
         super().__init__(*args, **kwargs)
         self.model_name = model_name
-
+        self.user = user
+        # Check if the user has the permission and add the column accordingly
+        if self.user and self.user.has_perm('documents.edit_sections'):
+            self.base_columns['edit'].visible = True
+        else:
+            self.base_columns['edit'].visible = False
+            
     class Meta:
         model = DocType
         template_name = "django_tables2/bootstrap5.html"
@@ -88,12 +112,18 @@ class DocTypeTable(tables.Table):
         return mark_safe(f'<a href="{url}" class="btn btn-secondary">تعديل</a>')
 
 class DecreeCategoryTable(tables.Table):
-    edit = tables.Column(accessor='id', verbose_name='', empty_values=())
+    edit = tables.Column(accessor='id', verbose_name='', empty_values=(), orderable=False)
 
-    def __init__(self, *args, model_name=None, **kwargs):
+    def __init__(self, *args, model_name=None, user=None, **kwargs):
         super().__init__(*args, **kwargs)
         self.model_name = model_name
-
+        self.user = user
+        # Check if the user has the permission and add the column accordingly
+        if self.user and self.user.has_perm('documents.edit_sections'):
+            self.base_columns['edit'].visible = True
+        else:
+            self.base_columns['edit'].visible = False
+            
     class Meta:
         model = DecreeCategory
         template_name = "django_tables2/bootstrap5.html"
@@ -140,7 +170,7 @@ class DecreeTable(tables.Table):
         model = Decree
         template_name = "django_tables2/bootstrap5.html"
         # List the fields you want to show in the table
-        fields = ('number', 'date', 'status', 'applicant', 'company', 'country', 'ar_brand', 'en_brand', 'category', 'actions')
+        fields = ('number', 'date', 'status', 'applicant', 'company', 'country', 'ar_brand', 'en_brand', 'category__number', 'actions')
         attrs = {'class': 'table table-hover table-responsive align-middle'}
 
 

@@ -54,7 +54,7 @@
 
                     <p><strong>الشركة: </strong> {{ decree.company|default:"-" }}</p>
 
-                    <p><strong>الدولة: </strong> {{ decree.get_country_display|default:"-" }}</p>
+                    <p><strong>الدولة: </strong> {{ decree.country.ar_name|default:"-" }}</p>
                     <p></p>
 
                     <p><strong>تاريخ التقديم: </strong> {{ decree.date_applied|date:"Y-m-d" }}</p>
@@ -69,7 +69,7 @@
                     <p><strong>العلامة التجارية (إنجليزي): </strong> {{ decree.en_brand|default:"-" }}</p>
                     <p></p>
 
-                    <p><strong>الفئة: </strong> {{ decree.category|default:"-" }}</p>
+                    <p><strong>الفئة: </strong> {{ decree.category.number|default:"-" }}</p>
                     <p></p>
 
                     {% if decree.attach %}
