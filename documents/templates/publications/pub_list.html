@@ -2,7 +2,7 @@
 {% load django_tables2 %}
 {% load crispy_forms_tags %}
 
-{% block extra_head %}
+{% comment %} {% block extra_head %}
 	<script>
 		document.addEventListener("DOMContentLoaded", function () {
 			var tabs = document.querySelectorAll("#publicationTabs a");
@@ -32,7 +32,7 @@
 		});
 	</script>
 	
-{% endblock %}
+{% endblock %} {% endcomment %}
 
 {% block title %}اشهارات العلامات التجارية{% endblock %}
 
@@ -46,20 +46,20 @@
 	<!-- Bootstrap Tabs -->
 	<ul class="nav nav-tabs" id="publicationTabs" role="tablist">
 		<li class="nav-item" role="presentation">
-			<a class="nav-link {% if current_status == 'initial' %}active{% endif %}" 
-			href="?status=initial{% for key, value in request.GET.items %}{% if key != 'status' %}&{{ key }}={{ value }}{% endif %}{% endfor %}">
+			<a class="nav-link {% if current_status == 1 %}active{% endif %}" 
+			href="?status=1{% for key, value in request.GET.items %}{% if key != 'status' %}&{{ key }}={{ value }}{% endif %}{% endfor %}">
 				نشر مبدئي
 			</a>
 		</li>
 		<li class="nav-item" role="presentation">
-			<a class="nav-link {% if current_status == 'conflict' %}active{% endif %}" 
-			href="?status=conflict{% for key, value in request.GET.items %}{% if key != 'status' %}&{{ key }}={{ value }}{% endif %}{% endfor %}">
+			<a class="nav-link {% if current_status == 2 %}active{% endif %}" 
+			href="?status=2{% for key, value in request.GET.items %}{% if key != 'status' %}&{{ key }}={{ value }}{% endif %}{% endfor %}">
 				متنازع عليه
 			</a>
 		</li>
 		<li class="nav-item" role="presentation">
-			<a class="nav-link {% if current_status == 'final' %}active{% endif %}" 
-			href="?status=final{% for key, value in request.GET.items %}{% if key != 'status' %}&{{ key }}={{ value }}{% endif %}{% endfor %}">
+			<a class="nav-link {% if current_status == 3 %}active{% endif %}" 
+			href="?status=3{% for key, value in request.GET.items %}{% if key != 'status' %}&{{ key }}={{ value }}{% endif %}{% endfor %}">
 				نشر نهائي
 			</a>
 		</li>
@@ -67,8 +67,8 @@
 
 	<!-- Bootstrap Tabs Content -->
 	<div class="tab-content" id="publicationTabsContent">
-		<!-- Tab for Status 1 -->
-		<div class="tab-pane fade {% if current_status == 'initial' %}show active{% endif %}" id="status1" role="tabpanel" aria-labelledby="status1-tab">
+		<!-- Tab Content for Status INITIAL -->
+		<div class="tab-pane fade {% if current_status == 1 %}show active{% endif %}" id="status1" role="tabpanel" aria-labelledby="status1-tab">
 		<div class="card border-light shadow mt-3">
 			<div class="card-header text-center pe-5 bg-transparent">
 			<h3 class="card-title">اشهارات نشرت مبدئيا</h3>
@@ -78,8 +78,8 @@
 			</div>
 		</div>
 		</div>
-		<!-- Tab for Status 2 -->
-		<div class="tab-pane fade {% if current_status == 'conflict' %}show active{% endif %}" id="status2" role="tabpanel" aria-labelledby="status2-tab">
+		<!-- Tab Content for Status CONFLICT -->
+		<div class="tab-pane fade {% if current_status == 2 %}show active{% endif %}" id="status2" role="tabpanel" aria-labelledby="status2-tab">
 		<div class="card border-light shadow mt-3">
 			<div class="card-header text-center pe-5 bg-transparent">
 			<h3 class="card-title">اشهارات متنازع عليها</h3>
@@ -89,8 +89,8 @@
 			</div>
 		</div>
 		</div>
-		<!-- Tab for Status 3 -->
-		<div class="tab-pane fade {% if current_status == 'final' %}show active{% endif %}" id="status3" role="tabpanel" aria-labelledby="status3-tab">
+		<!-- Tab Content for Status FINAL -->
+		<div class="tab-pane fade {% if current_status == 3 %}show active{% endif %}" id="status3" role="tabpanel" aria-labelledby="status3-tab">
 		<div class="card border-light shadow mt-3">
 			<div class="card-header text-center pe-5 bg-transparent">
 			<h3 class="card-title">اشهارات نشرت نهائيا</h3>
@@ -113,7 +113,7 @@
 							<h5 class="modal-title" id="deleteModalLabel">تأكيد الحذف!</h5>
 						</div>
 						<div class="modal-body">
-							<p>هل أنت متأكد من حذف الوثيقة رقم <span id="documentNumber"></span>؟</p>
+							<p>هل أنت متأكد من حذف الاشهار رقم <span id="documentNumber"></span>؟</p>
 						</div>
 						<div class="modal-footer">
 							<button type="submit" class="btn btn-danger">نعم، احذف</button>
@@ -123,11 +123,53 @@
 				</div>
 			</div>
 		</form>
-  	{% endif %}
+	{% endif %}
+
+	<!-- Status Change Modal -->
+	<form id="statusForm" method="post">
+		{% csrf_token %}
+		<div class="modal fade" id="statusModal" tabindex="-1" role="dialog" aria-labelledby="statusModalLabel" aria-hidden="true">
+			<div class="modal-dialog" role="document">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title" id="statusModalLabel">تأكيد تغيير الحالة!</h5>
+					</div>
+					<div class="modal-body">
+						<p>هل أنت متأكد من تغيير حالة الاشهار رقم <span id="documentNumber"></span> من 'مبدئي' إلى 'نهائي'؟</p>
+					</div>
+					<div class="modal-footer">
+						<button type="submit" class="btn btn-success">نعم، تغيير الحالة</button>
+						<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">إلغاء</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</form>
 
 {% endblock %}
 
 {% block scripts %}
+
+	<!-- JavaScript for the Change Status Modal -->
+	<script>
+		document.addEventListener("DOMContentLoaded", function () {
+			const statusModal = document.getElementById("statusModal");
+			const statusForm = document.getElementById("statusForm");
+			const documentNumber = document.getElementById("documentNumber");
+		
+			statusModal.addEventListener("show.bs.modal", function (event) {
+				let button = event.relatedTarget; // The button that triggered the modal
+				let docId = button.getAttribute("data-doc-id");
+				let docNumber = button.getAttribute("data-doc-number");
+		
+				// Update the confirmation message
+				documentNumber.textContent = docNumber;
+		
+				// Set the form action dynamically
+				statusForm.setAttribute("action", `/update-status/${docId}/`);
+			});
+		});
+	</script>
 
 	<!-- JavaScript for the Delete Modal -->
 	<script>

@@ -175,7 +175,7 @@ class DecreeFilter(django_filters.FilterSet):
         self.form.helper.layout = Layout(
             # Keyword search (Always visible)
             Row(
-                Column(HTML('{% if request.user.is_authenticated %} <a href="{% url "add_decree" %}" class="btn btn-primary active w-100"><i class="bi bi-plus-lg"></i> إضافة جديد</a> {% endif %}'), css_class='col-md-auto text-center'),
+                Column(HTML('{% if perms.documents.add_decree %} <a href="{% url "add_decree" %}" class="btn btn-primary active w-100"><i class="bi bi-plus-lg"></i> إضافة جديد</a> {% endif %}'), css_class='col-md-auto text-center'),
                 Column(Field('keyword', placeholder="البحث (رقم، مقدم الطلب، صاحب العلامة)"), css_class='form-group col-md-6'),
                 Column(Submit('submit', 'بحث', css_class='btn btn-secondary w-100'), css_class='form-group col-md-auto text-center'),
                 Column(HTML('<button class="btn btn-outline-secondary w-100" type="button" data-bs-toggle="collapse" data-bs-target="#advanced-search">بحث متقدم</button>'), css_class='form-group col-md-auto text-center'),
@@ -257,7 +257,7 @@ class PublicationFilter(django_filters.FilterSet):
         self.form.helper.layout = Layout(
             # Row 1: Keyword search (always visible) plus Add button and basic controls.
             Row(
-                Column(HTML('{% if request.user.is_authenticated %} <a href="{% url "add_publication" %}" class="btn btn-primary active w-100"><i class="bi bi-plus-lg"></i> إضافة جديد</a> {% endif %}'), css_class='col-md-auto text-center'),
+                Column(HTML('{% if perms.documents.add_publication %} <a href="{% url "add_publication" %}" class="btn btn-primary active w-100"><i class="bi bi-plus-lg"></i> إضافة جديد</a> {% endif %}'), css_class='col-md-auto text-center'),
                 Column(Field('keyword', placeholder="البحث ( رقم، سنة، مقدم طلب، صاحب علامة.. )"), css_class='form-group col-md-6'),
                 Column(Submit('submit', 'بحث', css_class='btn btn-secondary w-100'), css_class='form-group col-md-auto text-center'),
                 Column(HTML('<button class="btn btn-outline-secondary w-100" type="button" data-bs-toggle="collapse" data-bs-target="#advanced-search">بحث متقدم</button>'), css_class='form-group col-md-auto text-center'),
@@ -277,7 +277,7 @@ class PublicationFilter(django_filters.FilterSet):
                 css_class="collapse mt-3",  # Bootstrap collapse class
                 id="advanced-search"
             ),
-            Field('status', type='hidden', value='initial')
+            Field('status', type='hidden', value=1)
         )
 
 
@@ -286,7 +286,7 @@ class PublicationFilter(django_filters.FilterSet):
         Filter the queryset by matching the keyword in number, applicant, or company,
         and if the value is numeric, also match the publication submission year.
         """
-        q = Q(number__icontains=value) | Q(decree__icontains=value) | Q(applicant__icontains=value) | Q(owner__icontains=value)
+        q = Q(number__icontains=value) | Q(decree_number__icontains=value) | Q(applicant__icontains=value) | Q(owner__icontains=value)
         if value.isdigit():
             try:
                 year = int(value)
@@ -335,7 +335,7 @@ class ObjectionFilter(django_filters.FilterSet):
         # Customize the layout
         self.form.helper.layout = Layout(
             Row(
-                Column(HTML('{% if request.user.is_authenticated %} <a href="{% url "add_objection" %}" class="btn btn-primary active w-100"><i class="bi bi-plus-lg"></i> إضافة جديد</a> {% endif %}'), css_class='col-md-auto text-center'),
+                Column(HTML('{% if perms.documents.add_objection %} <a href="{% url "add_objection" %}" class="btn btn-primary active w-100"><i class="bi bi-plus-lg"></i> إضافة جديد</a> {% endif %}'), css_class='col-md-auto text-center'),
                 Column(Field('keyword', placeholder="البحث ( رقم، سنة، مقدم طلب، صاحب علامة.. )"), css_class='form-group col-md-6'),
                 Column(Submit('submit', 'بحث', css_class='btn btn-secondary w-100'), css_class='form-group col-md-auto text-center'),
                 Column(HTML('<button class="btn btn-outline-secondary w-100" type="button" data-bs-toggle="collapse" data-bs-target="#advanced-search">بحث متقدم</button>'), css_class='form-group col-md-auto text-center'),
@@ -403,7 +403,7 @@ class FormPlusFilter(django_filters.FilterSet):
         self.form.helper.layout = Layout(
             # Keyword search (Always visible)
             Row(
-                Column(HTML('{% if request.user.is_authenticated %} <a href="{% url "add_formplus" %}" class="btn btn-primary active w-100"><i class="bi bi-plus-lg"></i> إضافة جديد</a> {% endif %}'), css_class='col-md-auto text-center'),
+                Column(HTML('{% if perms.documents.add_formplus %} <a href="{% url "add_formplus" %}" class="btn btn-primary active w-100"><i class="bi bi-plus-lg"></i> إضافة جديد</a> {% endif %}'), css_class='col-md-auto text-center'),
                 Column(Field('keyword', placeholder="البحث (رقم، عنوان)"), css_class='form-group col-md-6'),
                 Column(Submit('submit', 'بحث', css_class='btn btn-secondary w-100'), css_class='form-group col-md-auto text-center'),
                 Column(HTML('<button class="btn btn-outline-secondary w-100" type="button" data-bs-toggle="collapse" data-bs-target="#advanced-search">بحث متقدم</button>'), css_class='form-group col-md-auto text-center'),

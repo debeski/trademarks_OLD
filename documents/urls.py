@@ -32,7 +32,7 @@ urlpatterns = [
     path('publications/delete/<int:document_id>/', views.soft_delete_publication, name='delete_publication'),
     
     # AJAX Mark Complete function for Publication model
-    path('update-status/<int:publication_id>/', views.update_status, name='update_status'),
+    path('update-status/<int:document_id>/', views.update_status, name='update_status'),
     
     # PDF generation for Publication model initial
     path('publications/pdf/<int:pub_id>/', views.gen_pub_pdf, name='gen-pub-pdf'),

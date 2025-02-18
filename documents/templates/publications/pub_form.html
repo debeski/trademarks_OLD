@@ -88,30 +88,39 @@
 
     <script>
         $(function() {
-            function fetchDecreeData(decreeNumber) {
-                var selectedYear = $("#id_year").val();
-                if (!decreeNumber) return; // Skip if no decree number is set
+            // Function to fetch decree data based on decreeId
+            function fetchDecreeData(decreeId) {
+                if (!decreeId) {
+                    // If no decreeId, clear fields
+                    clearFields();
+                    return;
+                }
     
                 $.ajax({
                     url: "{% url 'decree-autocomplete' %}",
                     dataType: "json",
-                    data: { q: decreeNumber, year: selectedYear },
+                    data: { id: decreeId }, // Use decreeId to fetch data
                     success: function(data) {
                         var found = false;
+
+                        if (data) {
+                            // Populate fields with the returned data
+                            $("#id_owner").val(data.owner);
+                            $("#id_country").val(data.country);
+                            $("#id_date_applied").val(data.date_applied);
+                            $("#id_ar_brand").val(data.ar_brand);
+                            $("#id_en_brand").val(data.en_brand);
+                            $("#id_category").val(data.category);
     
-                        data.forEach(function(item) {
-                            if (item.number == decreeNumber) {
-                                found = true;
-                                // Populate fields with the returned data
-                                $("#id_owner").val(item.owner);
-                                $("#id_country").val(item.country);
-                                $("#id_date_applied").val(item.date_applied);
-                                $("#id_ar_brand").val(item.ar_brand);
-                                $("#id_en_brand").val(item.en_brand);
-                                $("#id_category").val(item.category);
+                            // If year is empty, populate it with the year from the decree's date
+                            if (!$("#id_year").val() && data.date) {
+                                var decreeYear = new Date(data.date).getFullYear();
+                                $("#id_year").val(decreeYear);
                             }
-                        });
-    
+
+                            found = true;
+                        }
+
                         if (!found) {
                             clearFields();
                         }
@@ -119,11 +128,12 @@
                 });
             }
     
+            // Function to clear all fields including decree_id
             function clearFields() {
-                $("#id_owner, #id_country, #id_date_applied, #id_ar_brand, #id_en_brand, #id_category, #id_decree").val('');
+                $("#id_owner, #id_country, #id_date_applied, #id_ar_brand, #id_en_brand, #id_category, #id_decree, #id_year").val('');
             }
     
-            // Initialize jQuery UI Autocomplete for the decree field
+            // Initialize jQuery UI Autocomplete
             $("#id_decree_autocomplete").autocomplete({
                 source: function(request, response) {
                     var selectedYear = $("#id_year").val();
@@ -138,7 +148,7 @@
                             response($.map(data, function(item) {
                                 return {
                                     label: item.number + " - " + item.date,
-                                    value: item.id,
+                                    value: item.id,  // Store the ID instead of number
                                     data: item
                                 };
                             }));
@@ -149,22 +159,40 @@
                 select: function(event, ui) {
                     var item = ui.item.data;
                     $("#id_decree_autocomplete").val(item.number);
-                    fetchDecreeData(item.number);
+                    $("#id_decree").val(item.id); // Store the decree ID
+                    fetchDecreeData(item.id); // Fetch data using the decree ID
                     return false;
                 }
             });
     
             // Auto-check existing decree number on page load
             $(document).ready(function() {
-                var existingDecreeNumber = $("#id_decree_autocomplete").val();
-                fetchDecreeData(existingDecreeNumber);
+                var existingDecreeId = $("#id_decree").val();
+                fetchDecreeData(existingDecreeId);
             });
     
-            // Fetch decree data whenever the decree number changes
+            // Fetch decree data when the decree number field changes
             $("#id_decree_autocomplete").on('change', function() {
-                fetchDecreeData($(this).val());
+                var decreeNumber = $(this).val();
+                if (!decreeNumber) {
+                    clearFields();  // Clear fields if decree number is empty
+                } else {
+                    // Find the corresponding decreeId and fetch data
+                    $.ajax({
+                        url: "{% url 'decree-autocomplete' %}",
+                        dataType: "json",
+                        data: { q: decreeNumber },
+                        success: function(data) {
+                            if (data && data.length > 0) {
+                                fetchDecreeData(data[0].id);
+                            } else {
+                                clearFields();  // Clear fields if no decree found
+                            }
+                        }
+                    });
+                }
             });
         });
     </script>
-
+        
 {% endblock %}

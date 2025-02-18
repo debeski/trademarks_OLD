@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+
+{% block title %}{% if edit_mode %}تعديل{% else %}إضافة{% endif %} مستخدم{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <h2>{% if edit_mode %}تعديل{% else %}إضافة{% endif %} مستخدم</h2>
+    
+    <form method="post" class="mt-3">
+        {% csrf_token %}
+        {% crispy form%}
+        <button type="submit" class="btn btn-success">
+            {% if edit_mode %}تحديث{% else %}إضافة{% endif %}
+        </button>
+        <a href="{% url 'manage_users' %}" class="btn btn-secondary">إلغاء</a>
+    </form>
+</div>
+{% endblock %}

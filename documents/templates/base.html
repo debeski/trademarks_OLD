@@ -104,7 +104,7 @@
             <!-- Option 4: Forms List -->
             <a href="{% url 'formplus_list' %}" class="list-group-item list-group-item-action {% if request.path == '/formplus/' %}disabled pressed{% elif '/formplus/' in request.path %}pressed{% endif %}">
                 <i class="bi bi-file-earmark-richtext me-2" style="font-size: 24px;"></i>
-                النماذج والقرارات
+                النماذج و القرارات
             </a>
 
             <!-- Option 5: Reports Menu -->
@@ -126,8 +126,12 @@
                         <div class="accordion-body p-0">
                             <!-- You can add more links here as needed -->
                             <a class="list-group-item list-group-item-action {% if '/manage/sections/' in request.path %}active{% endif %}" href="{% url 'manage_sections' %}"><i class="bi bi-layout-sidebar-inset me-2" style="font-size: 24px; opacity: 0.5;"></i>ادارة الاقسام</a>
-                            <a class="list-group-item list-group-item-action {% if '/manage/users' in request.path %}active{% endif %}" href="#"><i class="bi bi-people me-2" style="font-size: 24px; opacity: 0.5;"></i>ادارة المستخدمين</a>
+                            {% if user.is_staff %}
+                            <a class="list-group-item list-group-item-action {% if '/manage/users' in request.path %}active{% endif %}" href="{% url 'manage_users' %}">
+                                <i class="bi bi-people me-2" style="font-size: 24px; opacity: 0.5;"></i>ادارة المستخدمين
+                            </a>
                             <a class="list-group-item list-group-item-action {% if '/manage/log' in request.path %}active{% endif %}" href="#"><i class="bi bi-blockquote-right me-2" style="font-size: 24px; opacity: 0.5;"></i>السجل</a>
+                            {% endif %}
                         </div>
                     </div>
                 </div>
@@ -136,6 +140,15 @@
         {% endif %}
         <!-- Main Content -->
         <div class="main-content container-fluid mt-3 p-4 d-flex">
+            {% if messages %}
+            <div class="alert-container position-absolute top-0 start-0 w-100">
+                {% for message in messages %}
+                    <div class="alert alert-{{ message.tags }} text-center" style="opacity: 95%;">
+                        {{ message }}
+                    </div>
+                {% endfor %}
+            </div>
+            {% endif %}
             {% block content %}{% endblock %}
         </div>
     </div>
@@ -157,6 +170,18 @@
                 locale: "ar",
                 altFormat: "d F Y", // Display format
                 allowInput: true, // Allow typing directly into the input field
+            });
+        });
+    </script>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            let messages = document.querySelectorAll(".alert");
+            messages.forEach(function (message) {
+                setTimeout(function () {
+                    message.style.opacity = "0";
+                    setTimeout(() => message.remove(), 3000); // Remove the element after fade-out
+                }, 3000); // Change this to adjust timeout (3000ms = 3s)
             });
         });
     </script>

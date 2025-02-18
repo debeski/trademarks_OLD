@@ -1,12 +1,16 @@
 from django.contrib import admin
-from django.contrib.auth.models import User, Group
-# from .models import Profile
+from django.contrib.auth.admin import UserAdmin
+from django.contrib.auth import get_user_model
+from django.contrib.auth.models import Group
 
-# class ProfileInline(admin.StackedInline):
-#     model = Profile
+User = get_user_model()
 
-# class UserAdmin(admin.ModelAdmin):
-#     inlines = [ProfileInline]
+class CustomUserAdmin(UserAdmin):
+    model = User
+    list_display = ['username', 'email', 'is_staff', 'is_active', 'phone', 'occupation']
+    list_filter = ['is_staff', 'is_active']
+    search_fields = ['username', 'email']
+    ordering = ['username']
 
-# admin.site.unregister(User)
-# admin.site.register(User, UserAdmin)
+admin.site.register(User, CustomUserAdmin)
+admin.site.unregister(Group)  # Optionally, unregister Group if not needed
