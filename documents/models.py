@@ -168,7 +168,7 @@ class DocType(models.Model):
 class DecreeCategory(models.Model):
     """Model representing a government entity."""
     number = models.IntegerField(unique=True, verbose_name="رقم الفئة")
-    name = models.CharField(max_length=255, unique=True, verbose_name="اسم الفئة")
+    name = models.CharField(max_length=999, unique=True, verbose_name="اسم الفئة")
 
     class Meta:
         verbose_name = "الفئة"
@@ -298,9 +298,12 @@ class Publication(models.Model):
     def get_model_name(self):
         return "اشهارات"
 
-    @classmethod
-    def get_table_class(cls):
-        return 'documents.tables.PublicationTable'
+    @staticmethod
+    def get_table_class(context="default"):
+        """Returns the appropriate table class based on context."""
+        if context == "objection_pub_pick":
+            return "documents.tables.ObjectionPubPickTable"
+        return "documents.tables.PublicationTable"
 
     @classmethod
     def get_filter_class(cls):
@@ -379,10 +382,12 @@ class Objection(models.Model):
     def get_filter_class(cls):
         return 'documents.filters.ObjectionFilter'
 
-    @classmethod
-    def get_form_class(cls):
-        return 'documents.forms.ObjectionForm'
-
+    @staticmethod
+    def get_form_class(context="default"):
+        """Returns the appropriate form class based on context."""
+        if context == "objection_pub_pick":
+            return "documents.forms.ObjectionPubPickForm"
+        return "documents.forms.ObjectionForm"
 
 class FormPlus(models.Model):
     """Ambiguous Model representing a report of some sort."""
@@ -399,8 +404,8 @@ class FormPlus(models.Model):
     deleted_at = models.DateTimeField(null=True, blank=True)
     
     class Meta:
-        verbose_name = "نموذج او قرار" 
-        verbose_name_plural = "نماذج و قرارات" 
+        verbose_name = "تشريع او نموذج" 
+        verbose_name_plural = "تشريعات و نماذج" 
         ordering = ['-id']
         permissions = [
             ("download_doc", "Can download a pdf"),
@@ -411,7 +416,7 @@ class FormPlus(models.Model):
     
     @property
     def get_model_name(self):
-        return "نماذج وقرارات"
+        return "تشريعات و نماذج"
 
     @classmethod
     def get_table_class(cls):

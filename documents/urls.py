@@ -48,9 +48,16 @@ urlpatterns = [
     # Main View Table for Objection model
     path('objections/', views.objection_list, name='objection_list'),
     
+    # Secondary View Table for picking a Publication to Object on
+    path('objection-pub-pick/', views.objection_pub_pick, name='objection_pub_pick'),
+    path('add_objection/<int:document_id>/', views.add_pub_objection, name='add_pub_objection'),
+    path('objection-pub-pick/pdf/<int:obj_id>/', views.gen_obj_pdf, name='gen_obj_pdf'),
+    path("check-status/", views.check_objection_status, name="check_objection_status"),
+
+
     # CRUD routes for Publication model
-    path('objections/add/', views.add_edit_objection, name='add_objection'),
-    path('objections/edit/<int:document_id>/', views.add_edit_objection, name='edit_objection'),
+    path('objections/add//', views.add_objection, name='add_objection'),
+    path('objections/edit/<int:document_id>/', views.edit_objection, name='edit_objection'),
     path('objections/detail/<int:document_id>/', views.objection_detail, name='view_objection'),
     path('objections/download/<int:document_id>/', views.download_objection, name='download_objection'),
     path('objections/delete/<int:document_id>/', views.soft_delete_objection, name='delete_objection'),

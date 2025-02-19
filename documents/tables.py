@@ -200,6 +200,28 @@ class PublicationTable(tables.Table):
         attrs = {'class': 'table table-hover table-responsive align-middle'}
 
 
+class ObjectionPubPickTable(tables.Table):
+    # Define a custom column to display the image
+    img_file = tables.Column(orderable=False, verbose_name="الصورة")
+
+    # Custom method to render the image
+    def render_img_file(self, value):
+        if value:
+            # Assuming 'value' is a file field, you can generate the URL and return the image HTML
+            return mark_safe(f'<img src="{value.url}" alt="Publication Image" class="img-thumbnail" style="height: 80px; width: auto;">')
+        return ''
+
+    class Meta:
+        model = Publication
+        template_name = "django_tables2/bootstrap5.html"
+        fields = ('number', 'decree', 'applicant', 'country', 'address', 'date_applied', 'category', 'img_file', 'e_number', 'created_at')
+        attrs = {'class': 'table table-hover table-responsive align-middle', 'id': 'publication-table'}
+        
+    # def render_number(self, value, record):
+    #     """ Make the row clickable by embedding a hidden anchor inside the number field """
+    #     url = reverse("add_pub_objection", kwargs={"document_id": record.id})
+    #     return mark_safe(f'<a href="{url}" class="row-link">{value}</a>')
+
 class ObjectionTable(tables.Table):
     actions = tables.TemplateColumn(
         template_name='partials/objection_actions.html',  # You will need to create this template for actions like view, edit, delete
@@ -211,7 +233,7 @@ class ObjectionTable(tables.Table):
         model = Objection
         template_name = "django_tables2/bootstrap5.html"
         # List the fields you want to show in the table
-        fields = ('pub', 'name', 'job', 'nationality', 'status', 'created_at', 'actions')
+        fields = ('pub', 'name', 'job', 'nationality', 'status', 'created_at', 'unique_code', 'actions')
         attrs = {'class': 'table table-hover table-responsive align-middle'}
 
     # You can add custom table formatting or method fields if needed
