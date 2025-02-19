@@ -298,13 +298,14 @@ class ObjectionForm(forms.ModelForm):
         fields = [
             'year', 'pub_number', 'pub_id', 'name', 'job', 'nationality', 'address', 'phone',
             'com_name', 'com_job', 'com_address', 'com_og_address', 'com_mail_address',
-            'pdf_file', 'notes'
+            'is_paid', 'receipt_file', 'pdf_file', 'notes'
         ]
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.helper = FormHelper()
         self.helper.form_method = 'POST'
+        self.fields['receipt_file'].required = False
 
 
 class FormPlusForm(forms.ModelForm):

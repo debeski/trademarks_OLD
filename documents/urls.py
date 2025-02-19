@@ -33,7 +33,9 @@ urlpatterns = [
     
     # AJAX Mark Complete function for Publication model
     path('update-status/<int:document_id>/', views.update_status, name='update_status'),
-    
+    path('confirm-objection-fee/<int:document_id>/', views.confirm_objection_fee, name='confirm_objection_fee'),
+    path('decline-objection-fee/<int:document_id>/', views.decline_objection_fee, name='decline_objection_fee'),
+
     # PDF generation for Publication model initial
     path('publications/pdf/<int:pub_id>/', views.gen_pub_pdf, name='gen-pub-pdf'),
     

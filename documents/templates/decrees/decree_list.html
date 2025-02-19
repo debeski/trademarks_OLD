@@ -10,13 +10,37 @@
         {% crispy filter.form %}
     </form>
 
-    <div class="card border-light shadow">
-        <div class="card-header text-center pe-5 bg-transparent">
-            <h3 class="card-title">قرارات العلامات التجارية</h3>
-        </div>
-        <div class="card-body p-0">
-            <!-- Render the table -->
-            {% render_table table %}
+    <!-- Bootstrap Tabs -->
+    <ul class="nav nav-tabs" id="objectionTabs" role="tablist">
+        <!-- "ALL" Tab -->
+        <li class="nav-item" role="presentation">
+            <a class="nav-link {% if current_status is None %}active{% endif %}" 
+                href="?{% for key, value in request.GET.items %}{% if key != 'status' %}&{{ key }}={{ value }}{% endif %}{% endfor %}">
+                الكل
+            </a>
+        </li>
+        <!-- Dynamic Tabs Based on Status Choices -->
+        {% for choice in status_choices %}
+            <li class="nav-item" role="presentation">
+                <a class="nav-link {% if current_status == choice.0 %}active{% endif %}" 
+                    href="?status={{ choice.0 }}{% for key, value in request.GET.items %}{% if key != 'status' %}&{{ key }}={{ value }}{% endif %}{% endfor %}">
+                    {{ choice.1 }}
+                </a>
+            </li>
+        {% endfor %}
+    </ul>
+
+    <!-- Bootstrap Tabs Content -->
+    <div class="tab-content" id="objectionTabsContent">
+        <div class="tab-pane fade show active" id="allStatus" role="tabpanel">
+            <div class="card border-light shadow mt-3">
+                <div class="card-header text-center pe-5 bg-transparent">
+                    <h3 class="card-title">الاعتراضات</h3>
+                </div>
+                <div class="card-body p-0">
+                    {% render_table table %}
+                </div>
+            </div>
         </div>
     </div>
 

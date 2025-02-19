@@ -12,13 +12,13 @@ class UserTable(tables.Table):
 
     # Action buttons for edit and delete (summoned column)
     actions = tables.TemplateColumn(
-        '<a href="{% url "edit_user" record.id %}" class="btn btn-warning btn-sm">Edit</a> '
-        '<button type="button" class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#deleteModal{{ record.id }}">Delete</button>',
+        '<a href="{% url "edit_user" record.id %}" class="btn btn-info btn-sm">Edit</a> '
+        ' {% if user.is_superuser %} <button type="button" class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#deleteModal{{ record.id }}">Delete</button>{% endif %}',
         orderable=False, 
         verbose_name='Actions'
     )
 
     class Meta:
         model = User
-        template_name = "django_tables2/bootstrap4.html"  # Can be changed to bootstrap5
+        template_name = "django_tables2/bootstrap5.html"  # Can be changed to bootstrap5
         fields = ("username", "email", "phone", "occupation", "actions")  # Add phone and occupation columns

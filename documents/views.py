@@ -307,7 +307,19 @@ def decree_list(request):
     
     # Get the base queryset (only non-deleted items)
     qs = Decree.objects.filter(deleted_at__isnull=True)
-    
+
+    # Get the status from GET parameters (None means "ALL")
+    status = request.GET.get("status")
+    if status is not None:
+        try:
+            status = int(status)
+            if status in [choice[0] for choice in DecreeStatus.choices]:
+                qs = qs.filter(status=status)
+            else:
+                status = None
+        except ValueError:
+            status = None
+
     # Dynamically import the filter class
     filter_class_path = Decree.get_filter_class()
     filter_class = get_class_from_string(filter_class_path)
@@ -319,11 +331,14 @@ def decree_list(request):
     table = table_class(decree_filter.qs)
     
     # Configure pagination (10 decrees per page)
-    RequestConfig(request, paginate={'per_page': 10}).configure(table)
+    RequestConfig(request, paginate={'per_page': 20}).configure(table)
     
     return render(request, 'decrees/decree_list.html', {
         'table': table,
         'filter': decree_filter,
+        'current_status': status,
+        'status_choices': DecreeStatus.choices,
+
     })
 
 
@@ -463,31 +478,39 @@ def decree_detail(request, document_id):
 #######################
 # Main table view for publications
 def publication_list(request):
+    
     qs = Publication.objects.filter(deleted_at__isnull=True)
 
-    # Get the status from GET parameters (default to 'INITIAL', which corresponds to 1)
-    status = int(request.GET.get("status", PublicationStatus.INITIAL))  # Default to INITIAL (1)
-    
-    # Ensure status is valid, if not, set it to INITIAL
-    if status not in [choice.value for choice in PublicationStatus]:
-        status = PublicationStatus.INITIAL  # Default to INITIAL if the status is invalid    
+    # Get the status from GET parameters (None means "ALL")
+    status = request.GET.get("status")
+    if status is not None:
+        try:
+            status = int(status)
+            if status in [choice[0] for choice in PublicationStatus.choices]:
+                qs = qs.filter(status=status)
+            else:
+                status = None
+        except ValueError:
+            status = None
 
     # Dynamically import the filter class
     filter_class_path = Publication.get_filter_class()
     filter_class = get_class_from_string(filter_class_path)
-    publication_filter = filter_class(request.GET, queryset=qs.filter(status=status))
+    publication_filter = filter_class(request.GET, queryset=qs)
 
     # Dynamically import the table class
     table_class_path = Publication.get_table_class()
     table_class = get_class_from_string(table_class_path)
     table = table_class(publication_filter.qs)
 
-    RequestConfig(request).configure(table)
+    RequestConfig(request, paginate={'per_page': 20}).configure(table)
 
     return render(request, "publications/pub_list.html", {
         "table": table,
         "filter": publication_filter,
-        "current_status": status,  # Pass the current status to the template
+        "current_status": status,
+        "status_choices": PublicationStatus.choices,
+
     })
 
 
@@ -667,7 +690,7 @@ def update_status(request, document_id):
         else:
             messages.error(request, "لا يمكن تغيير حالة هذه الوثيقة لأنها ليست في الحالة 'مبدئي'.")
         
-        return redirect('publication_list')
+        return HttpResponseRedirect(request.META.get('HTTP_REFERER', '/'))
     return JsonResponse({'success': False, 'error': 'Invalid request method'}, status=400)
 
 
@@ -681,10 +704,10 @@ def fetch_pub_data(pub_id):
         'pub_year': pub_record.year,
         'pub_date': pub_record.created_at.strftime("%d-%m-%Y"),
         'pub_no': pub_record.number,
-        'dec_no': pub_record.decree if pub_record.decree else "N/A",
+        'dec_no': pub_record.decree.number if pub_record.decree else "N/A",
         'applicant': pub_record.applicant if pub_record.applicant else "N/A",
         'owner': pub_record.owner if pub_record.owner else "N/A",
-        'country': pub_record.get_country_display() if pub_record.country else "N/A",
+        'country': pub_record.country.ar_name if pub_record.country else "N/A",
         'address': pub_record.address if pub_record.address else "N/A",
         'date_applied': pub_record.date_applied.strftime("%d-%m-%Y") if pub_record.date_applied else "N/A",
         'ar_brand': pub_record.ar_brand if pub_record.ar_brand else "N/A",
@@ -723,13 +746,23 @@ def objection_list(request):
     # Check if the user has the required permission
     if not request.user.has_perm('documents.view_objection'):
         messages.error(request, "ليس لديك الصلاحية الكافية لزيارة هذا القسم!.")
-
-        # Refresh the same page (redirect to the current URL)
         return HttpResponseRedirect(request.META.get('HTTP_REFERER', '/'))
     
     # Get the base queryset (only non-deleted items)
     qs = Objection.objects.filter(deleted_at__isnull=True)
-    
+
+    # Get the status from GET parameters (None means "ALL")
+    status = request.GET.get("status")
+    if status is not None:
+        try:
+            status = int(status)
+            if status in [choice[0] for choice in ObjectionStatus.choices]:
+                qs = qs.filter(status=status)
+            else:
+                status = None
+        except ValueError:
+            status = None
+
     # Get the filter class and apply it
     filter_class_path = Objection.get_filter_class()
     filter_class = get_class_from_string(filter_class_path)
@@ -741,29 +774,33 @@ def objection_list(request):
     table = table_class(objection_filter.qs)
     
     # Configure pagination (10 objections per page)
-    RequestConfig(request, paginate={'per_page': 10}).configure(table)
+    RequestConfig(request, paginate={'per_page': 20}).configure(table)
     
     return render(request, 'objections/objection_list.html', {
         'table': table,
         'filter': objection_filter,
+        'current_status': status,
+        'status_choices': ObjectionStatus.choices,
     })
 
 
 # Main Adding and Editing view for Objection
-def add_edit_objection(request):
+def add_edit_objection(request, document_id=None):
     form_class = get_class_from_string(Objection.get_form_class())  # Resolving the form class
-    
+
+    if document_id:
+        objection = get_object_or_404(Objection, id=document_id)  # Get the existing Objection object
+        publication = objection.pub  # Get the associated Publication for the existing Objection
+    else:
+        objection = None  # Create a new Objection if document_id is not provided
+
     if request.method == "POST":
-        form = form_class(request.POST, request.FILES)
+        form = form_class(request.POST, request.FILES, instance=objection)
         if form.is_valid():
             pub_id = form.cleaned_data.get("pub_id")  # Get the pub_id
             publication = get_object_or_404(Publication, id=pub_id, deleted_at__isnull=True)
             
             print(f"Found Publication: {publication}")  # Debugging output
-
-            # Update publication status to 'conflict'
-            publication.status = PublicationStatus.CONFLICT  # Use the correct IntegerChoice value
-            publication.save()
 
             objection = form.save(commit=False)
             objection.pub = publication  # Assign the publication object, not just the ID
@@ -776,9 +813,9 @@ def add_edit_objection(request):
             print(form.errors)  # Debugging: Print form errors if invalid
 
     else:
-        form = form_class(request.POST or None, request.FILES or None)
+        form = form_class(request.POST or None, request.FILES or None, instance=objection)
 
-    return render(request, 'objections/objection_form.html', {'form': form})
+    return render(request, 'objections/objection_form.html', {'form': form, 'objection': objection})
 
 
 # Main PDF download view for Objection
@@ -836,6 +873,61 @@ def objection_detail(request, document_id):
     return render(request, 'objections/objection_detail.html', {'objection': objection})
 
 
+# Function for changing status of an unconfirmed objection to paid using a button
+@login_required
+@permission_required('documents.confirm_objection_fee', raise_exception=True)
+def confirm_objection_fee(request, document_id):
+    """
+    Update Objection status from (unconfirm) to (paid).
+    """
+    if request.method == 'POST':
+        objection = get_object_or_404(Objection, id=document_id)
+        # Check if the objection is in 'unconfirm' status
+        if objection.status == 2:
+
+            objection.status = 3
+            objection.is_paid = False
+            objection.pub.status = 2
+            objection.pub.save()
+            objection.save()
+            
+            messages.success(request, f"تم تغيير حالة الاشهار رقم {objection.number} إلى 'نشر نهائي'.")
+        else:
+            messages.error(request, "لا يمكن تغيير حالة هذه الوثيقة لأنها ليست في الحالة 'مبدئي'.")
+        
+        return HttpResponseRedirect(request.META.get('HTTP_REFERER', '/'))
+    return JsonResponse({'success': False, 'error': 'Invalid request method'}, status=400)
+
+
+# Function for changing status of an unconfirmed objection to rejected using a button
+@login_required
+@permission_required('documents.confirm_objection_fee', raise_exception=True)
+def decline_objection_fee(request, document_id):
+    """
+    Update Objection status from (unconfirm) to (declined).
+    """
+    if request.method == 'POST':
+        objection = get_object_or_404(Objection, id=document_id)
+        # Check if the objection is in 'unconfirm' status
+        if objection.status == 2:
+
+            objection.status = 5
+            objection.is_paid = False
+            other_objections = Objection.objects.filter(pub=objection.pub).exclude(id=objection.id)
+            if not other_objections.exists():
+                objection.pub.status = 1  # Set the publication status to 1 if no other objections exist
+
+            objection.pub.save()
+            objection.save()
+            
+            messages.warning(request, f"تم تغيير حالة الاشهار رقم {objection.number} إلى 'رفض'.")
+        else:
+            messages.error(request, "لا يمكن تغيير حالة هذه الوثيقة لأنها ليست في الحالة 'مبدئي'.")
+        
+        return HttpResponseRedirect(request.META.get('HTTP_REFERER', '/'))
+    return JsonResponse({'success': False, 'error': 'Invalid request method'}, status=400)
+
+
 # Views for FormPlus
 ####################
 # Main table view for FormPlus
@@ -855,7 +947,7 @@ def formplus_list(request):
     table = table_class(formplus_filter.qs)
     
     # Configure pagination (10 decrees per page)
-    RequestConfig(request, paginate={'per_page': 10}).configure(table)
+    RequestConfig(request, paginate={'per_page': 20}).configure(table)
     
     return render(request, 'formplus/formplus_list.html', {
         'table': table,

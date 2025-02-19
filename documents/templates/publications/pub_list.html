@@ -43,64 +43,39 @@
 		{% crispy filter.form %}
 	</form>
 
-	<!-- Bootstrap Tabs -->
-	<ul class="nav nav-tabs" id="publicationTabs" role="tablist">
-		<li class="nav-item" role="presentation">
-			<a class="nav-link {% if current_status == 1 %}active{% endif %}" 
-			href="?status=1{% for key, value in request.GET.items %}{% if key != 'status' %}&{{ key }}={{ value }}{% endif %}{% endfor %}">
-				نشر مبدئي
-			</a>
-		</li>
-		<li class="nav-item" role="presentation">
-			<a class="nav-link {% if current_status == 2 %}active{% endif %}" 
-			href="?status=2{% for key, value in request.GET.items %}{% if key != 'status' %}&{{ key }}={{ value }}{% endif %}{% endfor %}">
-				متنازع عليه
-			</a>
-		</li>
-		<li class="nav-item" role="presentation">
-			<a class="nav-link {% if current_status == 3 %}active{% endif %}" 
-			href="?status=3{% for key, value in request.GET.items %}{% if key != 'status' %}&{{ key }}={{ value }}{% endif %}{% endfor %}">
-				نشر نهائي
-			</a>
-		</li>
-	</ul>
+    <!-- Bootstrap Tabs -->
+    <ul class="nav nav-tabs" id="publicationTabs" role="tablist">
+        <!-- "ALL" Tab -->
+        <li class="nav-item" role="presentation">
+            <a class="nav-link {% if current_status is None %}active{% endif %}" 
+               href="?{% for key, value in request.GET.items %}{% if key != 'status' %}&{{ key }}={{ value }}{% endif %}{% endfor %}">
+                الكل
+            </a>
+        </li>
+        <!-- Dynamic Tabs Based on Status Choices -->
+        {% for choice in status_choices %}
+            <li class="nav-item" role="presentation">
+                <a class="nav-link {% if current_status == choice.0 %}active{% endif %}" 
+                   href="?status={{ choice.0 }}{% for key, value in request.GET.items %}{% if key != 'status' %}&{{ key }}={{ value }}{% endif %}{% endfor %}">
+                    {{ choice.1 }}
+                </a>
+            </li>
+        {% endfor %}
+    </ul>
 
-	<!-- Bootstrap Tabs Content -->
-	<div class="tab-content" id="publicationTabsContent">
-		<!-- Tab Content for Status INITIAL -->
-		<div class="tab-pane fade {% if current_status == 1 %}show active{% endif %}" id="status1" role="tabpanel" aria-labelledby="status1-tab">
-		<div class="card border-light shadow mt-3">
-			<div class="card-header text-center pe-5 bg-transparent">
-			<h3 class="card-title">اشهارات نشرت مبدئيا</h3>
-			</div>
-			<div class="card-body p-0">
-			{% render_table table %}
-			</div>
-		</div>
-		</div>
-		<!-- Tab Content for Status CONFLICT -->
-		<div class="tab-pane fade {% if current_status == 2 %}show active{% endif %}" id="status2" role="tabpanel" aria-labelledby="status2-tab">
-		<div class="card border-light shadow mt-3">
-			<div class="card-header text-center pe-5 bg-transparent">
-			<h3 class="card-title">اشهارات متنازع عليها</h3>
-			</div>
-			<div class="card-body p-0">
-			{% render_table table %}
-			</div>
-		</div>
-		</div>
-		<!-- Tab Content for Status FINAL -->
-		<div class="tab-pane fade {% if current_status == 3 %}show active{% endif %}" id="status3" role="tabpanel" aria-labelledby="status3-tab">
-		<div class="card border-light shadow mt-3">
-			<div class="card-header text-center pe-5 bg-transparent">
-			<h3 class="card-title">اشهارات نشرت نهائيا</h3>
-			</div>
-			<div class="card-body p-0">
-			{% render_table table %}
-			</div>
-		</div>
-		</div>
-	</div>
+    <!-- Bootstrap Tabs Content -->
+    <div class="tab-content" id="publicationTabsContent">
+        <div class="tab-pane fade show active" id="allStatus" role="tabpanel">
+            <div class="card border-light shadow mt-3">
+                <div class="card-header text-center pe-5 bg-transparent">
+                    <h3 class="card-title">الاشهارات</h3>
+                </div>
+                <div class="card-body p-0">
+                    {% render_table table %}
+                </div>
+            </div>
+        </div>
+    </div>
 
 	<!-- Delete Modal -->
 	{% if request.user.is_authenticated %}
