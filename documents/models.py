@@ -26,9 +26,11 @@ class PublicationStatus(models.IntegerChoices):
     WITHDRAW = 4, "مسحوب"
 
 class ObjectionStatus(models.IntegerChoices):
-    PENDING = 1, "معلق"
-    ACCEPT = 2, "موافقة"
-    REJECT = 3, "رفض"
+    PENDING = 1, "في انتظار الدفع"
+    UNCONFIRM = 2, "في انتظار التأكيد"
+    PAID = 3, "تم الدفع"
+    ACCEPT = 4, "موافقة"
+    REJECT = 5, "رفض"
 
 
 # Helper Functions:
@@ -251,7 +253,7 @@ class Decree(models.Model):
 class Publication(models.Model):
     """Model representing a minister decree."""
     year = models.IntegerField(null=True, blank=True)
-    number = models.IntegerField(blank=False, null=False, verbose_name="رقم التسجيل")
+    number = models.IntegerField(blank=False, null=False, verbose_name="رقم الاشهار")
     decree = models.ForeignKey(Decree, on_delete=models.SET_NULL, null=True, blank=True, verbose_name="القرار")
     decree_number = models.IntegerField(blank=False, null=False, verbose_name="رقم القرار")
 
@@ -331,9 +333,10 @@ class Objection(models.Model):
     notes = models.TextField(max_length=999, blank=True, verbose_name="تفاصيل")
     
     is_paid = models.BooleanField(default=False, verbose_name="تم دفع الرسوم")
+    receipt_file = models.FileField(upload_to=generate_random_filename, blank=True, verbose_name="ايصال الدفع")
     unique_code = models.CharField(max_length=13, unique=True, editable=False)
 
-    created_at = models.DateTimeField(auto_now_add=True, verbose_name="تاريخ الاعتراض")
+    created_at = models.DateTimeField(auto_now_add=True, verbose_name="تاريخ تقديم الاعتراض")
     updated_at = models.DateTimeField(auto_now=True)
     deleted_at = models.DateTimeField(null=True, blank=True)
 

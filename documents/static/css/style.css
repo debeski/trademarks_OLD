@@ -339,3 +339,7 @@ form label {
     background-color: rgba(255, 0, 0, 0.1);  /* Light red background */
     font-weight: bold;
 }
+
+table {
+    max-width: 100% !important;
+}

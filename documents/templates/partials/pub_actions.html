@@ -8,9 +8,9 @@
     {% if perms.documents.pub_change_status %}
         {% if record.status == 1 %}
             <!-- Modal Trigger for Status Change -->
-            <a title="تغيير حالة الاشهار من نشر مبدئي الى نشر نهائي" class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#statusModal"
+            <a title="تغيير حالة الاشهار من نشر مبدئي الى نشر نهائي" href="#" data-bs-toggle="modal" data-bs-target="#statusModal"
             data-doc-id="{{ record.id }}" data-doc-number="{{ record.number }}">
-            <i class="bi bi-check2-circle text-success me-1" style="font-size: 36px;"></i>
+            <i class="bi bi-check2-circle text-success" style="font-size: 36px;"></i>
             </a>
         {% endif %}
     {% endif %}

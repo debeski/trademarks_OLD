@@ -133,6 +133,15 @@
             </div>
         </div>
 
+        <div class="col">
+            <div class="row">
+                {{ form.is_paid|as_crispy_field }}
+            </div>
+            <div class="row" id="receipt-container" style="display: none;">
+                {{ form.receipt_file|as_crispy_field }}
+            </div>
+        </div>
+
         <hr>
 
         <!-- PDF file field-->
@@ -186,6 +195,26 @@
         });
     </script>
 
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            let isPaidCheckbox = document.getElementById('id_is_paid');
+            let receiptContainer = document.getElementById('receipt-container');
+        
+            function toggleReceiptField() {
+                if (isPaidCheckbox.checked) {
+                    receiptContainer.style.display = 'block';
+                } else {
+                    receiptContainer.style.display = 'none';
+                }
+            }
+        
+            // Run on page load in case the checkbox is pre-checked
+            toggleReceiptField();
+        
+            // Add event listener to toggle receipt field when checkbox is clicked
+            isPaidCheckbox.addEventListener('change', toggleReceiptField);
+        });
+    </script>
 
     <script>
         $(function() {

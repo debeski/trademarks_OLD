@@ -197,7 +197,7 @@ class PublicationTable(tables.Table):
         template_name = "django_tables2/bootstrap5.html"
         # List the fields you want to show in the table
         fields = ('number', 'decree', 'applicant', 'country', 'address', 'date_applied', 'category', 'img_file', 'e_number', 'created_at', 'actions')
-        attrs = {'class': 'table table-hover align-middle'}
+        attrs = {'class': 'table table-hover table-responsive align-middle'}
 
 
 class ObjectionTable(tables.Table):
@@ -231,6 +231,6 @@ class FormPlusTable(tables.Table):
         model = FormPlus
         template_name = "django_tables2/bootstrap5.html"
         fields = ('number', 'date', 'title', 'type', 'keywords')
-        attrs = {'class': 'table table-hover align-middle'}
+        attrs = {'class': 'table table-hover table-responsive align-middle'}
 
 

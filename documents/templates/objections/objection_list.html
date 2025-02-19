@@ -10,15 +10,62 @@
         {% crispy filter.form %}
     </form>
 
-    <div class="card border-light shadow">
-        <div class="card-header text-center pe-5 bg-transparent">
-            <h3 class="card-title">الاعتراضات</h3>
-        </div>
-        <div class="card-body p-0">
-            <!-- Render the table -->
-            {% render_table table %}
+    <!-- Bootstrap Tabs -->
+    <ul class="nav nav-tabs" id="objectionTabs" role="tablist">
+        <!-- "ALL" Tab -->
+        <li class="nav-item" role="presentation">
+            <a class="nav-link {% if current_status is None %}active{% endif %}" 
+                href="?{% for key, value in request.GET.items %}{% if key != 'status' %}&{{ key }}={{ value }}{% endif %}{% endfor %}">
+                الكل
+            </a>
+        </li>
+        <!-- Dynamic Tabs Based on Status Choices -->
+        {% for choice in status_choices %}
+            <li class="nav-item" role="presentation">
+                <a class="nav-link {% if current_status == choice.0 %}active{% endif %}" 
+                    href="?status={{ choice.0 }}{% for key, value in request.GET.items %}{% if key != 'status' %}&{{ key }}={{ value }}{% endif %}{% endfor %}">
+                    {{ choice.1 }}
+                </a>
+            </li>
+        {% endfor %}
+    </ul>
+
+    <!-- Bootstrap Tabs Content -->
+    <div class="tab-content" id="objectionTabsContent">
+        <div class="tab-pane fade show active" id="allStatus" role="tabpanel">
+            <div class="card border-light shadow mt-3">
+                <div class="card-header text-center pe-5 bg-transparent">
+                    <h3 class="card-title">الاعتراضات</h3>
+                </div>
+                <div class="card-body p-0">
+                    {% render_table table %}
+                </div>
+            </div>
         </div>
     </div>
+
+    <!-- Delete Modal -->
+    {% if request.user.is_authenticated %}
+        <form id="deleteForm" method="post">
+        {% csrf_token %}
+            <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="deleteModalLabel">تأكيد الحذف!</h5>
+                        </div>
+                        <div class="modal-body">
+                            <p>هل أنت متأكد من حذف الاعتراض رقم <span id="documentNumber"></span>؟</p>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="submit" class="btn btn-danger">نعم، احذف</button>
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">إلغاء</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    {% endif %}
 
     {% if request.user.is_authenticated %}
         <form id="deleteForm" method="post">
@@ -42,9 +89,93 @@
         </form>
     {% endif %}
 
+	{% comment %} <!-- Status Change Modal -->
+	<form id="statusForm" method="post">
+		{% csrf_token %}
+		<div class="modal fade" id="statusModal" tabindex="-1" role="dialog" aria-labelledby="statusModalLabel" aria-hidden="true">
+			<div class="modal-dialog" role="document">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title" id="statusModalLabel">تأكيد قبول الاعتراض!</h5>
+					</div>
+					<div class="modal-body">
+						<p>هل أنت متأكد أنك تريد تأكيد ايصال دفع للاعتراض رقم <span id="documentNumber"></span> ؟</p>
+					</div>
+					<div class="modal-footer">
+						<button type="submit" class="btn btn-success">نعم، تأكيد</button>
+						<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">إلغاء</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</form>
+
+	<!-- Status Decline Modal -->
+	<form id="statusForm2" method="post">
+		{% csrf_token %}
+		<div class="modal fade" id="statusModal2" tabindex="-1" role="dialog" aria-labelledby="statusModal2Label" aria-hidden="true">
+			<div class="modal-dialog" role="document">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title" id="statusModal2Label">تأكيد رفض الاعتراض!</h5>
+					</div>
+					<div class="modal-body">
+						<p>هل أنت متأكد أنك تريد رفض ايصال الدفع للاعتراض رقم <span id="documentNumber"></span> ؟</p>
+					</div>
+					<div class="modal-footer">
+						<button type="submit" class="btn btn-danger">نعم، ارفض</button>
+						<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">إلغاء</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</form> {% endcomment %}
+
 {% endblock %}
 
 {% block scripts %}
+{% comment %} 
+	<!-- JavaScript for the Change Status Modal -->
+	<script>
+		document.addEventListener("DOMContentLoaded", function () {
+			const statusModal = document.getElementById("statusModal");
+			const statusForm = document.getElementById("statusForm");
+			const documentNumber = document.getElementById("documentNumber");
+		
+			statusModal.addEventListener("show.bs.modal", function (event) {
+				let button = event.relatedTarget; // The button that triggered the modal
+				let docId = button.getAttribute("data-doc-id");
+				let docNumber = button.getAttribute("data-doc-number");
+		
+				// Update the confirmation message
+				documentNumber.textContent = docNumber;
+		
+				// Set the form action dynamically
+				statusForm.setAttribute("action", `/confirm-objection-fee/${docId}/`);
+			});
+		});
+	</script>
+
+	<!-- JavaScript for the Change Status Modal -->
+	<script>
+		document.addEventListener("DOMContentLoaded", function () {
+			const statusModal = document.getElementById("statusModal2");
+			const statusForm = document.getElementById("statusForm2");
+			const documentNumber = document.getElementById("documentNumber");
+		
+			statusModal.addEventListener("show.bs.modal", function (event) {
+				let button = event.relatedTarget; // The button that triggered the modal
+				let docId = button.getAttribute("data-doc-id");
+				let docNumber = button.getAttribute("data-doc-number");
+		
+				// Update the confirmation message
+				documentNumber.textContent = docNumber;
+		
+				// Set the form action dynamically
+				statusForm.setAttribute("action", `/decline-objection-fee/${docId}/`);
+			});
+		});
+	</script> {% endcomment %}
 
     <!-- JavaScript for the Delete Modal -->
     <script>
