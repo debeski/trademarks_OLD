@@ -212,3 +212,4 @@ MESSAGE_TAGS = {
 }
 
 AUTH_USER_MODEL = 'users.CustomUser'
+

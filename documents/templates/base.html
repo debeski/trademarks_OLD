@@ -104,7 +104,7 @@
             <!-- Option 4: Forms List -->
             <a href="{% url 'formplus_list' %}" class="list-group-item list-group-item-action {% if request.path == '/formplus/' %}disabled pressed{% elif '/formplus/' in request.path %}pressed{% endif %}">
                 <i class="bi bi-file-earmark-richtext me-2" style="font-size: 24px;"></i>
-                النماذج و القرارات
+                التشريعات و النماذج
             </a>
 
             <!-- Option 5: Reports Menu -->
@@ -140,15 +140,6 @@
         {% endif %}
         <!-- Main Content -->
         <div class="main-content container-fluid mt-3 p-4 d-flex">
-            {% if messages %}
-            <div class="alert-container position-absolute top-0 start-0 w-100">
-                {% for message in messages %}
-                    <div class="alert alert-{{ message.tags }} text-center" style="opacity: 95%;">
-                        {{ message }}
-                    </div>
-                {% endfor %}
-            </div>
-            {% endif %}
             {% block content %}{% endblock %}
         </div>
     </div>

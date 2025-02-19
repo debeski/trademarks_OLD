@@ -7,6 +7,10 @@ from django.views import View
 from django.apps import apps
 import importlib
 import datetime
+from django.utils.safestring import mark_safe
+import qrcode
+import base64
+from django.views.decorators.csrf import csrf_exempt
 
 from django.core.cache import cache
 from django.shortcuts import get_object_or_404
@@ -25,7 +29,7 @@ import zipfile
 from io import BytesIO
 
 from .models import Decree, DecreeStatus, Publication, PublicationStatus, Objection, ObjectionStatus, FormPlus, Country, Government, ComType, DocType, DecreeCategory
-from .genpdf import pub_pdf
+from .genpdf import pub_pdf, obj_pdf
 
 from django_tables2 import RequestConfig
 from django.db.models import Q
@@ -205,14 +209,14 @@ def index(request):
     total_pub_initial = publications.filter(status=1).count()
 
     # Get the total number of objections with status 'pending'
-    # total_objections_pending = Objection.objects.filter(status=1).count()
+    total_objections_pending = Objection.objects.filter(status=2).count()
 
     # Pass the values to the template context
     context = {
         'chart_html': chart_html,
         'total_pub_f': total_pub_final,
-        'total_pub_i': total_pub_initial
-        # 'total_objections_pending': total_objections_pending,
+        'total_pub_i': total_pub_initial,
+        'total_obj_pen': total_objections_pending
     }
 
     return render(request, 'index.html', context)
@@ -295,6 +299,41 @@ def core_models_view(request):
     
     return render(request, 'manage_sections.html', context)
 
+
+# def generate_qr(request, sequence):
+#     # Ensure the input is exactly 13 digits
+#     if not sequence.isdigit() or len(sequence) != 13:
+#         return HttpResponse("Invalid sequence", status=400)
+
+#     # Generate QR code
+#     qr = qrcode.make(sequence)
+
+#     # Save QR to an in-memory buffer
+#     buffer = BytesIO()
+#     qr.save(buffer, format="PNG")
+#     buffer.seek(0)
+
+#     # Return QR code as an image response
+#     return HttpResponse(buffer.getvalue(), content_type="image/png")
+
+
+def generate_qr(sequence):
+    # Ensure the input is exactly 13 digits
+    if not sequence.isdigit() or len(sequence) != 13:
+        raise ValueError("Invalid sequence")
+
+    # Generate QR code
+    qr = qrcode.make(sequence)
+
+    # Save QR to an in-memory buffer
+    buffer = BytesIO()
+    qr.save(buffer, format="PNG")
+    buffer.seek(0)
+
+    return buffer
+
+def buffer_to_base64(buffer):
+    return base64.b64encode(buffer.getvalue()).decode('utf-8')
 
 # Views for Publication
 #######################
@@ -522,7 +561,6 @@ def add_edit_publication(request, document_id=None):
     else:
         instance = None
 
-    # If you have a form with dynamic population, you can adjust like:
     # Dynamically import the form class
     form_class_path = Publication.get_form_class()
     form_class = get_class_from_string(form_class_path)
@@ -531,30 +569,30 @@ def add_edit_publication(request, document_id=None):
     if request.method == 'POST' and form.is_valid():
         publication = form.save()
 
-        decree_number = form.cleaned_data['decree_number']  # Assuming you have this field in the form
+        decree_number = form.cleaned_data['decree_number']
         selected_year = form.cleaned_data['year']  # Get the selected year from the form
-        decree_owner = form.cleaned_data['owner']  # Assuming 'owner' is a field in the form
-        decree_country = form.cleaned_data['country']  # Assuming 'country' is a field in the form
-        decree_category = form.cleaned_data['category']  # Assuming 'category' is a field in the form
-        decree_date_applied = form.cleaned_data['date_applied']  # Assuming 'date_applied' is a field in the form
+        decree_owner = form.cleaned_data['owner']
+        decree_country = form.cleaned_data['country']
+        decree_category = form.cleaned_data['category']
+        decree_date_applied = form.cleaned_data['date_applied']
         decree_ar_brand = form.cleaned_data['ar_brand']
         decree_en_brand = form.cleaned_data['en_brand']
 
         # Try to find an existing decree with the same number and year
         decree = Decree.objects.filter(
             number=decree_number,
-            date__year=selected_year  # Use the selected year to filter the decree
+            date__year=selected_year  # Use the selected year to filter the decrees
         ).first()
         
         if not decree:
             # If no matching decree found, create a new one (auto-created flag)
             decree = Decree.objects.create(
                 number=decree_number,
-                date=datetime.date(int(selected_year), 1, 1),  # You can adjust the date as needed
+                date=datetime.date(int(selected_year), 1, 1),
                 company=decree_owner,
-                country=decree_country,  # Add the country field
-                category=decree_category,  # Add the category field
-                date_applied=decree_date_applied,  # Add the date_applied field
+                country=decree_country,
+                category=decree_category,
+                date_applied=decree_date_applied,
                 ar_brand=decree_ar_brand,
                 en_brand=decree_en_brand,
                 is_placeholder=True,  # Mark as auto-created
@@ -784,18 +822,12 @@ def objection_list(request):
     })
 
 
-# Main Adding and Editing view for Objection
-def add_edit_objection(request, document_id=None):
+# Main Adding view for Objection
+def add_objection(request):
     form_class = get_class_from_string(Objection.get_form_class())  # Resolving the form class
 
-    if document_id:
-        objection = get_object_or_404(Objection, id=document_id)  # Get the existing Objection object
-        publication = objection.pub  # Get the associated Publication for the existing Objection
-    else:
-        objection = None  # Create a new Objection if document_id is not provided
-
     if request.method == "POST":
-        form = form_class(request.POST, request.FILES, instance=objection)
+        form = form_class(request.POST, request.FILES)
         if form.is_valid():
             pub_id = form.cleaned_data.get("pub_id")  # Get the pub_id
             publication = get_object_or_404(Publication, id=pub_id, deleted_at__isnull=True)
@@ -813,9 +845,177 @@ def add_edit_objection(request, document_id=None):
             print(form.errors)  # Debugging: Print form errors if invalid
 
     else:
-        form = form_class(request.POST or None, request.FILES or None, instance=objection)
+        form = form_class(request.POST or None, request.FILES or None)
+
+    return render(request, 'objections/objection_form.html', {'form': form})
+
+
+# Main Editing view for Objection
+def edit_objection(request, document_id):
+    """
+    Function to edit an existing objection.
+    """
+    form_class = get_class_from_string(Objection.get_form_class())  # Resolving the form class
+    objection = get_object_or_404(Objection, id=document_id)  # Get the existing Objection object
+    publication = objection.pub  # Get the associated Publication for the existing Objection
+
+    if request.method == "POST":
+        form = form_class(request.POST, request.FILES, instance=objection)
+        if form.is_valid():
+            objection.save()
+            messages.success(request, "Objection updated successfully!")
+            return redirect("objection_list")
+        else:
+            print(form.errors)  # Debugging: Print form errors if invalid
+
+    else:
+        form = form_class(instance=objection)
 
     return render(request, 'objections/objection_form.html', {'form': form, 'objection': objection})
+
+
+def objection_pub_pick(request):
+    qs = Publication.objects.filter(deleted_at__isnull=True, status=1)
+
+    # Use the same filter logic but for status=1 only
+    filter_class_path = Publication.get_filter_class()
+    filter_class = get_class_from_string(filter_class_path)
+    publication_filter = filter_class(request.GET, queryset=qs)
+
+    # Use a separate table for the new page
+    table_class = get_class_from_string(Publication.get_table_class(context="objection_pub_pick"))
+    table = table_class(publication_filter.qs)
+
+    RequestConfig(request, paginate={'per_page': 20}).configure(table)
+
+    return render(request, "objections/objection_pub_pick.html", {
+        "table": table,
+        "filter": publication_filter,
+    })
+
+
+def add_pub_objection(request, document_id=None):
+    """
+    Function to add a new objection for a given publication for the public.
+    """
+    form_class = get_class_from_string(Objection.get_form_class(context="objection_pub_pick"))  # Resolving the form class
+    
+    if document_id:
+        publication = get_object_or_404(Publication, id=document_id, deleted_at__isnull=True)  # Get the publication
+        
+    if request.method == "POST":
+        form = form_class(request.POST, request.FILES)
+        if form.is_valid():
+            objection = form.save(commit=False)
+            objection.pub = publication  # Assign the related publication
+            objection.save()
+            qr_buffer = generate_qr(objection.unique_code)
+            qr_base64 = buffer_to_base64(qr_buffer)
+            # Prepare the success message with the PDF link
+            success_msg = f"""
+                <div style="display: flex; align-items: center;">
+                    <div style="flex: 1; margin-right: 10px;">
+                        <p>تم تقديم الاعتراض مبدئيا.</p>
+                        <p>رقمك المميز هو: <strong>{objection.unique_code}</strong></p>
+                        <p>احفظه في مكان ما لكي تتمكن من مراجعة طلب اعتراضك لاحقا.</p>
+                        <p>يمكنك تحميل نموذج الاعتراض <a href='{reverse('gen_obj_pdf', kwargs={'obj_id': objection.id})}' target='_blank'>من هنا</a>.</p>
+                        <p>في حالة لم تقم بدفع الرسوم بعد، يرجى طباعة نموذج الاعتراض اعلاه والتوجه به الى اقرب مكان دفع.</p>
+                    </div>
+                    <img src='data:image/png;base64,{qr_base64}' alt='QR Code' style='width: 250px; height: auto;' />  <!-- Adjust the width as needed -->
+                </div>
+            """
+
+            # Mark the message as safe to render HTML
+            messages.success(request, mark_safe(success_msg))
+
+            return redirect('index')  # Redirect to the index page
+        else:
+            print(form.errors)  # Debugging: Print form errors if invalid
+
+    else:
+        form = form_class()
+    
+    return render(request, 'objections/objection_pub_form.html', {'form': form, 'publication': publication})
+
+
+# Function for fetching objection data for PDF generation
+def fetch_objection_data(obj_id):
+    # Fetch the objection record based on its ID
+    obj_record = get_object_or_404(Objection, id=obj_id)
+    
+    # Prepare the record details
+    objection_data = {
+        'obj_id': obj_record.id,
+        'obj_number': obj_record.number,
+        'pub_id': obj_record.pub.id if obj_record.pub else "N/A",
+        'pub_no': obj_record.pub.number if obj_record.pub else "N/A",
+        'pub_year': obj_record.pub.year if obj_record.pub else "N/A",
+        'applicant': obj_record.pub.applicant if obj_record.pub and obj_record.pub.applicant else "N/A",
+        'owner': obj_record.pub.owner if obj_record.pub and obj_record.pub.owner else "N/A",
+        'obj_date': obj_record.created_at.strftime("%d-%m-%Y"),
+        'name': obj_record.name,
+        'job': obj_record.job,
+        'nationality': obj_record.nationality.ar_name if obj_record.nationality else "N/A",
+        'address': obj_record.address,
+        'phone': obj_record.phone,
+        'com_name': obj_record.com_name,
+        'com_job': obj_record.com_job.name if obj_record.com_job else "N/A",
+        'com_address': obj_record.com_address,
+        'com_og_address': obj_record.com_og_address,
+        'com_mail_address': obj_record.com_mail_address,
+        'status': obj_record.get_status_display(),
+        'reason': obj_record.reason if obj_record.reason else "N/A",
+        'is_paid': "Yes" if obj_record.is_paid else "No",
+        'receipt_file': obj_record.receipt_file.url if obj_record.receipt_file else "N/A",
+        'unique_code': obj_record.unique_code,
+        'notes': obj_record.notes or "N/A",
+    }
+
+    print(f'Fetched record info for Objection No {obj_id} successfully')
+    return objection_data
+
+
+def gen_obj_pdf(request, obj_id):
+    """
+    Generates and returns a PDF for the specified objection.
+    """
+    # Fetch objection data
+    obj_record = fetch_objection_data(obj_id)
+    
+    # Generate the PDF (assuming a `obj_pdf` function exists similar to `pub_pdf`)
+    pdf_data = obj_pdf(obj_id, obj_record)
+
+    # Return the PDF as a response
+    response = HttpResponse(pdf_data, content_type='application/pdf')
+    response['Content-Disposition'] = f'attachment; filename="objection_{obj_id}.pdf"'
+
+    return response
+
+
+
+# def add_objection(request):
+#     """
+#     Function to add a new objection for a given publication.
+#     """
+#     form_class = get_class_from_string(Objection.get_form_class())  # Resolving the form class
+#     publication = get_object_or_404(Publication, id=document_id, deleted_at__isnull=True)  # Get the publication
+    
+#     if request.method == "POST":
+#         form = form_class(request.POST, request.FILES)
+#         if form.is_valid():
+#             objection = form.save(commit=False)
+#             objection.pub = publication  # Assign the related publication
+#             objection.save()
+
+#             messages.success(request, "Objection added successfully!")
+#             return redirect("objection_list")
+#         else:
+#             print(form.errors)  # Debugging: Print form errors if invalid
+
+#     else:
+#         form = form_class()
+
+#     return render(request, 'objections/objection_form.html', {'form': form, 'publication': publication})
 
 
 # Main PDF download view for Objection
@@ -871,6 +1071,33 @@ def objection_detail(request, document_id):
     """
     objection = get_object_or_404(Objection, pk=document_id)
     return render(request, 'objections/objection_detail.html', {'objection': objection})
+
+
+@csrf_exempt  # Allow AJAX requests without CSRF token (only if necessary)
+def check_objection_status(request):
+    if request.method == "POST":
+        try:
+            data = json.loads(request.body)
+            unique_code = data.get("unique_code")
+            phone_number = data.get("phone_number")
+
+            # Query the database for the objection
+            objection = Objection.objects.filter(unique_code=unique_code, phone=phone_number).first()
+
+            if objection:
+                return JsonResponse({
+                    "success": True,
+                    "status": objection.get_status_display(),
+                    "com_name": objection.com_name,
+                    "brand": f"{objection.pub.ar_brand} - {objection.pub.en_brand} <br> الفئة: {objection.pub.category}",
+                    "date": objection.created_at.strftime("%d-%m-%Y")
+                })
+            else:
+                return JsonResponse({"success": False, "error": "لم يتم العثور على اعتراض مطابق."}, status=404)
+        except Exception as e:
+            return JsonResponse({"success": False, "error": str(e)}, status=500)
+
+    return JsonResponse({"success": False, "error": "طلب غير صالح."}, status=400)
 
 
 # Function for changing status of an unconfirmed objection to paid using a button
@@ -931,7 +1158,6 @@ def decline_objection_fee(request, document_id):
 # Views for FormPlus
 ####################
 # Main table view for FormPlus
-@login_required
 def formplus_list(request):
     # Get the base queryset (only non-deleted items)
     qs = FormPlus.objects.filter(deleted_at__isnull=True)
@@ -973,7 +1199,6 @@ def add_edit_formplus(request, document_id=None):
 
 
 # Main PDF download view for FormPlus
-@login_required
 def download_formplus(request, document_id):
     """
     Downloads a FormPlus document's PDF file.
@@ -1018,7 +1243,6 @@ def soft_delete_formplus(request, document_id):
 
 
 # Main detail view for FormPlus
-@login_required
 def formplus_detail(request, document_id):
     """
     Displays details of a FormPlus document with a PDF preview.

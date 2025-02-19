@@ -178,7 +178,7 @@ body {
     transition: margin 0.2s, width 0.2s;
 }
 
-@media (max-width: 1000px) {
+@media (max-width: 750px) {
     #sidebar {
         width: 0; /* Start closed on small screens */
         overflow: hidden;

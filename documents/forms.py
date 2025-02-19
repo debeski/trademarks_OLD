@@ -308,6 +308,29 @@ class ObjectionForm(forms.ModelForm):
         self.fields['receipt_file'].required = False
 
 
+class ObjectionPubPickForm(forms.ModelForm):
+    notes = forms.CharField(
+        widget=forms.Textarea(attrs={'rows': 2}),
+        required=False,  # Optional: if the field is not required
+        label="تفاصيل"
+    )
+    # pub_id = forms.IntegerField(widget=forms.HiddenInput(), required=True)  # Make sure it's an IntegerField
+
+    class Meta:
+        model = Objection
+        fields = [
+            'name', 'job', 'nationality', 'address', 'phone',
+            'com_name', 'com_job', 'com_address', 'com_og_address', 'com_mail_address',
+            'is_paid', 'receipt_file', 'pdf_file', 'notes'
+        ]
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.helper = FormHelper()
+        self.helper.form_method = 'POST'
+        self.fields['receipt_file'].required = False
+
+
 class FormPlusForm(forms.ModelForm):
     class Meta:
         model = FormPlus

@@ -1,7 +1,5 @@
 {% load static %}
-{% if request.user.is_authenticated %}
 <div class="d-flex gap-2 align-items-center justify-content-end">
-    {% if perms.documents.download_doc %}
     {% if record.pdf_file %}
         <a href="{% url 'download_formplus' record.id %}" title="تحميل"><i class="bi bi-file-earmark-pdf-fill" style="font-size: 36px;"></i>
         </a>
@@ -17,7 +15,6 @@
         <span title="لا يوجد ملف word" class="disabled">
             <i class="bi bi-file-earmark-word-fill" style="opacity: 0.4; font-size: 36px;"></i>
         </span>
-    {% endif %}
     {% endif %}
     <!-- Dropdown Menu for Actions -->
     <div class="dropdown-center">
@@ -44,7 +41,6 @@
                     <i class="bi bi-x-octagon text-danger me-1" style="font-size: 22px;"> </i> حذف
                 </a>
             </li>
-            {% endif %}
         </ul>
     </div>
 </div>
