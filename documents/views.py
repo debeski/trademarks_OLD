@@ -209,7 +209,7 @@ def index(request):
     total_pub_initial = publications.filter(status=1).count()
 
     # Get the total number of objections with status 'pending'
-    total_objections_pending = Objection.objects.filter(status=2).count()
+    total_objections_pending = Objection.objects.filter(Q(status=1) | Q(status=2)).count()
 
     # Pass the values to the template context
     context = {
@@ -907,7 +907,13 @@ def add_pub_objection(request, document_id=None):
         form = form_class(request.POST, request.FILES)
         if form.is_valid():
             objection = form.save(commit=False)
-            objection.pub = publication  # Assign the related publication
+            objection.pub = publication
+            
+            # Check the values of is_paid and receipt_file directly in the if statement
+            if form.cleaned_data.get('is_paid') and form.cleaned_data.get('receipt_file'):
+                objection.status = 2
+            else:
+                objection.status = 1
             objection.save()
             qr_buffer = generate_qr(objection.unique_code)
             qr_base64 = buffer_to_base64(qr_buffer)
