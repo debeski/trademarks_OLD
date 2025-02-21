@@ -154,10 +154,25 @@ class DecreeFilter(django_filters.FilterSet):
         lookup_expr="exact",
         widget=forms.NumberInput(attrs={'min': 2000, 'max': 2025, 'placeholder': 'السنة'}),
     )
-    
+    applicant = django_filters.CharFilter(
+        field_name="applicant",
+        lookup_expr="icontains",
+        label='',
+    )
+    brand = django_filters.CharFilter(
+        method='filter_brand',
+        label='',
+    )
+    company = django_filters.CharFilter(
+        field_name="company",
+        lookup_expr="icontains",
+        label='',
+    )
     class Meta:
         model = Decree
         fields = {
+            'number': ['exact'],
+            'number_applied': ['exact'],
             'status': ['exact'],
             'country': ['exact'],
             'date': ['gte', 'lte'],
@@ -186,15 +201,17 @@ class DecreeFilter(django_filters.FilterSet):
             # Advanced filters (Initially hidden, expands on button click)
             Div(
                 Row(
-                    Column(Field('status', placeholder="الحالة"), css_class='form-group col-md-2'),
-                    Column(Field('country', placeholder="الدولة"), css_class='form-group col-md-2'),
-                    Column(Field('date__year', placeholder="السنة", dir="rtl"), css_class='form-group col-md-2'),
+                    Column(Field('number', placeholder="رقم القرار", dir="rtl"), css_class='form-group col-md-1'),
+                    Column(Field('number_applied', placeholder="رقم الطلب", dir="rtl"), css_class='form-group col-md-1'),
+                    Column(Field('applicant', placeholder="مقدم الطلب", dir="rtl"), css_class='form-group col-md-2'),
+                    Column(Field('country', placeholder="الدولة"), css_class='form-group col-md-1'),
+                    Column(Field('date__year', placeholder="السنة", dir="rtl"), css_class='form-group col-md-1'),
                     
                     Column(HTML("<strong>تاريخ القرار</strong>"), css_class='col-md-1 text-center align-self-center mb-3'),
                     Column(Field('date__gte', css_class='flatpickr', placeholder="من "), css_class='form-group col-md-1'),
                     Column(Field('date__lte', css_class='flatpickr', placeholder="إلى "), css_class='form-group col-md-1'),
                     
-                    Column(HTML("<strong>تاريخ التقديم</strong>"), css_class='col-md-1 text-center align-self-center mb-3'),
+                    Column(HTML("<strong>تاريخ الطلب</strong>"), css_class='col-md-1 text-center align-self-center mb-3'),
                     Column(Field('date_applied__gte', css_class='flatpickr', placeholder="من "), css_class='form-group col-md-1'),
                     Column(Field('date_applied__lte', css_class='flatpickr', placeholder="إلى "), css_class='form-group col-md-1'),
                     
@@ -203,6 +220,7 @@ class DecreeFilter(django_filters.FilterSet):
                 css_class="collapse mt-3",  # Bootstrap collapse class
                 id="advanced-search"
             ),
+            Field('status', type='hidden', value=1)
         )
 
     def filter_keyword(self, queryset, name, value):
@@ -210,7 +228,15 @@ class DecreeFilter(django_filters.FilterSet):
         Filter the queryset by matching the keyword in number, applicant, company,
         and, if applicable, the year extracted from the date field.
         """
-        q = Q(number__icontains=value) | Q(applicant__icontains=value) | Q(company__icontains=value)
+        q = (
+            Q(number__icontains=value) |
+            Q(number_applied__icontains=value) |
+            Q(applicant__icontains=value) |
+            Q(company__icontains=value) |
+            Q(ar_brand__icontains=value) |
+            Q(en_brand__icontains=value) |
+            Q(country__name__icontains=value)
+        )
         if value.isdigit():
             try:
                 year = int(value)
@@ -226,18 +252,35 @@ class PublicationFilter(django_filters.FilterSet):
         method='filter_keyword',
         label='',
     )
+
+    brand = django_filters.CharFilter(
+        method='filter_brand',
+        label='',
+    )
     
     date_applied__year = django_filters.NumberFilter(
         field_name="date__year",
         lookup_expr="exact",
         widget=forms.NumberInput(attrs={'min': 2000, 'max': 2025, 'placeholder': 'السنة'}),
     )
-    
+    applicant = django_filters.CharFilter(
+        field_name="applicant",
+        lookup_expr="icontains",
+        label='',
+    )
+    owner = django_filters.CharFilter(
+        field_name="owner",
+        lookup_expr="icontains",
+        label='',
+    )
+
     class Meta:
         model = Publication
         fields = {
             'number': ['exact'],
+            'decree_number': ['exact'],
             'status': ['exact'],
+            'category__number': ['exact'],
             'country': ['exact'],
             'date_applied': ['gte', 'lte'],
         }
@@ -267,11 +310,16 @@ class PublicationFilter(django_filters.FilterSet):
             # Advanced filters (hidden by default)
             Div(
                 Row(
-                    Column(Field('number', placeholder="رقم النشر", dir="rtl"), css_class='form-group col-md-3'),
-                    Column(Field('country', placeholder="الدولة"), css_class='form-group col-md-3'),
-                    Column(Field('date_applied__year', placeholder="السنة", dir="rtl"), css_class='form-group col-md-2'),
-                    Column(Field('date_applied__gte', css_class='flatpickr', placeholder="من تاريخ"), css_class='form-group col-md-2'),
-                    Column(Field('date_applied__lte', css_class='flatpickr', placeholder="إلى تاريخ"), css_class='form-group col-md-2'),
+                    Column(Field('number', placeholder="رقم النشر", dir="rtl"), css_class='form-group col-md-1'),
+                    Column(Field('decree_number', placeholder="رقم القرار", dir="rtl"), css_class='form-group col-md-1'),
+                    Column(Field('applicant', placeholder="طالب التسجيل", dir="rtl"), css_class='form-group col-md-2'),
+                    Column(Field('owner', placeholder="مالك العلامة", dir="rtl"), css_class='form-group col-md-2'),
+                    Column(Field('brand', placeholder="العلامة", dir="rtl"), css_class='form-group col-md-1'),
+                    Column(Field('category__number', placeholder="الفئة", dir="rtl"), css_class='form-group col-md-1'),
+                    Column(Field('country', placeholder="الدولة"), css_class='form-group col-md-1'),
+                    Column(Field('date_applied__year', placeholder="السنة", dir="rtl"), css_class='form-group col-md-1'),
+                    Column(Field('date_applied__gte', css_class='flatpickr', placeholder="من تاريخ"), css_class='form-group col-md-1'),
+                    Column(Field('date_applied__lte', css_class='flatpickr', placeholder="إلى تاريخ"), css_class='form-group col-md-1'),
                     css_class='form-row mt-2 align-items-center'
                 ),
                 css_class="collapse mt-3",  # Bootstrap collapse class
@@ -280,13 +328,27 @@ class PublicationFilter(django_filters.FilterSet):
             Field('status', type='hidden', value=1)
         )
 
-
+    def filter_brand(self, queryset, name, value):
+        # Use Q objects to filter on multiple fields
+        return queryset.filter(
+            Q(ar_brand__icontains=value) | Q(en_brand__icontains=value)
+        )
+        
     def filter_keyword(self, queryset, name, value):
         """
         Filter the queryset by matching the keyword in number, applicant, or company,
         and if the value is numeric, also match the publication submission year.
         """
-        q = Q(number__icontains=value) | Q(decree_number__icontains=value) | Q(applicant__icontains=value) | Q(owner__icontains=value)
+        q = (
+            Q(number__icontains=value) |
+            Q(decree_number__icontains=value) |
+            Q(applicant__icontains=value) |
+            Q(owner__icontains=value) |
+            Q(ar_brand__icontains=value) |
+            Q(en_brand__icontains=value) |
+            Q(country__name__icontains=value)
+        )
+
         if value.isdigit():
             try:
                 year = int(value)
@@ -314,6 +376,7 @@ class ObjectionFilter(django_filters.FilterSet):
     class Meta:
         model = Objection
         fields = {
+            'number': ['exact'],
             'status': ['exact'],
             'nationality': ['exact'],
             'com_name': ['icontains'],
@@ -324,7 +387,8 @@ class ObjectionFilter(django_filters.FilterSet):
         super().__init__(*args, **kwargs)
         
         # Customize the "select" field choices labels
-        set_first_choice(self.filters['status'].field, 'اختر حالة الاعتراض')
+        set_first_choice(self.filters['status'].field, 'حالة الاعتراض')
+        set_first_choice(self.filters['nationality'].field, 'الدولة')
         
         # Initialize Crispy Forms helper
         self.form.helper = FormHelper()
@@ -344,15 +408,16 @@ class ObjectionFilter(django_filters.FilterSet):
             ),
             Div(
                 Row(
-                    Column(Field('status'), css_class='form-group col-md-3'),
-                    Column(Field('created_at__year', placeholder="السنة", dir="rtl"), css_class='form-group col-md-2'),
-                    Column(Field('nationality', placeholder="الجنسية"), css_class='form-group col-md-2'),
+                    Column(Field('number', placeholder="رقم الاعتراض", dir="rtl"), css_class='form-group col-md-3'),
+                    Column(Field('nationality', placeholder="الجنسية"), css_class='form-group col-md-3'),
+                    Column(Field('created_at__year', placeholder="السنة", dir="rtl"), css_class='form-group col-md-3'),
                     Column(Field('com_name__icontains', placeholder="اسم الشركة"), css_class='form-group col-md-3'),
                     css_class='form-row mt-2'
                 ),
                 css_class="collapse mt-3",  # Bootstrap collapse class
                 id="advanced-search"
             ),
+            Field('status', type='hidden', value=1)
         )
 
     def filter_keyword(self, queryset, name, value):
@@ -386,6 +451,7 @@ class FormPlusFilter(django_filters.FilterSet):
     class Meta:
         model = FormPlus
         fields = {
+            'number': ['exact'],
             'type': ['exact'],
             'date': ['gte', 'lte'],
         }
@@ -416,9 +482,8 @@ class FormPlusFilter(django_filters.FilterSet):
                 Row(
                     Column(Field('type', placeholder="السنة", dir="rtl"), css_class='form-group col-md-2'),
                     Column(Field('date__year', placeholder="السنة", dir="rtl"), css_class='form-group col-md-2'),
-                    Column(HTML("<strong>تاريخ التقرير</strong>"), css_class='col-md-1 text-center align-self-center mb-3'),
-                    Column(Field('date__gte', css_class='flatpickr', placeholder="من "), css_class='form-group col-md-1'),
-                    Column(Field('date__lte', css_class='flatpickr', placeholder="إلى "), css_class='form-group col-md-1'),
+                    Column(Field('date__gte', css_class='flatpickr', placeholder="من تاريخ "), css_class='form-group col-md-2'),
+                    Column(Field('date__lte', css_class='flatpickr', placeholder="إلى تاريخ "), css_class='form-group col-md-2'),
                     
                     css_class='form-row mt-2 align-items-center'
                 ),

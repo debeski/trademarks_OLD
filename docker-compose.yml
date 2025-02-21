@@ -43,6 +43,14 @@ services:
     ports:
       - "9430:8000"
 
+  celery:
+    build: .
+    command: celery -A core worker -l info
+    volumes:
+      - app_data:/app
+    depends_on:
+      - redis  # Ensure Redis is started before Celery
+
 volumes:
   postgres_data:
   redis_data:
