@@ -5,6 +5,7 @@ import os
 from django.utils import timezone
 from django.views import View
 from django.apps import apps
+from django.core.cache import cache
 import importlib
 import datetime
 from django.utils.safestring import mark_safe
@@ -138,35 +139,38 @@ def create_chart(models, start_year=2012, end_year=2025):
     Uses caching to improve performance.
         
     :param models: List of Django models to include in the chart.
-    :param start_year: Start year for filtering (default: 2008).
+    :param start_year: Start year for filtering (default: 2012).
     :param end_year: End year for filtering (default: 2025).
     :return: HTML representation of the Plotly chart.
     """
     
+    # Construct a unique cache key based on input parameters
     cache_key = f"chart_{start_year}_{end_year}_" + "_".join([model.__name__ for model in models])
     cached_chart = cache.get(cache_key)
 
+    # Return the cached chart if available
     if cached_chart:
-        return cached_chart  # Return cached version if available
+        return cached_chart  
     
     years = range(start_year, end_year + 1)
     data = []
 
     # Collect data from each model
     for model in models:
-        model_name = model._meta.verbose_name  # Uses Django's verbose_name for readability
+        model_name = model._meta.verbose_name  # Use Django's verbose_name for readability
         for year in years:
+            # Get the count of documents for the given year
             count = model.objects.filter(year=year, deleted_at__isnull=True).count() or 0
             data.append({'Year': year, 'Count': count, 'Model': model_name})
 
     # Convert to DataFrame
     df = pd.DataFrame(data)
 
-    # Create bar chart
+    # Create the bar chart
     fig = px.bar(
         df, x='Year', y='Count', color='Model', barmode='group',
         title='عدد الاشهارات حسب السنة',
-        labels={'Model': 'النوع','Year': 'السنة', 'Count': 'عدد الاشهارات'},
+        labels={'Model': 'النوع', 'Year': 'السنة', 'Count': 'عدد الاشهارات'},
         text='Count',
         hover_data={'Model': False},
     )
@@ -185,12 +189,13 @@ def create_chart(models, start_year=2012, end_year=2025):
             font=dict(
                 family="Shabwa, sans-serif",
                 size=14,
-                color="white"  # For example, text color
+                color="white"  # Text color
             ),
-            bgcolor="rgba(11, 27, 99, 0.9)"  # Background color if needed
+            bgcolor="rgba(11, 27, 99, 0.9)"  # Background color
         )
     )
 
+    # Convert figure to HTML representation
     chart_html = fig.to_html(full_html=False)
 
     # Store the chart in the cache for 1 hour (3600 seconds)
@@ -335,8 +340,8 @@ def generate_qr(sequence):
 def buffer_to_base64(buffer):
     return base64.b64encode(buffer.getvalue()).decode('utf-8')
 
-# Views for Publication
-#######################
+# Views for Decree
+##################
 # Main table view for decrees
 @login_required
 def decree_list(request):
