@@ -32,4 +32,3 @@ EXPOSE 8000
 
 # Set the entrypoint
 ENTRYPOINT ["/usr/local/bin/entrypoint.sh"]
-
