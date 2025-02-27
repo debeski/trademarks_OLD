@@ -118,7 +118,7 @@
                 <div class="accordion-item">
                     <h2 class="accordion-header" id="headingReports">
                         <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseReports" aria-expanded="false" aria-controls="collapseReports">
-                            <i class="bi bi-file-earmark-spreadsheet me-2" style="font-size: 20px;"></i>
+                            <i class="bi bi-file-earmark-bar-graph me-2" style="font-size: 20px;"></i>
                             إعداد التقارير
                         </button>
                     </h2>
@@ -126,13 +126,13 @@
                         <div class="accordion-body p-0">
                             <!-- Report links -->
                             <a href="{% url 'decree_report' %}" class="list-group-item list-group-item-action {% if '/reports/decrees/' in request.path %}active bg-primary disabled{% endif %}">
-                                <i class="bi bi-file-earmark-spreadsheet me-2" style="font-size: 24px; opacity: 0.5;"></i>القرارات
+                                <i class="bi bi-calendar-date me-2" style="font-size: 21px; opacity: 0.5;"></i>القرارات
                             </a>
                             <a href="{% url 'publication_report' %}" class="list-group-item list-group-item-action {% if '/reports/publications/' in request.path %}active bg-primary disabled{% endif %}">
-                                <i class="bi bi-file-earmark-spreadsheet me-2" style="font-size: 24px; opacity: 0.5;"></i>الإشعارات
+                                <i class="bi bi-calendar-check me-2" style="font-size: 21px; opacity: 0.5;"></i>الإشهارات
                             </a>
                             <a href="{% url 'objection_report' %}" class="list-group-item list-group-item-action {% if '/reports/objections/' in request.path %}active bg-primary disabled{% endif %}">
-                                <i class="bi bi-file-earmark-spreadsheet me-2" style="font-size: 24px; opacity: 0.5;"></i>الاعتراضات
+                                <i class="bi bi-calendar-x me-2" style="font-size: 21px; opacity: 0.5;"></i>الاعتراضات
                             </a>
                         </div>
                     </div>
@@ -151,12 +151,12 @@
                     <div id="collapseSettings" class="accordion-collapse collapse {% if '/manage/' in request.path %}show{% endif %}" aria-labelledby="headingSettings" data-bs-parent="#settingsAccordion">
                         <div class="accordion-body p-0">
                             <!-- You can add more links here as needed -->
-                            <a class="list-group-item list-group-item-action {% if '/manage/sections/' in request.path %}active bg-primary disabled{% endif %}" href="{% url 'manage_sections' %}"><i class="bi bi-layout-sidebar-inset me-2" style="font-size: 24px; opacity: 0.5;"></i>ادارة الاقسام</a>
+                            <a class="list-group-item list-group-item-action {% if '/manage/sections/' in request.path %}active bg-primary disabled{% endif %}" href="{% url 'manage_sections' %}"><i class="bi bi-layout-sidebar-inset me-2" style="font-size: 21px; opacity: 0.5;"></i>ادارة الاقسام</a>
                             {% if user.is_staff %}
                             <a class="list-group-item list-group-item-action {% if '/manage/users' in request.path %}active bg-primary disabled{% endif %}" href="{% url 'manage_users' %}">
-                                <i class="bi bi-people me-2" style="font-size: 24px; opacity: 0.5;"></i>ادارة المستخدمين
+                                <i class="bi bi-people me-2" style="font-size: 21px; opacity: 0.5;"></i>ادارة المستخدمين
                             </a>
-                            <a class="list-group-item list-group-item-action {% if '/manage/log' in request.path %}active disabled{% endif %}" href="{% url 'user_activity_log' %}"><i class="bi bi-blockquote-right me-2" style="font-size: 24px; opacity: 0.5;"></i>السجل</a>
+                            <a class="list-group-item list-group-item-action {% if '/manage/log' in request.path %}active disabled{% endif %}" href="{% url 'user_activity_log' %}"><i class="bi bi-blockquote-right me-2" style="font-size: 21px; opacity: 0.5;"></i>السجل</a>
                             {% endif %}
                         </div>
                     </div>
