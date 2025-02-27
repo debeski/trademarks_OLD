@@ -555,15 +555,15 @@ def decree_detail(request, document_id):
     return render(request, 'decrees/decree_detail.html', {'decree': decree})
 
 
-def format_missing_decrees(missing_decrees):
-    if not missing_decrees:
+def format_missing_numbers(missing_numbers):
+    if not missing_numbers:
         return "<p>لا توجد أرقام مفقودة.</p>"
 
     formatted = []
-    start = missing_decrees[0]
+    start = missing_numbers[0]
     end = start
 
-    for num in missing_decrees[1:]:
+    for num in missing_numbers[1:]:
         if num == end + 1:
             end = num
         else:
@@ -621,7 +621,7 @@ def decree_report(request):
             report_data['missing_decrees'] = list(complete_range - all_decree_numbers)
 
         report_data['total_missing'] = len(report_data['missing_decrees'])
-        report_data['formatted_missing_decrees'] = format_missing_decrees(sorted(report_data['missing_decrees']))
+        report_data['formatted_missing_decrees'] = format_missing_numbers(sorted(report_data['missing_decrees']))
         report_data['total_without_pdf'] = decrees.filter(Q(pdf_file__isnull=True) | Q(pdf_file='')).count()
         report_data['total_without_data'] = decrees.filter(
             Q(ar_brand__isnull=True) | Q(ar_brand='') | Q(en_brand__isnull=True) | Q(en_brand='')
@@ -928,6 +928,60 @@ def gen_pub_pdf(request, pub_id):
     response['Content-Disposition'] = f'attachment; filename="{pub_id}.pdf"'
 
     return response
+
+
+@login_required
+def publication_report(request):
+    years = Publication.objects.dates('date_applied', 'year').distinct()
+    selected_year = request.GET.get('year')
+
+    # Initialize report data
+    report_data = {}
+
+    if selected_year:
+        # Filter publications for the selected year
+        publications = Publication.objects.filter(date_applied__year=selected_year)
+
+        # Calculate required metrics
+        report_data['total_publications'] = publications.count()
+        first_publication = publications.order_by('e_number').first()  # Get the first publication based on e_number
+        last_publication = publications.order_by('-e_number').first()  # Get the last publication based on e_number
+        
+        if first_publication:
+            report_data['first_publication_number'] = first_publication.e_number
+            report_data['first_publication_date'] = first_publication.date_applied
+
+        if last_publication:
+            report_data['last_publication_number'] = last_publication.e_number
+            report_data['last_publication_date'] = last_publication.date_applied
+
+        # Calculate missing publications
+        first_publication_number = report_data.get('first_publication_number')
+        last_publication_number = report_data.get('last_publication_number')
+        
+        report_data['missing_publications'] = []
+        if first_publication_number is not None and last_publication_number is not None:
+            all_publication_numbers = set(publications.values_list('e_number', flat=True))
+            complete_range = set(range(first_publication_number, last_publication_number + 1))
+            report_data['missing_publications'] = list(complete_range - all_publication_numbers)
+
+        report_data['total_missing'] = len(report_data['missing_publications'])
+        report_data['formatted_missing_publications'] = format_missing_numbers(sorted(report_data['missing_publications']))
+        report_data['total_without_img'] = publications.filter(Q(img_file__isnull=True) | Q(img_file='')).count()
+        report_data['total_without_pdf'] = publications.filter(Q(attach__isnull=True) | Q(attach='')).count()
+        report_data['total_without_data'] = publications.filter(
+            Q(ar_brand__isnull=True) | Q(ar_brand='') | Q(en_brand__isnull=True) | Q(en_brand='')
+        ).count()
+        report_data['status_1_count'] = publications.filter(status=1).count()
+        report_data['status_2_count'] = publications.filter(status=2).count()
+        report_data['status_3_count'] = publications.filter(status=3).count()
+        report_data['status_4_count'] = publications.filter(status=4).count()
+
+    return render(request, 'publications/pub_report.html', {
+        'years': years,
+        'selected_year': selected_year,
+        'report_data': report_data,
+    })
 
 
 # Views for Objection
@@ -1356,6 +1410,62 @@ def decline_objection_fee(request, document_id):
         
         return HttpResponseRedirect(request.META.get('HTTP_REFERER', '/'))
     return JsonResponse({'success': False, 'error': 'Invalid request method'}, status=400)
+
+
+@login_required
+def objection_report(request):
+    years = Objection.objects.dates('created_at', 'year').distinct()
+    selected_year = request.GET.get('year')
+
+    # Initialize report data
+    report_data = {}
+
+    if selected_year:
+        # Filter objections for the selected year
+        objections = Objection.objects.filter(created_at__year=selected_year)
+
+        # Calculate required metrics
+        report_data['total_objections'] = objections.count()
+        first_objection = objections.order_by('number').first()  # Get the first objection based on number
+        last_objection = objections.order_by('-number').first()  # Get the last objection based on number
+
+        if first_objection:
+            report_data['first_objection_number'] = first_objection.number
+            report_data['first_objection_date'] = first_objection.created_at
+
+        if last_objection:
+            report_data['last_objection_number'] = last_objection.number
+            report_data['last_objection_date'] = last_objection.created_at
+
+        # Calculate missing objections
+        first_objection_number = report_data.get('first_objection_number')
+        last_objection_number = report_data.get('last_objection_number')
+        
+        report_data['missing_objections'] = []
+        if first_objection_number is not None and last_objection_number is not None:
+            all_objection_numbers = set(objections.values_list('number', flat=True))
+            complete_range = set(range(first_objection_number, last_objection_number + 1))
+            report_data['missing_objections'] = list(complete_range - all_objection_numbers)
+
+        report_data['total_missing'] = len(report_data['missing_objections'])
+        report_data['formatted_missing_objections'] = format_missing_numbers(sorted(report_data['missing_objections']))
+        report_data['total_without_pdf'] = objections.filter(Q(pdf_file__isnull=True) | Q(pdf_file='')).count()
+        report_data['total_without_receipt'] = objections.filter(Q(receipt_file__isnull=True) | Q(receipt_file='')).count()
+
+        report_data['total_without_data'] = objections.filter(
+            Q(name__isnull=True) | Q(name='') | Q(job__isnull=True) | Q(job='')
+        ).count()
+        report_data['status_pending_count'] = objections.filter(status=ObjectionStatus.PENDING).count()
+        report_data['status_unconfirm_count'] = objections.filter(status=ObjectionStatus.UNCONFIRM).count()
+        report_data['status_paid_count'] = objections.filter(status=ObjectionStatus.PAID).count()
+        report_data['status_accept_count'] = objections.filter(status=ObjectionStatus.ACCEPT).count()
+        report_data['status_reject_count'] = objections.filter(status=ObjectionStatus.REJECT).count()
+
+    return render(request, 'objections/objection_report.html', {
+        'years': years,
+        'selected_year': selected_year,
+        'report_data': report_data,
+    })
 
 
 # Views for FormPlus
