@@ -23,6 +23,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.urls import reverse
 from django.contrib.auth.decorators import login_required, permission_required, user_passes_test
 from django.utils.module_loading import import_string
+from django.db.models import Min, Max, Count
 
 # JSON imports
 import json
@@ -552,6 +553,89 @@ def decree_detail(request, document_id):
         user_agent=request.META.get("HTTP_USER_AGENT", ""),
     )
     return render(request, 'decrees/decree_detail.html', {'decree': decree})
+
+
+def format_missing_decrees(missing_decrees):
+    if not missing_decrees:
+        return "<p>لا توجد أرقام مفقودة.</p>"
+
+    formatted = []
+    start = missing_decrees[0]
+    end = start
+
+    for num in missing_decrees[1:]:
+        if num == end + 1:
+            end = num
+        else:
+            if start == end:
+                formatted.append(str(start))
+            else:
+                formatted.append(f"{start} الى {end}")
+            start = end = num
+
+    # Add the last range or number
+    if start == end:
+        formatted.append(str(start))
+    else:
+        formatted.append(f"{start} الى {end}")
+
+    # Create an HTML table with a single row and multiple columns
+    table_cells = ''.join(f'<td>{item}</td>' for item in formatted)
+    return f'<table class="table"><tr>{table_cells}</tr></table>'
+
+
+@login_required
+def decree_report(request):
+    years = Decree.objects.dates('date', 'year').distinct()
+    selected_year = request.GET.get('year')
+
+    # Initialize report data
+    report_data = {}
+
+    if selected_year:
+        # Filter decrees for the selected year
+        decrees = Decree.objects.filter(date__year=selected_year)
+
+        # Calculate required metrics
+        report_data['total_decrees'] = decrees.count()
+        # Get the first and last decree details
+        first_decree = decrees.order_by('number').first()  # Get the first decree based on number
+        last_decree = decrees.order_by('-number').first()  # Get the last decree based on number
+        
+        if first_decree:
+            report_data['first_decree_number'] = first_decree.number
+            report_data['first_decree_date'] = first_decree.date
+
+        if last_decree:
+            report_data['last_decree_number'] = last_decree.number
+            report_data['last_decree_date'] = last_decree.date
+
+        # Calculate missing decrees
+        first_decree_number = report_data.get('first_decree_number')
+        last_decree_number = report_data.get('last_decree_number')
+        
+        report_data['missing_decrees'] = []
+        if first_decree_number is not None and last_decree_number is not None:
+            all_decree_numbers = set(decrees.values_list('number', flat=True))
+            complete_range = set(range(first_decree_number, last_decree_number + 1))
+            report_data['missing_decrees'] = list(complete_range - all_decree_numbers)
+
+        report_data['total_missing'] = len(report_data['missing_decrees'])
+        report_data['formatted_missing_decrees'] = format_missing_decrees(sorted(report_data['missing_decrees']))
+        report_data['total_without_pdf'] = decrees.filter(Q(pdf_file__isnull=True) | Q(pdf_file='')).count()
+        report_data['total_without_data'] = decrees.filter(
+            Q(ar_brand__isnull=True) | Q(ar_brand='') | Q(en_brand__isnull=True) | Q(en_brand='')
+        ).count()
+        report_data['status_1_count'] = decrees.filter(status=1).count()
+        report_data['status_2_count'] = decrees.filter(status=2).count()
+        report_data['status_3_count'] = decrees.filter(status=3).count()
+        report_data['status_4_count'] = decrees.filter(status=4).count()
+
+    return render(request, 'decrees/decree_report.html', {
+        'years': years,
+        'selected_year': selected_year,
+        'report_data': report_data,
+    })
 
 
 # Views for Publication
