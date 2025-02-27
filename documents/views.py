@@ -1,4 +1,4 @@
-
+# Fundemental imports
 import logging
 from django.contrib import messages
 import os
@@ -13,6 +13,7 @@ import qrcode
 import base64
 from django.views.decorators.csrf import csrf_exempt
 
+# Helping imports
 from django.core.cache import cache
 from django.shortcuts import get_object_or_404
 from django.http import FileResponse, JsonResponse, HttpResponse, HttpResponseNotFound, HttpResponseBadRequest, HttpResponseRedirect
@@ -23,22 +24,27 @@ from django.urls import reverse
 from django.contrib.auth.decorators import login_required, permission_required, user_passes_test
 from django.utils.module_loading import import_string
 
+# JSON imports
 import json
-
 import mimetypes
 import zipfile
 from io import BytesIO
 
+# Project imports
 from .models import Decree, DecreeStatus, Publication, PublicationStatus, Objection, ObjectionStatus, FormPlus, Country, Government, ComType, DocType, DecreeCategory
 from .genpdf import pub_pdf, obj_pdf
 
+# Design imports
 from django_tables2 import RequestConfig
 from django.db.models import Q
 import pandas as pd
 import plotly.express as px
 
+# Logging imports
 logger = logging.getLogger('documents')
-
+from users.models import  UserActivityLog
+from users.signals import get_client_ip
+# Function to recognize superuser
 def is_superuser(user):
     return user.is_superuser 
 
@@ -389,7 +395,6 @@ def decree_list(request):
 # Main Adding and Editing view for decrees
 @login_required
 def add_edit_decree(request, document_id=None):
-    
     if not request.user.has_perm('documents.add_decree'):
         messages.error(request, "ليس لديك الصلاحية الكافية للادخال والتعديل!.")
         return HttpResponseRedirect(request.META.get('HTTP_REFERER', '/'))
@@ -409,8 +414,19 @@ def add_edit_decree(request, document_id=None):
         if instance and instance.is_placeholder:
             instance.is_placeholder = False
             instance.save()
+        instance = form.save()
 
-        form.save()
+        # Log the action
+        UserActivityLog.objects.create(
+            user=request.user,
+            action="CREATE" if not document_id else "UPDATE",
+            model_name='قرار',
+            object_id=instance.pk,
+            number=instance.number,
+            timestamp=timezone.now(),
+            ip_address=get_client_ip(request),  # Assuming you have this function
+            user_agent=request.META.get("HTTP_USER_AGENT", ""),
+        )
         return redirect(reverse('decree_list'))
 
     return render(request, 'decrees/decree_form.html', {
@@ -499,6 +515,15 @@ def soft_delete_decree(request, document_id):
         document = get_object_or_404(Decree, id=document_id)
         document.deleted_at = timezone.now()  # Set the deletion timestamp
         document.save()
+        # Log the action
+        UserActivityLog.objects.create(
+            user=request.user,
+            action="DELETE",
+            model_name=Decree.__name__,
+            object_id=document.pk,
+            number=document.number,  # Save the relevant number
+            timestamp=timezone.now(),
+        )
         return JsonResponse({'success': True})
 
     return JsonResponse({'success': False, 'error': 'Invalid request method'}, status=400)
@@ -515,6 +540,17 @@ def decree_detail(request, document_id):
         return HttpResponseRedirect(request.META.get('HTTP_REFERER', '/'))
     
     decree = get_object_or_404(Decree, pk=document_id)
+    # Log the action
+    UserActivityLog.objects.create(
+        user=request.user,
+        action="VIEW",
+        model_name='قرار',
+        object_id=decree.pk,
+        number=decree.number,  # Save the relevant number
+        timestamp=timezone.now(),
+        ip_address=get_client_ip(request),  # Assuming you have this function
+        user_agent=request.META.get("HTTP_USER_AGENT", ""),
+    )
     return render(request, 'decrees/decree_detail.html', {'decree': decree})
 
 
@@ -602,11 +638,31 @@ def add_edit_publication(request, document_id=None):
                 en_brand=decree_en_brand,
                 is_placeholder=True,  # Mark as auto-created
             )
-
+            UserActivityLog.objects.create(
+                user=request.user,
+                action="CREATE",
+                model_name='قرار مؤقت',
+                object_id=decree.pk,
+                number=decree.number,
+                timestamp=timezone.now(),
+                ip_address=get_client_ip(request),  # Assuming you have this function
+                user_agent=request.META.get("HTTP_USER_AGENT", ""),
+            )
+            
         # Link the publication to the decree (ForeignKey relationship)
         publication.decree = decree
         publication.save()
-
+        # Log the publication action
+        UserActivityLog.objects.create(
+            user=request.user,
+            action="CREATE" if not document_id else "EDIT",
+            model_name='اشهار',
+            object_id=publication.pk,
+            number=publication.number,
+            timestamp=timezone.now(),
+            ip_address=get_client_ip(request),  # Assuming you have this function
+            user_agent=request.META.get("HTTP_USER_AGENT", ""),
+        )
         return redirect(reverse('publication_list'))
 
     return render(request, 'publications/pub_form.html', {
@@ -706,7 +762,17 @@ def publication_detail(request, document_id):
 
     # Fetch the decree if it exists
     decree = publication.decree
-
+    # Log the action
+    UserActivityLog.objects.create(
+        user=request.user,
+        action="VIEW",
+        model_name='اشهار',
+        object_id=publication.pk,
+        number=publication.number,  # Save the relevant number
+        timestamp=timezone.now(),
+        ip_address=get_client_ip(request),  # Assuming you have this function
+        user_agent=request.META.get("HTTP_USER_AGENT", ""),
+    )
     return render(request, 'publications/pub_detail.html', {
         'publication': publication,
         'decree': decree  # Pass the decree object
@@ -842,7 +908,17 @@ def add_objection(request):
             objection = form.save(commit=False)
             objection.pub = publication  # Assign the publication object, not just the ID
             objection.save()
-
+            # Log the action
+            UserActivityLog.objects.create(
+                user=request.user,
+                action="CREATE",
+                model_name='اعتراض من عضو',
+                object_id=objection.pk,
+                number=objection.number,
+                timestamp=timezone.now(),
+                ip_address=get_client_ip(request),  # Assuming you have this function
+                user_agent=request.META.get("HTTP_USER_AGENT", ""),
+            )
             messages.success(request, "Objection added successfully!")
             return redirect("objection_list")
 
@@ -868,6 +944,17 @@ def edit_objection(request, document_id):
         form = form_class(request.POST, request.FILES, instance=objection)
         if form.is_valid():
             objection.save()
+            # Log the action
+            UserActivityLog.objects.create(
+                user=request.user,
+                action="UPDATE",
+                model_name='اعتراض من عضو',
+                object_id=objection.pk,
+                number=objection.number,
+                timestamp=timezone.now(),
+                ip_address=get_client_ip(request),  # Assuming you have this function
+                user_agent=request.META.get("HTTP_USER_AGENT", ""),
+            )
             messages.success(request, "Objection updated successfully!")
             return redirect("objection_list")
         else:
@@ -920,17 +1007,33 @@ def add_pub_objection(request, document_id=None):
             else:
                 objection.status = 1
             objection.save()
+            
+            # Log the IP address and user agent
+            ip_address = get_client_ip(request)
+            user_agent = request.META.get("HTTP_USER_AGENT", "")
+
+            # Log the objection creation
+            UserActivityLog.objects.create(
+                user=None,
+                action="CREATE",
+                model_name='اعتراض من شخص',
+                object_id=objection.pk,
+                ip_address=ip_address,
+                user_agent=user_agent,
+                number=objection.number,
+                timestamp=timezone.now(),
+            )
+            
             qr_buffer = generate_qr(objection.unique_code)
             qr_base64 = buffer_to_base64(qr_buffer)
             # Prepare the success message with the PDF link
             success_msg = f"""
                 <div style="display: flex; align-items: center;">
                     <div style="flex: 1; margin-right: 10px;">
-                        <p>تم تقديم الاعتراض مبدئيا.</p>
-                        <p>رقمك المميز هو: <strong>{objection.unique_code}</strong></p>
-                        <p>احفظه في مكان ما لكي تتمكن من مراجعة طلب اعتراضك لاحقا.</p>
-                        <p>يمكنك تحميل نموذج الاعتراض <a href='{reverse('gen_obj_pdf', kwargs={'obj_id': objection.id})}' target='_blank'>من هنا</a>.</p>
-                        <p>في حالة لم تقم بدفع الرسوم بعد، يرجى طباعة نموذج الاعتراض اعلاه والتوجه به الى اقرب مكان دفع.</p>
+                        <p>رقم تتبع الاعتراض هو: <strong>{objection.unique_code}</strong></p>
+                        <p>احفظه لكي تتمكن لاحقا من مراجعة حالة اعتراضك.</p>
+                        <p>يرجى تحميل نموذج الاعتراض <a href='{reverse('gen_obj_pdf', kwargs={'obj_id': objection.id})}' target='_blank'>من هنا</a>.</p>
+                        <p>و استكمال نواقصه و توقيعه و تقديمه الى مكتب العلامات التجارية.</p>
                     </div>
                     <img src='data:image/png;base64,{qr_base64}' alt='QR Code' style='width: 250px; height: auto;' />  <!-- Adjust the width as needed -->
                 </div>
@@ -1003,32 +1106,6 @@ def gen_obj_pdf(request, obj_id):
     return response
 
 
-
-# def add_objection(request):
-#     """
-#     Function to add a new objection for a given publication.
-#     """
-#     form_class = get_class_from_string(Objection.get_form_class())  # Resolving the form class
-#     publication = get_object_or_404(Publication, id=document_id, deleted_at__isnull=True)  # Get the publication
-    
-#     if request.method == "POST":
-#         form = form_class(request.POST, request.FILES)
-#         if form.is_valid():
-#             objection = form.save(commit=False)
-#             objection.pub = publication  # Assign the related publication
-#             objection.save()
-
-#             messages.success(request, "Objection added successfully!")
-#             return redirect("objection_list")
-#         else:
-#             print(form.errors)  # Debugging: Print form errors if invalid
-
-#     else:
-#         form = form_class()
-
-#     return render(request, 'objections/objection_form.html', {'form': form, 'publication': publication})
-
-
 # Main PDF download view for Objection
 @login_required
 def download_objection(request, document_id):
@@ -1081,6 +1158,17 @@ def objection_detail(request, document_id):
     Displays details of an objection with a PDF preview.
     """
     objection = get_object_or_404(Objection, pk=document_id)
+    # Log the action
+    UserActivityLog.objects.create(
+        user=request.user,
+        action="VIEW",
+        model_name='اعتراض',
+        object_id=objection.pk,
+        number=objection.number,
+        timestamp=timezone.now(),
+        ip_address=get_client_ip(request),  # Assuming you have this function
+        user_agent=request.META.get("HTTP_USER_AGENT", ""),
+    )
     return render(request, 'objections/objection_detail.html', {'objection': objection})
 
 
@@ -1128,7 +1216,17 @@ def confirm_objection_fee(request, document_id):
             objection.pub.status = 2
             objection.pub.save()
             objection.save()
-            
+            # Log the action
+            UserActivityLog.objects.create(
+                user=request.user,
+                action="CONFIRM",
+                model_name='رسوم اعتراض',
+                object_id=objection.pk,
+                number=objection.number,
+                timestamp=timezone.now(),
+                ip_address=get_client_ip(request),  # Assuming you have this function
+                user_agent=request.META.get("HTTP_USER_AGENT", ""),
+            )
             messages.success(request, f"تم تغيير حالة الاشهار رقم {objection.number} إلى 'نشر نهائي'.")
         else:
             messages.error(request, "لا يمكن تغيير حالة هذه الوثيقة لأنها ليست في الحالة 'مبدئي'.")
@@ -1157,7 +1255,17 @@ def decline_objection_fee(request, document_id):
 
             objection.pub.save()
             objection.save()
-            
+            # Log the action
+            UserActivityLog.objects.create(
+                user=request.user,
+                action="REJECT",
+                model_name='رسوم اعتراض',
+                object_id=objection.pk,
+                number=objection.number,
+                timestamp=timezone.now(),
+                ip_address=get_client_ip(request),  # Assuming you have this function
+                user_agent=request.META.get("HTTP_USER_AGENT", ""),
+            )
             messages.warning(request, f"تم تغيير حالة الاشهار رقم {objection.number} إلى 'رفض'.")
         else:
             messages.error(request, "لا يمكن تغيير حالة هذه الوثيقة لأنها ليست في الحالة 'مبدئي'.")
@@ -1203,7 +1311,18 @@ def add_edit_formplus(request, document_id=None):
     form = form_class(request.POST or None, request.FILES or None, instance=instance)
 
     if request.method == 'POST' and form.is_valid():
-        form.save()
+        instance = form.save()
+        # Log the action
+        UserActivityLog.objects.create(
+            user=request.user,
+            action="CREATE" if not document_id else "UPDATE",
+            model_name='تشريع او نموذج',
+            object_id=instance.pk,
+            number=instance.number,
+            timestamp=timezone.now(),
+            ip_address=get_client_ip(request),  # Assuming you have this function
+            user_agent=request.META.get("HTTP_USER_AGENT", ""),
+        )
         return redirect(reverse('formplus_list'))  # Adjust URL name as needed
 
     return render(request, 'formplus/formplus_form.html', {'form': form})
@@ -1259,6 +1378,17 @@ def formplus_detail(request, document_id):
     Displays details of a FormPlus document with a PDF preview.
     """
     formplus = get_object_or_404(FormPlus, pk=document_id)
+    # Log the action
+    UserActivityLog.objects.create(
+        user=request.user,
+        action="VIEW",
+        model_name='تشريع او نموذج',
+        object_id=formplus.pk,
+        number=formplus.number,  # Save the relevant number
+        timestamp=timezone.now(),
+        ip_address=get_client_ip(request),  # Assuming you have this function
+        user_agent=request.META.get("HTTP_USER_AGENT", ""),
+    )
     return render(request, 'formplus/formplus_detail.html', {'formplus': formplus})
 
 

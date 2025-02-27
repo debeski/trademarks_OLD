@@ -75,10 +75,10 @@
         </div>
         <div class="card shadow-sm p-3">
             <div class="d-flex align-items-center">
-                <i class="bi bi-bar-chart-line display-3 text-danger me-3"></i>
+                <i class="bi bi-exclamation-triangle display-3 text-warning me-3"></i>
                 <div>
                     <h5>اعتراضات تتطلب اجراء</h5>
-                    <p class="display-6 text-danger">{{ total_obj_pen }}</p>
+                    <p class="display-6 text-warning">{{ total_obj_pen }}</p>
                 </div>
             </div>
         </div>
@@ -108,7 +108,7 @@
         <div class="modal-dialog modal-xl modal-dialog-centered modal-fullscreen-lg-down" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title fs-3" id="submissionModalLabel">تم تقديم الاعتراض، في انتظار الدفع والتأكيد</h5>
+                    <h5 class="modal-title fs-3" id="submissionModalLabel">تمت تعبئة نموذج الاعتراض بنجاح و عليك الان دفع الرسم المقرر</h5>
                 </div>
                 <div class="modal-body fs-4">
                     {% for message in messages %}

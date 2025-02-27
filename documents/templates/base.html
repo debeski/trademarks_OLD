@@ -50,7 +50,7 @@
             <!-- Dropdown Button and Menu for Authenticated User -->
             <div class="dropdown" style="z-index: 1050;">
                 <button class="btn btn-light me-2 dropdown-toggle" type="button" id="userDropdown" data-bs-toggle="dropdown" aria-expanded="false">
-                    <i class="bi bi-person-circle">&nbsp;</i> {{ user.first_name }} {{ user.last_name }}
+                    <i class="bi bi-person-circle">&nbsp;</i> {{ user.username }}
                 </button>
                 <ul class="dropdown-menu dropdown-menu-start" aria-labelledby="userDropdown" style="min-width: 130px;">
                     <li>
@@ -84,28 +84,34 @@
         <!-- Sidebar -->
         <div class="list-group" id="sidebar">
             <!-- Option 1: Decrees List -->
+            {% if perms.documents.view_decree %}
             <a href="{% url 'decree_list' %}" class="list-group-item list-group-item-action {% if request.path == '/decrees/' %}disabled pressed{% elif '/decrees/' in request.path %}pressed{% endif %}">
                 <i class="bi bi-file-earmark-binary me-2" style="font-size: 24px;"></i>
                 قرارات العلامات التجارية
             </a>
+            {% endif %}
             
             <!-- Option 2: Publications List -->
             <a href="{% url 'publication_list' %}" class="list-group-item list-group-item-action {% if request.path == '/publications/' %}disabled pressed{% elif '/publications/' in request.path %}pressed{% endif %}">
                 <i class="bi bi-file-earmark-check me-2" style="font-size: 24px;"></i>
                 اشهارات العلامات التجارية
             </a>
-        
+
             <!-- Option 3: Objections List -->
+            {% if perms.documents.view_objection %}
             <a href="{% url 'objection_list' %}" class="list-group-item list-group-item-action {% if request.path == '/objections/' %}disabled pressed{% elif '/objections/' in request.path %}pressed{% endif %}">
                 <i class="bi bi-file-earmark-diff me-2" style="font-size: 24px;"></i>
                 الاعتراضات
             </a>
+            {% endif %}
 
             <!-- Option 4: Forms List -->
+            {% if perms.documents.view_formplus %}
             <a href="{% url 'formplus_list' %}" class="list-group-item list-group-item-action {% if request.path == '/formplus/' %}disabled pressed{% elif '/formplus/' in request.path %}pressed{% endif %}">
                 <i class="bi bi-file-earmark-richtext me-2" style="font-size: 24px;"></i>
                 التشريعات و النماذج
             </a>
+            {% endif %}
 
             <!-- Option 5: Reports Menu -->
             <a href="#" class="list-group-item list-group-item-action">
@@ -130,7 +136,7 @@
                             <a class="list-group-item list-group-item-action {% if '/manage/users' in request.path %}active bg-primary disabled{% endif %}" href="{% url 'manage_users' %}">
                                 <i class="bi bi-people me-2" style="font-size: 24px; opacity: 0.5;"></i>ادارة المستخدمين
                             </a>
-                            <a class="list-group-item list-group-item-action {% if '/manage/log' in request.path %}active disabled{% endif %}" href="#"><i class="bi bi-blockquote-right me-2" style="font-size: 24px; opacity: 0.5;"></i>السجل</a>
+                            <a class="list-group-item list-group-item-action {% if '/manage/log' in request.path %}active disabled{% endif %}" href="{% url 'user_activity_log' %}"><i class="bi bi-blockquote-right me-2" style="font-size: 24px; opacity: 0.5;"></i>السجل</a>
                             {% endif %}
                         </div>
                     </div>

@@ -3,14 +3,17 @@ from django.contrib.auth import get_user_model
 from django.contrib.auth.decorators import login_required, user_passes_test
 from django.utils.decorators import method_decorator
 from django_tables2 import RequestConfig
-from .tables import UserTable
+from .tables import UserTable, UserActivityLogTable
 from .forms import CustomUserCreationForm, CustomUserChangeForm
 from .filters import UserFilter
+from .models import UserActivityLog
 from django_filters.views import FilterView
 from django_tables2.views import SingleTableMixin
 from django.contrib import messages
 from django.http import HttpResponseRedirect
 from django.urls import reverse
+from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
+from django_tables2 import SingleTableView
 
 
 User = get_user_model()
@@ -76,3 +79,11 @@ def delete_user(request, user_id):
         user.delete()
         return redirect("manage_users")
     return redirect("manage_users")  # Redirect instead of rendering a separate page
+
+class UserActivityLogView(LoginRequiredMixin, UserPassesTestMixin, SingleTableView):
+    model = UserActivityLog
+    table_class = UserActivityLogTable
+    template_name = "user_activity_log.html"
+
+    def test_func(self):
+        return self.request.user.is_staff  # Only staff can access logs

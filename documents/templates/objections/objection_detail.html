@@ -39,7 +39,7 @@
     <!-- Dynamic Card Container for Publication Details -->
     <div id="publication-objection" class="container-fluid mb-3">
         <div class="card border-light shadow mb-3">
-            <div class="card-header bg-info text-dark text-center pe-5">
+            <div class="card-header text-dark text-center pe-5 {% if objection.status == 3 %}bg-info{% elif objection.status == 4 %}bg-success{% elif objection.status == 5 %}bg-danger{% else %}bg-warning{% endif %}">
                     <h4 class="card-title pt-1">حالة الاعتراض: <strong>{{ objection.get_status_display }}</strong></h4>
             </div>
             <div class="card-body d-flex">

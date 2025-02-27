@@ -1,6 +1,7 @@
 import django_tables2 as tables
 from django.contrib.auth import get_user_model
 from django.utils.html import format_html
+from .models import UserActivityLog
 
 User = get_user_model()  # Use custom user model
 
@@ -22,3 +23,10 @@ class UserTable(tables.Table):
         model = User
         template_name = "django_tables2/bootstrap5.html"  # Can be changed to bootstrap5
         fields = ("username", "email", "phone", "occupation", "actions")  # Add phone and occupation columns
+
+class UserActivityLogTable(tables.Table):
+    class Meta:
+        model = UserActivityLog
+        template_name = "django_tables2/bootstrap5.html"
+        fields = ("timestamp", "user", "action", "model_name", "object_id", "number", "ip_address")
+
