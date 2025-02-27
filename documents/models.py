@@ -9,6 +9,7 @@ from django.views import View
 from datetime import datetime, time
 import random
 import string
+from django.core.validators import FileExtensionValidator
 
 
 # Status Choices Lists:
@@ -201,21 +202,24 @@ class Decree(models.Model):
     date = models.DateField(blank=False, verbose_name="تاريخ القرار")
     status = models.IntegerField(choices=DecreeStatus.choices, default=DecreeStatus.ACCEPT, verbose_name="حالة القرار")
 
-    applicant = models.CharField(max_length=255, blank=True, verbose_name="مقدم الطلب")
-    company = models.CharField(max_length=255, blank=False, verbose_name="صاحب العلامة")
-    country = models.ForeignKey(Country, on_delete=models.PROTECT,  verbose_name="الدولة")
-    date_applied = models.DateField(blank=False, verbose_name="تاريخ التقديم")
+    applicant = models.CharField(max_length=255, blank=True, null=True, verbose_name="مقدم الطلب")
+    company = models.CharField(max_length=255, blank=True, null=True, verbose_name="صاحب العلامة")
+    country = models.ForeignKey(Country, on_delete=models.PROTECT,  verbose_name="الدولة", blank=True, null=True)
+    date_applied = models.DateField(blank=True, null=True, verbose_name="تاريخ التقديم")
     number_applied = models.IntegerField(blank=True, null=True, verbose_name="رقم القيد")
 
-    ar_brand = models.CharField(max_length=255, blank=True, verbose_name="العلامة (عربي)")
-    en_brand = models.CharField(max_length=255, blank=True, verbose_name="العلامة (انجليزي)")
-    category = models.ForeignKey(DecreeCategory, on_delete=models.PROTECT, verbose_name="الفئة")
+    ar_brand = models.CharField(max_length=255, blank=True, null=True, verbose_name="العلامة (عربي)")
+    en_brand = models.CharField(max_length=255, blank=True, null=True, verbose_name="العلامة (انجليزي)")
+    category = models.ForeignKey(DecreeCategory, on_delete=models.PROTECT, verbose_name="الفئة", blank=True, null=True)
 
-    pdf_file = models.FileField(upload_to=generate_random_filename, blank=True, verbose_name="ملف القرار")
-    attach = models.FileField(upload_to=generate_random_filename, blank=True, verbose_name="المرفقات")
+    pdf_file = models.FileField(upload_to=generate_random_filename, blank=True, verbose_name="ملف القرار", validators=[FileExtensionValidator(allowed_extensions=['pdf'], message="يرجى رفع ملف PDF فقط.")])
+    attach = models.FileField(upload_to=generate_random_filename, blank=True, verbose_name="المرفقات", validators=[FileExtensionValidator(allowed_extensions=['pdf'], message="يرجى رفع ملف PDF فقط.")])
     notes = models.TextField(max_length=999, blank=True, verbose_name="ملاحظات")
 
     is_published = models.BooleanField(default=False, verbose_name="تم اشهاره مبدئيا")
+    is_withdrawn = models.BooleanField(default=False, verbose_name="تم سحبه")
+    is_canceled = models.BooleanField(default=False, verbose_name="تم الغاءه")
+    number_canceled = models.CharField(blank=True, null=True, verbose_name="رقم القرار المسحوب او الملغي")
     is_placeholder = models.BooleanField(default=False)
 
     created_at = models.DateTimeField(auto_now_add=True)
@@ -268,7 +272,7 @@ class Publication(models.Model):
     category = models.ForeignKey(DecreeCategory, on_delete=models.PROTECT, verbose_name="الفئة")
     
     img_file = models.ImageField(upload_to=generate_random_filename, blank=True, verbose_name="الصورة")
-    attach = models.FileField(upload_to=generate_random_filename, blank=True, verbose_name="المرفقات")
+    attach = models.FileField(upload_to=generate_random_filename, blank=True, verbose_name="المرفقات", validators=[FileExtensionValidator(allowed_extensions=['pdf'], message="يرجى رفع ملف PDF فقط.")])
     e_number = models.IntegerField(blank=False, null=False, verbose_name="رقم النشرية")
     status = models.IntegerField(choices=PublicationStatus.choices, default=PublicationStatus.INITIAL, verbose_name="حالة التسجيل")
     
@@ -332,7 +336,7 @@ class Objection(models.Model):
     
     status = models.IntegerField(choices=ObjectionStatus.choices, default=ObjectionStatus.PENDING, verbose_name="حالة الاعتراض")
     reason = models.CharField(max_length=100, verbose_name="اسباب الرفض", blank=True)
-    pdf_file = models.FileField(upload_to=generate_random_filename, blank=True, verbose_name="ملف الاعتراض")
+    pdf_file = models.FileField(upload_to=generate_random_filename, blank=True, verbose_name="ملف الاعتراض", validators=[FileExtensionValidator(allowed_extensions=['pdf'], message="يرجى رفع ملف PDF فقط.")])
     notes = models.TextField(max_length=999, blank=True, verbose_name="تفاصيل")
     
     is_paid = models.BooleanField(default=False, verbose_name="تم دفع الرسوم")
@@ -393,12 +397,12 @@ class FormPlus(models.Model):
     """Ambiguous Model representing a report of some sort."""
     number = models.CharField(max_length=20, blank=True, null=True, verbose_name="الرقم")
     date = models.DateField(verbose_name="التاريخ")
-    government = models.ForeignKey(Government, on_delete=models.PROTECT, verbose_name="الحكومة")
+    government = models.ForeignKey(Government, on_delete=models.PROTECT, verbose_name="الحكومة", blank=True, null=True,)
     type = models.ForeignKey(DocType, on_delete=models.PROTECT,  verbose_name="النوع")
     title = models.CharField(max_length=255, blank=False, verbose_name="العنوان")
     keywords = models.TextField(max_length=999, blank=True, verbose_name="التفاصيل")
-    pdf_file = models.FileField(upload_to=generate_random_filename, blank=True)
-    word_file = models.FileField(upload_to=generate_random_filename, blank=True)
+    pdf_file = models.FileField(upload_to=generate_random_filename, blank=False, verbose_name="ملف PDF", validators=[FileExtensionValidator(allowed_extensions=['pdf'], message="يرجى رفع ملف PDF فقط.")])
+    word_file = models.FileField(upload_to=generate_random_filename, blank=True, verbose_name="ملف Word", validators=[FileExtensionValidator(allowed_extensions=['doc', 'docx'], message="يرجى رفع ملف Word فقط.")])
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     deleted_at = models.DateTimeField(null=True, blank=True)

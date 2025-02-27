@@ -134,18 +134,28 @@ class DecreeCategoryForm(forms.ModelForm):
 class DecreeForm(forms.ModelForm):
     
     category = forms.IntegerField(
+        required=False,
         min_value=1, max_value=45,
         label="الفئة",
         widget=forms.NumberInput(attrs={'class': 'form-control'})
     )
-    
+    # Hidden fields
+    is_withdrawn = forms.BooleanField(widget=forms.HiddenInput(), required=False, initial=False)
+    is_canceled = forms.BooleanField(widget=forms.HiddenInput(), required=False, initial=False)
+
+    # Decree number field for autocomplete
+    number_canceled = forms.CharField(
+        required=False,
+        label="رقم القرار الملغي",
+        widget=forms.TextInput(attrs={'autocomplete': 'off', 'id': 'id_number_canceled'})
+    )
     class Meta:
         model = Decree
         # List the fields you want to include (adjust as needed)
         fields = [
             'number', 'date', 'status', 'applicant', 'company', 'country',
             'date_applied', 'number_applied', 'ar_brand', 'en_brand',
-            'category', 'pdf_file', 'attach', 'notes'
+            'category', 'pdf_file', 'attach', 'notes', 'number_canceled'
         ]
     
     def __init__(self, *args, **kwargs):
@@ -157,7 +167,12 @@ class DecreeForm(forms.ModelForm):
         self.helper.form_enctype = 'multipart/form-data'
         self.helper.form_class = 'w-75 mx-auto'
         self.fields['status'].empty_label = None
-        # Define a layout for the fields.
+        self.fields['pdf_file'].widget.attrs.update({
+            'accept': '.pdf'
+        })
+        self.fields['attach'].widget.attrs.update({
+            'accept': '.pdf'
+        })
         self.helper.layout = Layout(
             Div(
                 Div(Field('number', css_class='form-control'), css_class='col'),
@@ -174,6 +189,10 @@ class DecreeForm(forms.ModelForm):
                 Div(Field('category', css_class='form-control'), css_class='col'),
                 css_class='col'
             ),
+            # Add the hidden fields
+            Field('is_withdrawn', type="hidden"),
+            Field('is_canceled', type="hidden"),
+            Field('number_canceled', css_class='form-control'),
             HTML("<hr>"),
             Field('pdf_file'),
             Field('attach'),
@@ -186,32 +205,20 @@ class DecreeForm(forms.ModelForm):
 
     def clean_category(self):
         category = self.cleaned_data.get("category")
-        try:
-            return DecreeCategory.objects.get(number=category)
-        except DecreeCategory.DoesNotExist:
-            raise forms.ValidationError("Invalid category. Please enter a valid category number.")
+        
+        # Check if category has a value
+        if category:
+            try:
+                return DecreeCategory.objects.get(number=category)
+            except DecreeCategory.DoesNotExist:
+                raise forms.ValidationError("Invalid category. Please enter a valid category number.")
+        
+        # If no category is provided, return it as is (or you can handle it differently)
+        return category
 
-# def get_decree_year_choices():
-#     # Get distinct years where status is 'accepted'
-#     years = (
-#         Decree.objects.filter(status="accepted")
-#         .values_list('date__year', flat=True)
-#         .distinct()
-#         .order_by('date__year')
-#     )
-#     return [(year, year) for year in years if year]  # Ensure no None values
-
-# def get_accepted_decrees_by_year(year=None):
-#     """
-#     Fetch decrees that have status='accepted' and optionally filter by a given year.
-#     """
-#     queryset = Decree.objects.filter(status='accepted')
-
-#     if year:
-#         queryset = queryset.filter(date__year=year)
-
-#     return queryset.values_list('number', flat=True)  # Only return decree numbers
-
+    def clean_number_canceled(self):
+        # Optional: Add validation for the number_canceled field if needed
+        return self.cleaned_data.get("number_canceled")
 
 class PublicationForm(forms.ModelForm):
     # Extra field to filter decrees by year
@@ -238,6 +245,9 @@ class PublicationForm(forms.ModelForm):
         super().__init__(*args, **kwargs)
         self.helper = FormHelper()
         self.helper.form_method = 'POST'
+        self.fields['attach'].widget.attrs.update({
+            'accept': '.pdf'
+        })
         self.helper.layout = Layout(
             Row(
                 Div(Field('year', css_class='form-control'), css_class='col-md-3'),
@@ -306,7 +316,9 @@ class ObjectionForm(forms.ModelForm):
         self.helper = FormHelper()
         self.helper.form_method = 'POST'
         self.fields['receipt_file'].required = False
-
+        self.fields['pdf_file'].widget.attrs.update({
+            'accept': '.pdf'
+        })
 
 class ObjectionPubPickForm(forms.ModelForm):
     notes = forms.CharField(
@@ -329,12 +341,14 @@ class ObjectionPubPickForm(forms.ModelForm):
         self.helper = FormHelper()
         self.helper.form_method = 'POST'
         self.fields['receipt_file'].required = False
-
+        self.fields['pdf_file'].widget.attrs.update({
+            'accept': '.pdf'
+        })
 
 class FormPlusForm(forms.ModelForm):
     class Meta:
         model = FormPlus
-        fields = ['type', 'number', 'date', 'government', 'title', 'keywords', 'pdf_file']
+        fields = ['type', 'number', 'date', 'government', 'title', 'keywords', 'pdf_file', 'word_file']
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -343,7 +357,13 @@ class FormPlusForm(forms.ModelForm):
         self.helper.form_method = 'POST'
         self.helper.form_enctype = 'multipart/form-data'
         self.helper.form_class = 'w-75 mx-auto'
-
+        self.fields['pdf_file'].widget.attrs.update({
+            'accept': '.pdf'
+        })
+        # Override the widget for the word_file field to accept only Word files
+        self.fields['word_file'].widget.attrs.update({
+            'accept': '.doc,.docx'
+        })
         self.helper.layout = Layout(
             Div(
                 Div(Field('type', css_class='form-control'), css_class='col'),
@@ -351,10 +371,11 @@ class FormPlusForm(forms.ModelForm):
                 Div(Field('date', css_class='form-control flatpickr'), css_class='col'),
                 Div(Field('government', css_class='form-control'), css_class='col'),
                 Div(Field('title', css_class='form-control'), css_class='col'),
-                Div(Field('keywords', css_class='form-control'), css_class='col'),
+                Div(Field('keywords', css_class='form-control', rows="3"), css_class='col'),
                 css_class='col'
             ),
             Field('pdf_file'),
+            Field('word_file'),
             FormActions(
                 Submit('submit', 'حفظ', css_class='btn btn-primary'),
                 HTML('<a class="btn btn-secondary" href="{% url \'formplus_list\' %}">إلغاء</a>')

@@ -17,6 +17,7 @@ urlpatterns = [
     path('decrees/detail/<int:document_id>/', views.decree_detail, name='view_decree'),
     path('decrees/download/<int:document_id>/', views.download_decree, name='download_decree'),
     path('decrees/delete/<int:document_id>/', views.soft_delete_decree, name='delete_decree'),
+    path('decree-report/', views.decree_report, name='decree_report'),
     
     # AJAX autocomplete function for Publication model
     path('decree-autocomplete/', views.DecreeAutocompleteView.as_view(), name='decree-autocomplete'),
