@@ -392,7 +392,7 @@ class Objection(models.Model):
 class FormPlus(models.Model):
     """Ambiguous Model representing a report of some sort."""
     number = models.CharField(max_length=20, blank=True, null=True, verbose_name="الرقم")
-    date = models.DateField(blank=True, verbose_name="التاريخ")
+    date = models.DateField(verbose_name="التاريخ")
     government = models.ForeignKey(Government, on_delete=models.PROTECT, verbose_name="الحكومة")
     type = models.ForeignKey(DocType, on_delete=models.PROTECT,  verbose_name="النوع")
     title = models.CharField(max_length=255, blank=False, verbose_name="العنوان")

@@ -13,6 +13,7 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 from pathlib import Path
 import os
 import sys
+# from django.utils.translation import gettext_lazy as _
 
 sys.stdout.reconfigure(encoding='utf-8')
 
@@ -50,16 +51,19 @@ INSTALLED_APPS = [
     'crispy_forms',
     "crispy_bootstrap5",
     'django_tables2',
+    # "django_bootstrap5",
 ]
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'django.middleware.locale.LocaleMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+
 
 ]
 
@@ -132,6 +136,12 @@ AUTH_PASSWORD_VALIDATORS = [
 # https://docs.djangoproject.com/en/5.1/topics/i18n/
 
 LANGUAGE_CODE = 'ar'
+
+# LANGUAGES = [
+#     ('en', _('English')),
+#     ('ar', _('Arabic')),
+#     # Add other languages as needed
+# ]
 
 TIME_ZONE = 'Etc/GMT-2'
 
