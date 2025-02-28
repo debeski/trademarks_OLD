@@ -95,9 +95,9 @@ class Government(models.Model):
     class Meta:
         verbose_name = "حكومة"
         verbose_name_plural = "الحكومات"
-        permissions = [
-            ("edit_sections", "Can edit sections"),
-        ]
+        # permissions = [
+        #     ("edit_sections", "Can edit sections"),
+        # ]
         
     def __str__(self):
         return self.name
@@ -121,9 +121,9 @@ class ComType(models.Model):
     class Meta:
         verbose_name = "نوع شركة"
         verbose_name_plural = "انواع الشركات"
-        permissions = [
-            ("edit_sections", "Can edit sections"),
-        ]
+        # permissions = [
+        #     ("edit_sections", "Can edit sections"),
+        # ]
         
     def __str__(self):
         return self.name
@@ -147,9 +147,9 @@ class DocType(models.Model):
     class Meta:
         verbose_name = "نوع مستند"
         verbose_name_plural = "انواع المستندات"
-        permissions = [
-            ("edit_sections", "Can edit sections"),
-        ]
+        # permissions = [
+        #     ("edit_sections", "Can edit sections"),
+        # ]
         
     def __str__(self):
         return self.name
@@ -174,9 +174,9 @@ class DecreeCategory(models.Model):
     class Meta:
         verbose_name = "الفئة"
         verbose_name_plural = "الفئات"
-        permissions = [
-            ("edit_sections", "Can edit sections"),
-        ]
+        # permissions = [
+        #     ("edit_sections", "Can edit sections"),
+        # ]
         
     def __str__(self):
         return str(self.number)

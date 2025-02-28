@@ -703,7 +703,7 @@ def add_edit_publication(request, document_id=None):
 
 
 # Main PDF download view for publications
-@login_required
+
 def download_publication(request, document_id):
     """
     Downloads a publication's image file or attachment as a ZIP file.
@@ -785,18 +785,20 @@ def soft_delete_publication(request, document_id):
 
 
 # Main detail view for publications
-@login_required
 def publication_detail(request, document_id):
     """
     Displays details of a publication with image preview.
     """
     publication = get_object_or_404(Publication, pk=document_id)
-
+    if request.user.is_authenticated:
+        user = request.user
+    else:
+        user = None
     # Fetch the decree if it exists
     decree = publication.decree
     # Log the action
     UserActivityLog.objects.create(
-        user=request.user,
+        user=user,
         action="VIEW",
         model_name='اشهار',
         object_id=publication.pk,
@@ -865,7 +867,6 @@ def fetch_pub_data(pub_id):
 
 
 # Function for generating PDF for publications
-@login_required
 def gen_pub_pdf(request, pub_id):
     # if model == 'publication':
     record_info = fetch_pub_data(pub_id)
@@ -1040,18 +1041,14 @@ def add_pub_objection(request, document_id=None):
                 objection.status = 1
             objection.save()
             
-            # Log the IP address and user agent
-            ip_address = get_client_ip(request)
-            user_agent = request.META.get("HTTP_USER_AGENT", "")
-
             # Log the objection creation
             UserActivityLog.objects.create(
                 user=None,
                 action="CREATE",
                 model_name='اعتراض من شخص',
                 object_id=objection.pk,
-                ip_address=ip_address,
-                user_agent=user_agent,
+                ip_address = get_client_ip(request),
+                user_agent = request.META.get("HTTP_USER_AGENT", ""),
                 number=objection.number,
                 timestamp=timezone.now(),
             )
@@ -1410,9 +1407,14 @@ def formplus_detail(request, document_id):
     Displays details of a FormPlus document with a PDF preview.
     """
     formplus = get_object_or_404(FormPlus, pk=document_id)
+    
+    if request.user.is_authenticated:
+        user = request.user
+    else:
+        user = None
     # Log the action
     UserActivityLog.objects.create(
-        user=request.user,
+        user=user,
         action="VIEW",
         model_name='تشريع او نموذج',
         object_id=formplus.pk,

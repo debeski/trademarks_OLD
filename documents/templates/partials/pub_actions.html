@@ -1,10 +1,7 @@
 {% load static %}
-{% if request.user.is_authenticated %}
 <div class="d-flex gap-2 align-items-center justify-content-end">
-    {% if perms.documents.gen_pub_pdf %}
     <a href="{% url 'gen-pub-pdf' record.id %}" title="تحميل الملف المرفق"><i class="bi bi-file-earmark-pdf-fill" style="font-size: 36px;"></i>
     </a>
-    {% endif %}
     {% if perms.documents.pub_change_status %}
         {% if record.status == 1 %}
             <!-- Modal Trigger for Status Change -->
@@ -45,4 +42,3 @@
         </ul>
     </div>
 </div>
-{% endif %}
