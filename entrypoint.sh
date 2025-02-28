@@ -23,11 +23,14 @@ if [ ! -f "$COMMANDS_RUN_FILE" ]; then
     touch "$COMMANDS_RUN_FILE"
 fi
 
-# Migrate the Django server in the background
-exec python manage.py migrate &
+# Apply database migrations
+python manage.py migrate --noinput
 
-# Start the Django server in the background
-exec python manage.py runserver 0.0.0.0:8000
+# Start Django server in the background
+python manage.py runserver 0.0.0.0:8000 &
 
-# Start the Celery worker
-# exec celery -A core worker -l info
+# Start Celery worker in the background
+python -m celery -A core worker --loglevel=info &
+
+# Keep container running
+wait

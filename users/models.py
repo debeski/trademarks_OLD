@@ -4,9 +4,12 @@ from django.conf import settings  # Use this to reference the custom user model
 
 
 class CustomUser(AbstractUser):
-    phone = models.CharField(max_length=15, blank=True, null=True)
-    occupation = models.CharField(max_length=100, blank=True, null=True)
+    phone = models.CharField(max_length=15, blank=True, null=True, verbose_name="رقم الهاتف")
+    occupation = models.CharField(max_length=100, blank=True, null=True, verbose_name="جهة العمل")
 
+    @property
+    def full_name(self):
+        return f"{self.first_name} {self.last_name}".strip()
 
 class UserActivityLog(models.Model):
     ACTION_TYPES = [

@@ -6,23 +6,23 @@ from .models import UserActivityLog
 User = get_user_model()  # Use custom user model
 
 class UserTable(tables.Table):
-    username = tables.Column()
-    email = tables.Column()
-    phone = tables.Column()  # Add phone column
-    occupation = tables.Column()  # Add occupation column
+    username = tables.Column(verbose_name="اسم المستخدم")
+    email = tables.Column(verbose_name="البريد الالكتروني")
+    full_name = tables.Column(verbose_name="الاسم الكامل")
+    # is_staff = tables.Column(verbose_name="مدير")
 
     # Action buttons for edit and delete (summoned column)
     actions = tables.TemplateColumn(
         '<a href="{% url "edit_user" record.id %}" class="btn btn-info btn-sm">Edit</a> '
         ' {% if user.is_superuser %} <button type="button" class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#deleteModal{{ record.id }}">Delete</button>{% endif %}',
         orderable=False, 
-        verbose_name='Actions'
+        verbose_name=''
     )
 
     class Meta:
         model = User
-        template_name = "django_tables2/bootstrap5.html"  # Can be changed to bootstrap5
-        fields = ("username", "email", "phone", "occupation", "actions")  # Add phone and occupation columns
+        template_name = "django_tables2/bootstrap5.html"
+        fields = ("full_name", "username", "email", "phone", "occupation", "is_staff", "actions")
 
 class UserActivityLogTable(tables.Table):
     class Meta:

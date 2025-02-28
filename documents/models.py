@@ -69,9 +69,6 @@ class Country(models.Model):
     class Meta:
         verbose_name = "دولة"
         verbose_name_plural = "الدول"
-        permissions = [
-            ("edit_sections", "Can edit sections"),
-        ]
         
     def __str__(self):
         return self.ar_name
@@ -95,9 +92,6 @@ class Government(models.Model):
     class Meta:
         verbose_name = "حكومة"
         verbose_name_plural = "الحكومات"
-        # permissions = [
-        #     ("edit_sections", "Can edit sections"),
-        # ]
         
     def __str__(self):
         return self.name
@@ -121,9 +115,6 @@ class ComType(models.Model):
     class Meta:
         verbose_name = "نوع شركة"
         verbose_name_plural = "انواع الشركات"
-        # permissions = [
-        #     ("edit_sections", "Can edit sections"),
-        # ]
         
     def __str__(self):
         return self.name
@@ -147,9 +138,6 @@ class DocType(models.Model):
     class Meta:
         verbose_name = "نوع مستند"
         verbose_name_plural = "انواع المستندات"
-        # permissions = [
-        #     ("edit_sections", "Can edit sections"),
-        # ]
         
     def __str__(self):
         return self.name
@@ -174,9 +162,6 @@ class DecreeCategory(models.Model):
     class Meta:
         verbose_name = "الفئة"
         verbose_name_plural = "الفئات"
-        # permissions = [
-        #     ("edit_sections", "Can edit sections"),
-        # ]
         
     def __str__(self):
         return str(self.number)
@@ -231,15 +216,11 @@ class Decree(models.Model):
         verbose_name_plural = "قرارات" 
         ordering = ['-is_placeholder','-id']
         permissions = [
-            ("download_doc", "Can download a pdf"),
+            ("download_doc", " تحميل الملفات "),
         ]
 
     def __str__(self):
         return str(self.number) + ' / ' +  str(self.date.year)
-
-    @property
-    def get_model_name(self):
-        return "قرارات"
 
     @classmethod
     def get_table_class(cls):
@@ -291,16 +272,12 @@ class Publication(models.Model):
         verbose_name_plural = "اشهارات" 
         ordering = ['-id']
         permissions = [
-            ("gen_pub_pdf", "Can generate a publication pdf"),
-            ("pub_change_status", "can change publication status from initial to final"),
+            ("gen_pub_pdf", " انشاء PDF اشهار مبدئي "),
+            ("pub_change_status", " تغيير حالة إشهار من مبدئي الى نهائي "),
         ]
 
     def __str__(self):
         return str(self.number)
-    
-    @property
-    def get_model_name(self):
-        return "اشهارات"
 
     @staticmethod
     def get_table_class(context="default"):
@@ -352,7 +329,8 @@ class Objection(models.Model):
         verbose_name_plural = "الاعتراضات" 
         ordering = ['-id']
         permissions = [
-            ("confirm_objection_fee", "Can confirm objection fee payment"),
+            ("confirm_objection_fee", " قبول او رفض ايصال رسوم اعتراض "),
+            ("confirm_objection_status", " قبول او رفض اعتراض "),
         ]
 
     def save(self, *args, **kwargs):
@@ -373,11 +351,7 @@ class Objection(models.Model):
 
     def __str__(self):
         return str(self.number)
-    
-    @property
-    def get_model_name(self):
-        return "اعتراضات"
-    
+
     @classmethod
     def get_table_class(cls):
         return 'documents.tables.ObjectionTable'
@@ -412,15 +386,11 @@ class FormPlus(models.Model):
         verbose_name_plural = "تشريعات و نماذج" 
         ordering = ['-id']
         permissions = [
-            ("download_doc", "Can download a pdf"),
+            ("download_doc", " تحميل الملفات "),
         ]
     
     def __str__(self):
         return self.number
-    
-    @property
-    def get_model_name(self):
-        return "تشريعات و نماذج"
 
     @classmethod
     def get_table_class(cls):

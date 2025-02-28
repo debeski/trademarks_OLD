@@ -38,18 +38,12 @@ services:
     environment:
       DATABASE_URL: postgres://${POSTGRES_USER}:${POSTGRES_PASSWORD}@db:5432/${POSTGRES_DB}
       REDIS_URL: redis://redis:6379/0
+      CELERY_BROKER_URL: ${CELERY_BROKER_URL}
+      CELERY_RESULT_BACKEND: ${CELERY_BROKER_URL}
     volumes:
       - app_data:/app
     ports:
       - "9430:8000"
-
-  celery:
-    build: .
-    command: celery -A core worker -l info
-    volumes:
-      - app_data:/app
-    depends_on:
-      - redis  # Ensure Redis is started before Celery
 
 volumes:
   postgres_data:

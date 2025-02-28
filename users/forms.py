@@ -1,127 +1,248 @@
 from django import forms
 from django.contrib.auth.models import Permission
-from django.contrib.auth.forms import UserCreationForm, UserChangeForm
+from django.contrib.auth.forms import UserCreationForm, UserChangeForm, PasswordChangeForm, SetPasswordForm
 from django.contrib.auth import get_user_model
-
+from django.urls import reverse
+from django.utils.safestring import mark_safe
+from django.contrib.auth.hashers import make_password
+from crispy_forms.helper import FormHelper
+from crispy_forms.layout import Layout, Field, Div, HTML, Fieldset, Button, Submit
+from crispy_forms.bootstrap import FormActions
 
 User = get_user_model()
 
 class CustomUserCreationForm(UserCreationForm):
-    phone = forms.CharField(max_length=15, required=True, label="رقم الهاتف")
-    occupation = forms.CharField(max_length=100, required=False, label="جهة العمل")
     permissions = forms.ModelMultipleChoiceField(
         queryset=Permission.objects.all(),
         required=False,
         widget=forms.CheckboxSelectMultiple,
-        label="Permissions"
+        label="الصلاحيات"
     )
 
     class Meta:
         model = User
-        fields = ["username", "email", "phone", "occupation", "is_staff",  "permissions"]
+        fields = ["username", "email", "password1", "password2", "first_name", "last_name", "phone", "occupation", "is_staff", "permissions"]
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        # Exclude specific permissions from the available permissions list
-        # self.fields['permissions'].queryset = Permission.objects.exclude(codename__in=['add_logentry', 'change_logentry',
-        #     'delete_logentry', 'view_logentry', 'add_theme', 'change_theme', 'delete_theme', 'view_theme', 'add_group',
-        #     'change_group', 'delete_group', 'view_group', 'add_permission', 'change_permission', 'delete_permission',
-        #     'view_permission', 'add_contenttype', 'change_contenttype', 'delete_contenttype', 'view_contenttype',
-        #     'add_session', 'change_session', 'delete_session', 'view_session',
-        #     'add_company', 'change_company', 'delete_company', 'view_company', 'add_country', 'change_country',
-        #     'delete_country', 'view_country', 'add_catagory', 'change_catagory', 'delete_catagory', 'view_catagory',
-        #     'add_doctype', 'change_doctype', 'delete_doctype', 'view_doctype', 'add_comtype', 'change_comtype', 'delete_comtype',
-        #     'view_comtype', 'add_clockedschedule', 'change_clockedschedule', 'delete_clockedschedule', 'view_clockedschedule',
-        #     'add_crontabschedule', 'change_crontabschedule', 'delete_crontabschedule', 'view_crontabschedule', 'add_intervalschedule',
-        #     'change_intervalschedule', 'delete_intervalschedule', 'view_intervalschedule', 'add_periodictask', 'change_periodictask',
-        #     'delete_periodictask', 'view_periodictask', 'add_periodictasktrack', 'change_periodictasktrack', 'delete_periodictasktrack',
-        #     'view_periodictasktrack', 'add_solarschedule', 'change_solarschedule', 'delete_solarschedule', 'view_solarschedule', 'add_useractivitylog',
-        #     'change_useractivitylog', 'delete_useractivitylog', 'view_useractivitylog', 'add_user', 'change_user', 'delete_user', 'view_user',
-        # ])
-        self.fields['permissions'].queryset = Permission.objects.exclude(
+        self.fields["username"].label = "اسم المستخدم"
+        self.fields["email"].label = "البريد الإلكتروني"
+        self.fields["first_name"].label = "الاسم"
+        self.fields["last_name"].label = "اللقب"
+        self.fields["is_staff"].label = "صلاحيات انشاء و تعديل المستخدمين"
+        self.fields["password1"].label = "كلمة المرور"
+        self.fields["password2"].label = "تأكيد كلمة المرور"
+
+        # Split permissions queryset into two parts for 2 columns
+        permissions_list = list(Permission.objects.exclude(
             codename__in=[
-                # Log entry permissions
                 'add_logentry', 'change_logentry', 'delete_logentry', 'view_logentry',
-                # Theme permissions
                 'add_theme', 'change_theme', 'delete_theme', 'view_theme',
-                # Group permissions
                 'add_group', 'change_group', 'delete_group', 'view_group',
-                # Permission permissions
                 'add_permission', 'change_permission', 'delete_permission', 'view_permission',
-                # Content type permissions
                 'add_contenttype', 'change_contenttype', 'delete_contenttype', 'view_contenttype',
-                # Session permissions
                 'add_session', 'change_session', 'delete_session', 'view_session',
-                # Company permissions
-                'add_company', 'change_company', 'delete_company', 'view_company',
-                # Country permissions
-                'add_country', 'change_country', 'delete_country', 'view_country',
-                # Category permissions
-                'add_catagory', 'change_catagory', 'delete_catagory', 'view_catagory',
-                # Document type permissions
-                'add_doctype', 'change_doctype', 'delete_doctype', 'view_doctype',
-                # Company type permissions
-                'add_comtype', 'change_comtype', 'delete_comtype', 'view_comtype',
-                # Periodic task permissions
+                'add_government', 'delete_government', 'view_government',
+                'add_country', 'delete_country', 'view_country',
+                'add_decreecategory', 'delete_decreecategory', 'view_decreecategory',
+                'add_doctype', 'delete_doctype', 'view_doctype',
+                'add_comtype', 'delete_comtype', 'view_comtype',
                 'add_periodictask', 'change_periodictask', 'delete_periodictask', 'view_periodictask',
-                'add_periodictrack', 'change_periodictasktrack', 'delete_periodictasktrack', 'view_periodictasktrack',
+                'add_periodictasks', 'change_periodictasks', 'delete_periodictasks', 'view_periodictasks',
                 'add_clockedschedule', 'change_clockedschedule', 'delete_clockedschedule', 'view_clockedschedule',
                 'add_crontabschedule', 'change_crontabschedule', 'delete_crontabschedule', 'view_crontabschedule',
                 'add_intervalschedule', 'change_intervalschedule', 'delete_intervalschedule', 'view_intervalschedule',
-                # Solar event permissions
                 'add_solarschedule', 'change_solarschedule', 'delete_solarschedule', 'view_solarschedule',
-                # User activity log permissions
+                'add_customuser', 'change_customuser', 'delete_customuser', 'view_customuser',
                 'add_useractivitylog', 'change_useractivitylog', 'delete_useractivitylog', 'view_useractivitylog',
-                # User permissions
-                'add_user', 'change_user', 'delete_user', 'view_user',
             ]
+        ))
+        mid_point = len(permissions_list) // 2
+        self.permissions_right = permissions_list[:mid_point]
+        self.permissions_left = permissions_list[mid_point:]
+
+        # Create two fields with only one column of permissions each
+        self.fields["permissions_right"] = forms.ModelMultipleChoiceField(
+            queryset=Permission.objects.filter(id__in=[p.id for p in self.permissions_right]),
+            required=False,
+            widget=forms.CheckboxSelectMultiple,
+            label="الصلاحيـــات"
         )
+        self.fields["permissions_left"] = forms.ModelMultipleChoiceField(
+            queryset=Permission.objects.filter(id__in=[p.id for p in self.permissions_left]),
+            required=False,
+            widget=forms.CheckboxSelectMultiple,
+            label=""
+        )
+
+        # Use Crispy Forms Layout helper
+        self.helper = FormHelper()
+        self.helper.layout = Layout(
+            "username",
+            "email",
+            "password1",
+            "password2",
+            HTML("<hr>"),  # Separator line
+            Div(
+                Div(Field("first_name", css_class="col-md-6"), css_class="col-md-6"),
+                Div(Field("last_name", css_class="col-md-6"), css_class="col-md-6"),
+                css_class="row"
+            ),
+            Div(
+                Div(Field("phone", css_class="col-md-6"), css_class="col-md-6"),
+                Div(Field("occupation", css_class="col-md-6"), css_class="col-md-6"),
+                css_class="row"
+            ),
+            HTML("<hr>"),  # Separator line
+            Div(
+                Div(Field("permissions_right", css_class="col-md-6"), css_class="col-md-6"),
+                Div(Field("permissions_left", css_class="col-md-6"), css_class="col-md-6"),
+                css_class="row"
+            ),
+            "is_staff"
+        )
+
     def save(self, commit=True):
         user = super().save(commit=False)
         if commit:
             user.save()
-        user.user_permissions.set(self.cleaned_data["permissions"])
+        # Manually set permissions from both fields
+        user.user_permissions.set(self.cleaned_data["permissions_left"] | self.cleaned_data["permissions_right"])
         return user
 
 class CustomUserChangeForm(UserChangeForm):
-    phone = forms.CharField(max_length=15, required=False, label="رقم الهاتف")
-    occupation = forms.CharField(max_length=100, required=False, label="جهة العمل")
-    password = forms.CharField(widget=forms.PasswordInput(), required=False, label="كلمة المرور")
     permissions = forms.ModelMultipleChoiceField(
         queryset=Permission.objects.all(),
         required=False,
         widget=forms.CheckboxSelectMultiple,
-        label="Permissions"
+        label="الصلاحيات"
     )
 
     class Meta:
         model = User
-        fields = ["username", "email", "phone", "occupation", "is_staff",  "permissions", "password"]
+        fields = ["username", "email", "first_name", "last_name", "phone", "occupation", "is_staff",  "permissions"]
 
     def __init__(self, *args, **kwargs):
+        user = kwargs.get('instance')
         super().__init__(*args, **kwargs)
-        self.fields['permissions'].queryset = Permission.objects.exclude(codename__in=['add_logentry', 'change_logentry',
-            'delete_logentry', 'view_logentry', 'add_theme', 'change_theme', 'delete_theme', 'view_theme', 'add_group',
-            'change_group', 'delete_group', 'view_group', 'add_permission', 'change_permission', 'delete_permission',
-            'view_permission', 'add_contenttype', 'change_contenttype', 'delete_contenttype', 'view_contenttype',
-            'add_session', 'change_session', 'delete_session', 'view_session',
-            'add_company', 'change_company', 'delete_company', 'view_company', 'add_country', 'change_country',
-            'delete_country', 'view_country', 'add_catagory', 'change_catagory', 'delete_catagory', 'view_catagory',
-            'add_doctype', 'change_doctype', 'delete_doctype', 'view_doctype', 'add_comtype', 'change_comtype', 'delete_comtype',
-            'view_comtype', 'add_clockedschedule', 'change_clockedschedule', 'delete_clockedschedule', 'view_clockedschedule',
-            'add_crontabschedule', 'change_crontabschedule', 'delete_crontabschedule', 'view_crontabschedule',
-        ])
-        # Disable the superuser checkbox
-        if "is_superuser" in self.fields:
-            self.fields["is_superuser"].widget.attrs["disabled"] = True
-            self.fields["is_superuser"].help_text = "Cannot be modified here."
+        self.fields["username"].label = "اسم المستخدم"
+        self.fields["email"].label = "البريد الإلكتروني"
+        self.fields["first_name"].label = "الاسم الاول"
+        self.fields["last_name"].label = "اللقب"
+        self.fields["is_staff"].label = "صلاحيات انشاء و تعديل المستخدمين"
+        
+        # Split permissions queryset into two parts for 2 columns
+        permissions_list = list(Permission.objects.exclude(
+            codename__in=[
+                'add_logentry', 'change_logentry', 'delete_logentry', 'view_logentry',
+                'add_theme', 'change_theme', 'delete_theme', 'view_theme',
+                'add_group', 'change_group', 'delete_group', 'view_group',
+                'add_permission', 'change_permission', 'delete_permission', 'view_permission',
+                'add_contenttype', 'change_contenttype', 'delete_contenttype', 'view_contenttype',
+                'add_session', 'change_session', 'delete_session', 'view_session',
+                'add_government', 'delete_government', 'view_government',
+                'add_country', 'delete_country', 'view_country',
+                'add_decreecategory', 'delete_decreecategory', 'view_decreecategory',
+                'add_doctype', 'delete_doctype', 'view_doctype',
+                'add_comtype', 'delete_comtype', 'view_comtype',
+                'add_periodictask', 'change_periodictask', 'delete_periodictask', 'view_periodictask',
+                'add_periodictasks', 'change_periodictasks', 'delete_periodictasks', 'view_periodictasks',
+                'add_clockedschedule', 'change_clockedschedule', 'delete_clockedschedule', 'view_clockedschedule',
+                'add_crontabschedule', 'change_crontabschedule', 'delete_crontabschedule', 'view_crontabschedule',
+                'add_intervalschedule', 'change_intervalschedule', 'delete_intervalschedule', 'view_intervalschedule',
+                'add_solarschedule', 'change_solarschedule', 'delete_solarschedule', 'view_solarschedule',
+                'add_customuser', 'change_customuser', 'delete_customuser', 'view_customuser',
+                'add_useractivitylog', 'change_useractivitylog', 'delete_useractivitylog', 'view_useractivitylog',
+            ]
+        ))
+        mid_point = len(permissions_list) // 2
+        self.permissions_right = permissions_list[:mid_point]
+        self.permissions_left = permissions_list[mid_point:]
+
+        # Get user's current permissions
+        if user:
+            user_permissions = set(user.user_permissions.all())  # Convert to a set for easy checking
+
+            # Set initial values based on user's existing permissions
+            initial_right = [p.id for p in self.permissions_right if p in user_permissions]
+            initial_left = [p.id for p in self.permissions_left if p in user_permissions]
+        else:
+            initial_right = []
+            initial_left = []
+
+        # Create two fields with only one column of permissions each
+        self.fields["permissions_right"] = forms.ModelMultipleChoiceField(
+            queryset=Permission.objects.filter(id__in=[p.id for p in self.permissions_right]),
+            required=False,
+            widget=forms.CheckboxSelectMultiple,
+            label="الصلاحيـــات",
+            initial=initial_right  # Set initial selection
+        )
+        self.fields["permissions_left"] = forms.ModelMultipleChoiceField(
+            queryset=Permission.objects.filter(id__in=[p.id for p in self.permissions_left]),
+            required=False,
+            widget=forms.CheckboxSelectMultiple,
+            label="",
+            initial=initial_left  # Set initial selection
+        )
+
+        # Use Crispy Forms Layout helper
+        self.helper = FormHelper()
+        self.helper.form_tag = False  # Disable the form tag for custom modal handling
+        self.helper.layout = Layout(
+            "username",
+            "email",
+            HTML("<hr>"),  # Separator line
+            Div(
+                Div(Field("first_name", css_class="col-md-6"), css_class="col-md-6"),
+                Div(Field("last_name", css_class="col-md-6"), css_class="col-md-6"),
+                css_class="row"
+            ),
+            Div(
+                Div(Field("phone", css_class="col-md-6"), css_class="col-md-6"),
+                Div(Field("occupation", css_class="col-md-6"), css_class="col-md-6"),
+                css_class="row"
+            ),
+            HTML("<hr>"),  # Separator line
+            Div(
+                Div(Field("permissions_right", css_class="col-md-6"), css_class="col-md-6"),
+                Div(Field("permissions_left", css_class="col-md-6"), css_class="col-md-6"),
+                css_class="row"
+            ),
+            "is_staff",
+            Button('reset_password', 'إعادة تعيين كلمة المرور', css_class="btn btn-primary", data_bs_toggle="modal", data_bs_target="#resetPasswordModal"),
+        )
+
 
     def save(self, commit=True):
         user = super().save(commit=False)
-        if self.cleaned_data["password"]:
-            user.set_password(self.cleaned_data["password"])
         if commit:
             user.save()
-        user.user_permissions.set(self.cleaned_data["permissions"])
+        # Manually set permissions from both fields
+        user.user_permissions.set(self.cleaned_data["permissions_left"] | self.cleaned_data["permissions_right"])
         return user
 
+class ResetPasswordForm(SetPasswordForm):  # ✅ Change from PasswordChangeForm to SetPasswordForm
+    username = forms.CharField(label="اسم المستخدم", widget=forms.TextInput(attrs={"readonly": "readonly"}))
+
+    def __init__(self, user, *args, **kwargs):
+        super().__init__(user, *args, **kwargs)
+        self.fields['username'].initial = user.username  # Ensure username is displayed
+        self.helper = FormHelper()
+        self.fields["new_password1"].label = "كلمة المرور الجديدة"
+        self.fields["new_password2"].label = "تأكيد كلمة المرور"
+        self.helper.layout = Layout(
+            Div(
+                Field('username', css_class='col-md-12'),
+                Field('new_password1', css_class='col-md-12'),
+                Field('new_password2', css_class='col-md-12'),
+                css_class='row'
+            ),
+            Submit('submit', 'تغيير كلمة المرور', css_class='btn btn-primary'),
+        )
+
+    def save(self, commit=True):
+        user = super().save(commit=False)
+        if commit:
+            user.save()
+        return user
